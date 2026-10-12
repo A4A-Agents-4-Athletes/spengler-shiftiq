@@ -2,7 +2,9 @@
 
 > **ThinkSport Innovation Challenge: Data-hack 2026 (2nd Edition)**  
 > In partnership with **Spengler Cup Davos** and **scoreTec**  
-> **Author & Developer:** Kamilla Gafurzianova  
+> **Team:** A4A (Independent Technical Builders)  
+> **Author & Lead:** Kamilla Gafurzianova  
+> **Team Bio:** Independent technical builder team bridging high-performance sport and software engineering. Combining data pipelines, modern web UX, and tactical analytics to build accessible, interactive fan experiences for Spengler Cup Davos 2026.  
 > **Final Pitch Date:** 7 December 2026 · The Circle Convention Center, Zurich Airport  
 
 ![Spengler ShiftIQ Architecture](https://img.shields.io/badge/Competition-ThinkSport%20Data--Hack-0047ba?style=flat-square)

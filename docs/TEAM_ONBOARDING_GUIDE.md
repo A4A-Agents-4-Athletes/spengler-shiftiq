@@ -1,7 +1,9 @@
-# Human Teammate Onboarding Guide: Spengler ShiftIQ
+# Human Teammate Onboarding Guide: Team A4A (Spengler ShiftIQ)
 **ThinkSport Innovation Challenge: Data-hack 2026**
 **Project:** `ice-hockey-data-hack`
+**Team:** A4A (Independent Technical Builders)
 **Team Lead:** Kamilla Gafurzianova
+**Bio:** Independent technical builder team bridging high-performance sport and software engineering. Combining data pipelines, modern web UX, and tactical analytics to build accessible, interactive fan experiences for Spengler Cup Davos 2026.
 
 Welcome to the team! This document gets you up and running within 5 minutes, explains our system architecture, and outlines how we collaborate to deliver a winning submission for the jury on 7 December 2026 at The Circle, Zurich Airport.
 
