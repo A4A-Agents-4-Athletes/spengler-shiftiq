@@ -3,12 +3,15 @@ import { WisehockeyPlayerStats } from '../../types/wisehockey';
 import { sampleMatchData } from '../../data/sampleMatch';
 import { formatTimeOnIce, formatSpeed, formatDistance, cn } from '../../lib/utils';
 import { Swords } from 'lucide-react';
+import { Language, translations } from '../../lib/i18n';
 
 interface PlayerDNAProps {
   isProLens?: boolean;
+  language?: Language;
 }
 
-export const PlayerDNA: React.FC<PlayerDNAProps> = () => {
+export const PlayerDNA: React.FC<PlayerDNAProps> = ({ language = 'EN' }) => {
+  const t = translations[language];
 
   const [player1, setPlayer1] = useState<WisehockeyPlayerStats>(
     sampleMatchData.rosters.hcd[0] // Andres Ambühl
@@ -64,14 +67,14 @@ export const PlayerDNA: React.FC<PlayerDNAProps> = () => {
 
   return (
     <div className="space-y-6">
-      {/* Tactile Skater Selector Ribbons (No HTML select tags) */}
+      {/* Tactile Skater Selector Ribbons */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Player 1 Selector (HC Davos Focus) */}
-        <div className="bg-slate-900/90 border border-amber-400/30 p-4 rounded-2xl space-y-3 shadow-xl backdrop-blur-xl">
+        <div className="bg-slate-900/90 border border-cyan-400/30 p-4 rounded-2xl space-y-3 shadow-xl backdrop-blur-xl">
           <div className="flex items-center justify-between">
-            <span className="text-xs uppercase font-black tracking-wider text-amber-400 font-mono flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-sm bg-amber-400" />
-              Primary Skater (Player 1)
+            <span className="text-xs uppercase font-black tracking-wider text-cyan-400 font-mono flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-sm bg-cyan-400" />
+              {t.primarySkater}
             </span>
             <span className="text-xs font-mono font-bold text-slate-300">
               {player1.teamId === 'HCD' ? 'HC Davos' : 'Team USA'} #{player1.jerseyNumber}
@@ -89,12 +92,12 @@ export const PlayerDNA: React.FC<PlayerDNAProps> = () => {
                   className={cn(
                     'px-3 py-2 rounded-xl text-left shrink-0 transition-all border cursor-pointer',
                     isSelected
-                      ? 'bg-blue-950 border-amber-400 shadow-md shadow-amber-400/20 ring-1 ring-amber-400'
+                      ? 'bg-blue-950 border-cyan-400 shadow-md shadow-cyan-400/20 ring-1 ring-cyan-400'
                       : 'bg-slate-950/80 border-white/10 hover:border-white/30 text-slate-400 hover:text-white'
                   )}
                 >
                   <div className="flex items-center gap-1.5 mb-0.5">
-                    <span className="text-xs font-black font-mono text-amber-400">
+                    <span className="text-xs font-black font-mono text-cyan-400">
                       #{p.jerseyNumber}
                     </span>
                     <span className="text-[10px] font-mono text-slate-400 uppercase">
@@ -111,11 +114,11 @@ export const PlayerDNA: React.FC<PlayerDNAProps> = () => {
         </div>
 
         {/* Player 2 Selector (Team USA Focus) */}
-        <div className="bg-slate-900/90 border border-sky-400/30 p-4 rounded-2xl space-y-3 shadow-xl backdrop-blur-xl">
+        <div className="bg-slate-900/90 border border-rose-400/30 p-4 rounded-2xl space-y-3 shadow-xl backdrop-blur-xl">
           <div className="flex items-center justify-between">
-            <span className="text-xs uppercase font-black tracking-wider text-sky-400 font-mono flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-sm bg-sky-400" />
-              Comparison Skater (Player 2)
+            <span className="text-xs uppercase font-black tracking-wider text-rose-400 font-mono flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-sm bg-rose-400" />
+              {t.comparisonSkater}
             </span>
             <span className="text-xs font-mono font-bold text-slate-300">
               {player2.teamId === 'HCD' ? 'HC Davos' : 'Team USA'} #{player2.jerseyNumber}
@@ -133,7 +136,7 @@ export const PlayerDNA: React.FC<PlayerDNAProps> = () => {
                   className={cn(
                     'px-3 py-2 rounded-xl text-left shrink-0 transition-all border cursor-pointer',
                     isSelected
-                      ? 'bg-red-950/90 border-sky-400 shadow-md shadow-sky-400/20 ring-1 ring-sky-400'
+                      ? 'bg-red-950/90 border-rose-400 shadow-md shadow-rose-400/20 ring-1 ring-rose-400'
                       : 'bg-slate-950/80 border-white/10 hover:border-white/30 text-slate-400 hover:text-white'
                   )}
                 >
@@ -158,13 +161,13 @@ export const PlayerDNA: React.FC<PlayerDNAProps> = () => {
       {/* Main Clash Display: Radar + Archetype Cards */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
         {/* Left Player Archetype Card */}
-        <div className="lg:col-span-4 bg-rink-card border-2 border-hcd-yellow/40 p-5 rounded-2xl space-y-4 shadow-xl">
+        <div className="lg:col-span-4 bg-rink-card border-2 border-cyan-400/40 p-5 rounded-2xl space-y-4 shadow-xl">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-hcd-blue rounded-xl flex items-center justify-center font-black text-xl text-hcd-yellow shadow-md border border-hcd-yellow">
+            <div className="w-12 h-12 bg-blue-900 rounded-xl flex items-center justify-center font-black text-xl text-cyan-300 shadow-md border border-cyan-400">
               {player1.jerseyNumber}
             </div>
             <div>
-              <span className="px-2 py-0.5 bg-slate-900 text-[10px] font-mono font-bold text-hcd-yellow rounded border border-slate-700 uppercase">
+              <span className="px-2 py-0.5 bg-slate-900 text-[10px] font-mono font-bold text-cyan-400 rounded border border-slate-700 uppercase">
                 {player1.archetype}
               </span>
               <h3 className="text-xl font-black text-white mt-1">{player1.name}</h3>
@@ -175,7 +178,7 @@ export const PlayerDNA: React.FC<PlayerDNAProps> = () => {
           </div>
 
           <div className="p-3 bg-slate-900/80 rounded-xl border border-slate-800 space-y-1">
-            <div className="text-[11px] font-mono text-slate-400 uppercase font-bold">Tactical Identity</div>
+            <div className="text-[11px] font-mono text-slate-400 uppercase font-bold">{t.tacticalIdentity}</div>
             <p className="text-xs text-slate-300 leading-relaxed font-sans" style={{ textWrap: 'pretty' }}>
               {player1.archetype === 'The Slot Disruptor' &&
                 'Relentless pressure player who creates chaos in the dirty areas, winning puck battles and screening netminders.'}
@@ -193,16 +196,16 @@ export const PlayerDNA: React.FC<PlayerDNAProps> = () => {
           </div>
         </div>
 
-        {/* Center SVG Radar Visualizer */}
+        {/* Center SVG Radar Visualizer (Ice Cyan vs Crimson, ZERO Yellow) */}
         <div className="lg:col-span-4 flex flex-col items-center justify-center bg-slate-950 border border-rink-border p-4 rounded-2xl shadow-2xl">
           <div className="flex items-center gap-4 text-xs font-bold font-mono mb-2">
-            <span className="flex items-center gap-1.5 text-hcd-yellow">
-              <span className="w-3 h-3 rounded bg-hcd-yellow"></span>
+            <span className="flex items-center gap-1.5 text-cyan-400">
+              <span className="w-3 h-3 rounded bg-cyan-400"></span>
               {player1.name.split(' ')[1] || player1.name}
             </span>
             <span className="text-slate-600">vs</span>
-            <span className="flex items-center gap-1.5 text-neon-cyan">
-              <span className="w-3 h-3 rounded bg-neon-cyan"></span>
+            <span className="flex items-center gap-1.5 text-rose-400">
+              <span className="w-3 h-3 rounded bg-rose-400"></span>
               {player2.name.split(' ')[1] || player2.name}
             </span>
           </div>
@@ -253,34 +256,34 @@ export const PlayerDNA: React.FC<PlayerDNAProps> = () => {
               );
             })}
 
-            {/* Player 1 Polygon (HCD Yellow) */}
+            {/* Player 1 Polygon (Davos Ice Blue / Cyan) */}
             <polygon
               points={p1Points}
-              fill="#f5b000"
-              fillOpacity="0.25"
-              stroke="#f5b000"
+              fill="#0284c7"
+              fillOpacity="0.35"
+              stroke="#38bdf8"
               strokeWidth="2.5"
             />
 
-            {/* Player 2 Polygon (Neon Cyan) */}
+            {/* Player 2 Polygon (USA Crimson Rose) */}
             <polygon
               points={p2Points}
-              fill="#00f2fe"
+              fill="#e11d48"
               fillOpacity="0.25"
-              stroke="#00f2fe"
+              stroke="#f43f5e"
               strokeWidth="2.5"
             />
           </svg>
         </div>
 
         {/* Right Player Archetype Card */}
-        <div className="lg:col-span-4 bg-rink-card border-2 border-neon-cyan/40 p-5 rounded-2xl space-y-4 shadow-xl">
+        <div className="lg:col-span-4 bg-rink-card border-2 border-rose-400/40 p-5 rounded-2xl space-y-4 shadow-xl">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-usa-navy rounded-xl flex items-center justify-center font-black text-xl text-white shadow-md border border-neon-cyan">
+            <div className="w-12 h-12 bg-usa-navy rounded-xl flex items-center justify-center font-black text-xl text-white shadow-md border border-rose-400">
               {player2.jerseyNumber}
             </div>
             <div>
-              <span className="px-2 py-0.5 bg-slate-900 text-[10px] font-mono font-bold text-neon-cyan rounded border border-slate-700 uppercase">
+              <span className="px-2 py-0.5 bg-slate-900 text-[10px] font-mono font-bold text-rose-400 rounded border border-slate-700 uppercase">
                 {player2.archetype}
               </span>
               <h3 className="text-xl font-black text-white mt-1">{player2.name}</h3>
@@ -291,7 +294,7 @@ export const PlayerDNA: React.FC<PlayerDNAProps> = () => {
           </div>
 
           <div className="p-3 bg-slate-900/80 rounded-xl border border-slate-800 space-y-1">
-            <div className="text-[11px] font-mono text-slate-400 uppercase font-bold">Tactical Identity</div>
+            <div className="text-[11px] font-mono text-slate-400 uppercase font-bold">{t.tacticalIdentity}</div>
             <p className="text-xs text-slate-300 leading-relaxed font-sans" style={{ textWrap: 'pretty' }}>
               {player2.archetype === 'The Slot Disruptor' &&
                 'Relentless pressure player who creates chaos in the dirty areas, winning puck battles and screening netminders.'}
@@ -313,8 +316,8 @@ export const PlayerDNA: React.FC<PlayerDNAProps> = () => {
       {/* Head-to-Head Metric Bars */}
       <div className="bg-rink-card border border-rink-border p-5 rounded-2xl space-y-4 shadow-xl">
         <h4 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-          <Swords className="w-4 h-4 text-neon-cyan" />
-          Head-to-Head Performance Telemetry
+          <Swords className="w-4 h-4 text-cyan-400" />
+          {t.headToHeadTitle}
         </h4>
 
         <div className="space-y-4">
@@ -327,13 +330,13 @@ export const PlayerDNA: React.FC<PlayerDNAProps> = () => {
             return (
               <div key={idx} className="bg-slate-900/60 p-3 rounded-xl border border-slate-800 space-y-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className={cn('font-mono font-bold', isP1Leading ? 'text-hcd-yellow' : 'text-slate-400')}>
+                  <span className={cn('font-mono font-bold', isP1Leading ? 'text-cyan-400' : 'text-slate-400')}>
                     {metric.v1}
                   </span>
                   <span className="text-slate-400 font-semibold uppercase tracking-wider text-[11px]">
                     {metric.label}
                   </span>
-                  <span className={cn('font-mono font-bold', !isP1Leading ? 'text-neon-cyan' : 'text-slate-400')}>
+                  <span className={cn('font-mono font-bold', !isP1Leading ? 'text-rose-400' : 'text-slate-400')}>
                     {metric.v2}
                   </span>
                 </div>
@@ -342,13 +345,13 @@ export const PlayerDNA: React.FC<PlayerDNAProps> = () => {
                 <div className="grid grid-cols-2 gap-2 h-2.5">
                   <div className="flex justify-end bg-slate-950 rounded-l-md overflow-hidden">
                     <div
-                      className="bg-hcd-yellow rounded-l-md transition-all duration-500"
+                      className="bg-cyan-400 rounded-l-md transition-all duration-500"
                       style={{ width: `${p1Percent}%` }}
                     />
                   </div>
                   <div className="flex justify-start bg-slate-950 rounded-r-md overflow-hidden">
                     <div
-                      className="bg-neon-cyan rounded-r-md transition-all duration-500"
+                      className="bg-rose-500 rounded-r-md transition-all duration-500"
                       style={{ width: `${p2Percent}%` }}
                     />
                   </div>

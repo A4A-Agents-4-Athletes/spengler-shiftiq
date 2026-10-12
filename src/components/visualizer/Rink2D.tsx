@@ -259,7 +259,7 @@ export const Rink2D: React.FC<Rink2DProps> = ({ moment, currentTime, isProLens }
                   cy={svgY}
                   r="24"
                   fill="none"
-                  stroke={isHcd ? '#f59e0b' : '#38bdf8'}
+                  stroke={isHcd ? '#38bdf8' : '#f43f5e'}
                   strokeWidth="2"
                   strokeOpacity="0.6"
                   className="animate-ping"
@@ -272,7 +272,7 @@ export const Rink2D: React.FC<Rink2DProps> = ({ moment, currentTime, isProLens }
                 cy={svgY}
                 r="17"
                 fill={isHcd ? '#003882' : '#991b1b'}
-                stroke={isHcd ? '#f59e0b' : '#ffffff'}
+                stroke={isHcd ? '#38bdf8' : '#ffffff'}
                 strokeWidth="3"
               />
 
@@ -306,7 +306,7 @@ export const Rink2D: React.FC<Rink2DProps> = ({ moment, currentTime, isProLens }
                       height="20"
                       rx="6"
                       fill="#090d16"
-                      stroke={isHcd ? '#f59e0b' : '#38bdf8'}
+                      stroke={isHcd ? '#38bdf8' : '#f43f5e'}
                       strokeWidth="1.2"
                     />
                     <text
@@ -384,7 +384,7 @@ export const Rink2D: React.FC<Rink2DProps> = ({ moment, currentTime, isProLens }
       {/* Broadcaster Watermark (Upper Right) */}
       <div className="absolute top-2.5 sm:top-3.5 right-2.5 sm:right-3.5 bg-slate-950/90 backdrop-blur-md border border-white/15 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-lg sm:rounded-xl flex items-center gap-2 text-[10px] sm:text-xs font-bold shadow-xl z-20">
         <div className="hidden md:flex items-center gap-1.5">
-          <span className="text-amber-400 font-black">HC Davos</span>
+          <span className="text-cyan-400 font-black">HC Davos</span>
           <span className="text-slate-400 font-normal">vs</span>
           <span className="text-white font-black">U.S. Selects</span>
         </div>

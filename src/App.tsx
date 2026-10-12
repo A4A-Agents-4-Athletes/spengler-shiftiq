@@ -12,14 +12,42 @@ import { IceIQQuiz } from './components/gamification/IceIQQuiz';
 import { ActivationHub } from './components/activation/ActivationHub';
 import { mockDecisiveMoments } from './data/mockEvents';
 import { DecisiveMoment } from './types/wisehockey';
+import { Language, translations } from './lib/i18n';
+import { Play, Zap, Users, Trophy, Sparkles } from 'lucide-react';
 
 export const App: React.FC = () => {
+  const [language, setLanguage] = useState<Language>('DE');
+  const [xp, setXp] = useState<number>(320);
+  const [xpNotification, setXpNotification] = useState<{ amount: number; message: string } | null>(null);
+
   const [isProLens, setIsProLens] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string>('replay');
   const [activeMoment, setActiveMoment] = useState<DecisiveMoment>(mockDecisiveMoments[0]);
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [playbackSpeed, setPlaybackSpeed] = useState<number>(1);
+
+  // In-Shift Prediction Game State
+  const [predictionAnswer, setPredictionAnswer] = useState<string | null>(null);
+  const [hasClaimedPrediction, setHasClaimedPrediction] = useState<boolean>(false);
+
+  const t = translations[language];
+
+  const addXp = (amount: number, reasonEn: string, reasonDe: string) => {
+    setXp((prev) => prev + amount);
+    const msg = language === 'DE' ? reasonDe : reasonEn;
+    setXpNotification({ amount, message: msg });
+    setTimeout(() => setXpNotification(null), 3000);
+  };
+
+  const handlePredict = (choice: string) => {
+    if (predictionAnswer !== null) return;
+    setPredictionAnswer(choice);
+    if (!hasClaimedPrediction) {
+      setHasClaimedPrediction(true);
+      addXp(50, 'Shift Prediction Guessed', 'Shift-Prognose abgegeben');
+    }
+  };
 
   // Playback timer loop
   useEffect(() => {
@@ -54,17 +82,30 @@ export const App: React.FC = () => {
   }, [isPlaying, playbackSpeed, activeMoment.durationSeconds]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0e1526] via-[#090e1a] to-[#060912] text-slate-100 flex flex-col font-sans selection:bg-amber-400 selection:text-slate-950">
+    <div className="min-h-screen bg-gradient-to-b from-[#0a101d] via-[#070b14] to-[#04070e] text-slate-100 flex flex-col font-sans selection:bg-cyan-500 selection:text-slate-950 pb-20 sm:pb-0">
+      {/* XP Toast Notification */}
+      {xpNotification && (
+        <div className="fixed top-20 right-4 z-50 bg-slate-900 border border-cyan-400 text-white px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2.5 animate-in slide-in-from-top duration-200">
+          <Sparkles className="w-4 h-4 text-cyan-400 animate-spin" />
+          <div className="text-xs">
+            <span className="font-black text-cyan-400">+{xpNotification.amount} XP</span> · {xpNotification.message}
+          </div>
+        </div>
+      )}
+
       {/* Top Header & Dual Lens Switcher */}
       <Header
         isProLens={isProLens}
         setIsProLens={setIsProLens}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
+        language={language}
+        setLanguage={setLanguage}
+        xp={xp}
       />
 
       {/* Match Telemetry Header Banner */}
-      <MatchBanner />
+      <MatchBanner language={language} />
 
       {/* Main Content Area */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -72,15 +113,15 @@ export const App: React.FC = () => {
         <div className="bg-gradient-to-r from-blue-950/80 via-slate-900 to-blue-950/80 border border-white/15 p-4 sm:p-5 rounded-2xl shadow-xl space-y-3 mb-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-amber-400 text-slate-950 flex items-center justify-center font-black shrink-0 text-base">
+              <div className="w-8 h-8 rounded-lg bg-cyan-500 text-slate-950 flex items-center justify-center font-black shrink-0 text-base shadow-md shadow-cyan-500/20">
                 🏒
               </div>
               <div>
                 <h2 className="text-sm sm:text-base font-black text-white font-sans flex items-center gap-2">
-                  Official Live Fan Companion · Spengler Cup Davos
+                  {t.companionTitle}
                 </h2>
                 <p className="text-xs text-slate-300">
-                  Real-time 20Hz sensor tracking unlocked from the coach&apos;s laptop directly to your screen.
+                  {t.companionSubtitle}
                 </p>
               </div>
             </div>
@@ -89,30 +130,30 @@ export const App: React.FC = () => {
             <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
               <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 text-xs font-mono font-bold">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                Live Telemetry Active
+                {t.liveTelemetryActive}
               </span>
             </div>
           </div>
 
-          {/* 3 Quick-Action Cards for Everyday Fans */}
+          {/* 3 Quick-Action Cards for Everyday Fans (Cyan Glow, ZERO Yellow) */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 pt-1">
             <button
               onClick={() => setActiveTab('replay')}
               className={cn(
                 'p-3 rounded-xl border text-left transition-all cursor-pointer flex items-start gap-2.5',
                 activeTab === 'replay'
-                  ? 'bg-amber-400/15 border-amber-400 text-white shadow-md ring-1 ring-amber-400/50'
+                  ? 'bg-cyan-500/15 border-cyan-400 text-white shadow-md ring-1 ring-cyan-400/50'
                   : 'bg-slate-950/60 border-white/5 text-slate-300 hover:border-white/20 hover:text-white'
               )}
             >
               <span className="text-lg">🎬</span>
               <div className="min-w-0">
                 <div className="text-xs font-black text-white flex items-center gap-1.5">
-                  1. Watch Shift Replay
-                  {activeTab === 'replay' && <span className="text-[10px] text-amber-400 font-mono font-normal">● Active</span>}
+                  {t.quickAction1Title}
+                  {activeTab === 'replay' && <span className="text-[10px] text-cyan-400 font-mono font-normal">● Active</span>}
                 </div>
                 <div className="text-[11px] text-slate-400 leading-tight mt-0.5">
-                  Replay the 3 decisive goal sequences with live shot &amp; sprint speed radar.
+                  {t.quickAction1Desc}
                 </div>
               </div>
             </button>
@@ -122,18 +163,18 @@ export const App: React.FC = () => {
               className={cn(
                 'p-3 rounded-xl border text-left transition-all cursor-pointer flex items-start gap-2.5',
                 activeTab === 'fantasy'
-                  ? 'bg-amber-400/15 border-amber-400 text-white shadow-md ring-1 ring-amber-400/50'
+                  ? 'bg-cyan-500/15 border-cyan-400 text-white shadow-md ring-1 ring-cyan-400/50'
                   : 'bg-slate-950/60 border-white/5 text-slate-300 hover:border-white/20 hover:text-white'
               )}
             >
               <span className="text-lg">⚡</span>
               <div className="min-w-0">
                 <div className="text-xs font-black text-white flex items-center gap-1.5">
-                  2. Play Shift Fantasy
+                  {t.quickAction2Title}
                   <span className="text-[9px] px-1.5 py-0.2 rounded bg-rose-500 text-white font-mono font-bold">LIVE</span>
                 </div>
                 <div className="text-[11px] text-slate-400 leading-tight mt-0.5">
-                  18-min intermission game: draft 3 skaters and score real-time ice points.
+                  {t.quickAction2Desc}
                 </div>
               </div>
             </button>
@@ -143,18 +184,18 @@ export const App: React.FC = () => {
               className={cn(
                 'p-3 rounded-xl border text-left transition-all cursor-pointer flex items-start gap-2.5',
                 activeTab === 'lineup'
-                  ? 'bg-amber-400/15 border-amber-400 text-white shadow-md ring-1 ring-amber-400/50'
+                  ? 'bg-cyan-500/15 border-cyan-400 text-white shadow-md ring-1 ring-cyan-400/50'
                   : 'bg-slate-950/60 border-white/5 text-slate-300 hover:border-white/20 hover:text-white'
               )}
             >
               <span className="text-lg">📋</span>
               <div className="min-w-0">
                 <div className="text-xs font-black text-white flex items-center gap-1.5">
-                  3. Build Tactical Lineup
-                  {activeTab === 'lineup' && <span className="text-[10px] text-amber-400 font-mono font-normal">● Active</span>}
+                  {t.quickAction3Title}
+                  {activeTab === 'lineup' && <span className="text-[10px] text-cyan-400 font-mono font-normal">● Active</span>}
                 </div>
                 <div className="text-[11px] text-slate-400 leading-tight mt-0.5">
-                  Test player chemistry on the tactical board and run a 60-second shift simulation.
+                  {t.quickAction3Desc}
                 </div>
               </div>
             </button>
@@ -163,6 +204,50 @@ export const App: React.FC = () => {
 
         {activeTab === 'replay' && (
           <div className="space-y-6">
+            {/* Interactive In-Shift Prediction Game Widget (Gamification Boost) */}
+            <div className="bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 border border-cyan-500/40 p-4 rounded-2xl shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-mono text-[10px] font-black uppercase">
+                    {t.predictionTitle}
+                  </span>
+                  <span className="text-xs text-slate-400 font-mono">
+                    {t.predictionSubtitle}
+                  </span>
+                </div>
+                <h3 className="text-sm font-black text-white">
+                  {t.predictionPrompt}
+                </h3>
+              </div>
+
+              {/* 3 Guess Options */}
+              <div className="flex items-center gap-2">
+                {[
+                  { id: 'low', label: '88.4 km/h', isCorrect: false },
+                  { id: 'correct', label: '100.1 km/h (Laser)', isCorrect: true },
+                  { id: 'high', label: '112.5 km/h', isCorrect: false },
+                ].map((opt) => (
+                  <button
+                    key={opt.id}
+                    disabled={predictionAnswer !== null}
+                    onClick={() => handlePredict(opt.id)}
+                    className={cn(
+                      'px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer border',
+                      predictionAnswer === opt.id
+                        ? opt.isCorrect
+                          ? 'bg-emerald-500 text-slate-950 border-emerald-400 shadow-md font-black'
+                          : 'bg-rose-500 text-white border-rose-400'
+                        : predictionAnswer !== null && opt.isCorrect
+                        ? 'bg-emerald-950 border-emerald-500 text-emerald-300'
+                        : 'bg-slate-950 border-slate-700 text-slate-300 hover:text-white hover:border-slate-500'
+                    )}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             {/* Top Interactive Rink Screen */}
             <Rink2D
               moment={activeMoment}
@@ -181,23 +266,72 @@ export const App: React.FC = () => {
               setIsPlaying={setIsPlaying}
               playbackSpeed={playbackSpeed}
               setPlaybackSpeed={setPlaybackSpeed}
+              language={language}
             />
 
             {/* Story Insight / Telemetry Card */}
-            <EventCard moment={activeMoment} isProLens={isProLens} />
+            <EventCard moment={activeMoment} isProLens={isProLens} language={language} />
           </div>
         )}
 
-        {activeTab === 'dna' && <PlayerDNA isProLens={isProLens} />}
+        {activeTab === 'dna' && <PlayerDNA isProLens={isProLens} language={language} />}
 
-        {activeTab === 'lineup' && <LineBuilder />}
+        {activeTab === 'lineup' && <LineBuilder language={language} onAddXp={addXp} />}
 
-        {activeTab === 'fantasy' && <ShiftFantasy />}
+        {activeTab === 'fantasy' && <ShiftFantasy language={language} onAddXp={addXp} />}
 
-        {activeTab === 'quiz' && <IceIQQuiz />}
+        {activeTab === 'quiz' && <IceIQQuiz language={language} onAddXp={addXp} />}
 
-        {activeTab === 'activation' && <ActivationHub />}
+        {activeTab === 'activation' && <ActivationHub language={language} />}
       </main>
+
+      {/* Mobile Bottom Thumb Navigation Dock (For Smartphone Ergonomics) */}
+      <div className="sm:hidden fixed bottom-3 left-3 right-3 z-50 bg-[#070d19]/95 backdrop-blur-xl border border-cyan-500/30 p-1.5 rounded-2xl shadow-2xl flex items-center justify-around">
+        <button
+          onClick={() => setActiveTab('replay')}
+          className={cn(
+            'flex flex-col items-center py-1 px-3 rounded-xl transition-all cursor-pointer',
+            activeTab === 'replay' ? 'bg-cyan-500/20 text-cyan-300 font-bold' : 'text-slate-400'
+          )}
+        >
+          <Play className="w-4 h-4" />
+          <span className="text-[10px] mt-0.5 font-mono">Replay</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('fantasy')}
+          className={cn(
+            'flex flex-col items-center py-1 px-3 rounded-xl transition-all cursor-pointer relative',
+            activeTab === 'fantasy' ? 'bg-cyan-500/20 text-cyan-300 font-bold' : 'text-slate-400'
+          )}
+        >
+          <span className="absolute top-1 right-2 w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+          <Zap className="w-4 h-4" />
+          <span className="text-[10px] mt-0.5 font-mono">Fantasy</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('lineup')}
+          className={cn(
+            'flex flex-col items-center py-1 px-3 rounded-xl transition-all cursor-pointer',
+            activeTab === 'lineup' ? 'bg-cyan-500/20 text-cyan-300 font-bold' : 'text-slate-400'
+          )}
+        >
+          <Users className="w-4 h-4" />
+          <span className="text-[10px] mt-0.5 font-mono">Tactics</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('quiz')}
+          className={cn(
+            'flex flex-col items-center py-1 px-3 rounded-xl transition-all cursor-pointer',
+            activeTab === 'quiz' ? 'bg-cyan-500/20 text-cyan-300 font-bold' : 'text-slate-400'
+          )}
+        >
+          <Trophy className="w-4 h-4" />
+          <span className="text-[10px] mt-0.5 font-mono">Quiz</span>
+        </button>
+      </div>
 
       {/* Footer & Challenge Attribution */}
       <footer className="border-t border-rink-border bg-slate-950 py-6 text-xs text-slate-400">
@@ -215,7 +349,7 @@ export const App: React.FC = () => {
             <span>•</span>
             <span>Wisehockey</span>
             <span>•</span>
-            <span className="text-neon-cyan font-bold">Kamilla Gafurzianova</span>
+            <span className="text-cyan-400 font-bold">Kamilla Gafurzianova</span>
           </div>
         </div>
       </footer>

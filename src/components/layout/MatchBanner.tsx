@@ -1,49 +1,55 @@
 import React from 'react';
 import { sampleMatchData } from '../../data/sampleMatch';
 import { Zap, Gauge, MapPin, Tv } from 'lucide-react';
+import { Language, translations } from '../../lib/i18n';
 
-export const MatchBanner: React.FC = () => {
+interface MatchBannerProps {
+  language: Language;
+}
+
+export const MatchBanner: React.FC<MatchBannerProps> = ({ language }) => {
   const { homeTeam, awayTeam, periods, arena } = sampleMatchData;
+  const t = translations[language];
 
   return (
-    <div className="bg-gradient-to-b from-[#141b2b] via-[#0d1322] to-[#080d19] border-b border-white/10 py-5 px-4 sm:px-6 lg:px-8 shadow-2xl relative overflow-hidden">
-      {/* Subtle stadium light glow in background */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4/5 h-28 bg-blue-500/10 blur-3xl pointer-events-none" />
+    <div className="bg-gradient-to-b from-[#101726] via-[#0b101c] to-[#070b14] border-b border-white/10 py-5 px-4 sm:px-6 lg:px-8 shadow-2xl relative overflow-hidden">
+      {/* Subtle stadium light glow in background (Ice Cyan & Sapphire) */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4/5 h-28 bg-cyan-500/10 blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto space-y-4 relative z-10">
         {/* Main Broadcast Scoreboard */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-slate-900/80 backdrop-blur-xl border border-white/15 p-5 sm:p-6 rounded-2xl shadow-2xl">
           {/* Home Team: HC Davos */}
           <div className="flex items-center gap-4 flex-1 w-full md:w-auto">
-            {/* Authentic SVG Crest for HC Davos (Mathematical scaling, zero text overflow) */}
+            {/* Authentic SVG Crest for HC Davos (Mathematical scaling, Alpine Cyan & Sapphire, ZERO Yellow) */}
             <div className="w-16 h-16 sm:w-18 sm:h-18 shrink-0">
               <svg viewBox="0 0 72 72" className="w-full h-full drop-shadow-lg select-none">
                 <defs>
                   <linearGradient id="hcdShieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#0047ba" />
-                    <stop offset="60%" stopColor="#002d75" />
+                    <stop offset="0%" stopColor="#0284c7" />
+                    <stop offset="50%" stopColor="#0047ba" />
                     <stop offset="100%" stopColor="#001a45" />
                   </linearGradient>
                 </defs>
-                {/* Outer Shield with Gold Border */}
+                {/* Outer Shield with Crisp Platinum Silver & Cyan Border */}
                 <path
                   d="M 36 4 L 66 14 C 66 46 36 68 36 68 C 36 68 6 46 6 14 Z"
                   fill="url(#hcdShieldGrad)"
-                  stroke="#f59e0b"
+                  stroke="#38bdf8"
                   strokeWidth="3.5"
                 />
-                {/* Yellow Davos Diagonal Accent Strip */}
+                {/* Ice Cyan Davos Diagonal Accent Strip */}
                 <path
                   d="M 16 18 L 24 16 L 56 50 L 48 54 Z"
-                  fill="#fbbf24"
-                  fillOpacity="0.3"
+                  fill="#38bdf8"
+                  fillOpacity="0.4"
                 />
-                {/* HCD Acronym */}
+                {/* HCD Acronym in Platinum White */}
                 <text
                   x="36"
                   y="34"
                   textAnchor="middle"
-                  fill="#fbbf24"
+                  fill="#ffffff"
                   fontSize="17"
                   fontWeight="900"
                   fontFamily="Outfit, sans-serif"
@@ -51,12 +57,12 @@ export const MatchBanner: React.FC = () => {
                 >
                   HCD
                 </text>
-                {/* 1921 Founding Year */}
+                {/* 1921 Founding Year in Cyan */}
                 <text
                   x="36"
                   y="48"
                   textAnchor="middle"
-                  fill="#ffffff"
+                  fill="#7dd3fc"
                   fontSize="10"
                   fontWeight="800"
                   fontFamily="Outfit, sans-serif"
@@ -69,8 +75,8 @@ export const MatchBanner: React.FC = () => {
 
             <div className="space-y-0.5">
               <div className="flex items-center gap-2">
-                <span className="px-2 py-0.5 bg-amber-400/20 border border-amber-400/40 text-amber-300 text-[10px] font-bold rounded-md uppercase tracking-wider font-mono">
-                  Host Club
+                <span className="px-2 py-0.5 bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-[10px] font-bold rounded-md uppercase tracking-wider font-mono">
+                  {t.hostClub}
                 </span>
                 <span className="text-xs text-slate-400 font-mono">Spengler Cup Host</span>
               </div>
@@ -78,9 +84,9 @@ export const MatchBanner: React.FC = () => {
                 {homeTeam.fullName}
               </h2>
               <div className="flex items-center gap-3 text-xs text-slate-300 font-mono">
-                <span>Shots: <strong className="text-white font-bold">{homeTeam.shotsOnGoal}</strong></span>
+                <span>{t.shots}: <strong className="text-white font-bold">{homeTeam.shotsOnGoal}</strong></span>
                 <span className="text-slate-600">•</span>
-                <span>Powerplay: <strong className="text-amber-400 font-bold">{homeTeam.powerPlays.goals}/{homeTeam.powerPlays.opportunities}</strong></span>
+                <span>{t.powerplay}: <strong className="text-cyan-400 font-bold">{homeTeam.powerPlays.goals}/{homeTeam.powerPlays.opportunities}</strong></span>
               </div>
             </div>
           </div>
@@ -90,7 +96,7 @@ export const MatchBanner: React.FC = () => {
             <div className="flex items-center gap-2 mb-1">
               <span className="w-2 h-2 rounded-sm bg-rose-500 animate-pulse" />
               <span className="text-[11px] font-mono uppercase tracking-widest text-slate-300 font-bold">
-                Final Score
+                {t.finalScore}
               </span>
             </div>
 
@@ -119,7 +125,7 @@ export const MatchBanner: React.FC = () => {
           <div className="flex items-center justify-start md:justify-end gap-4 flex-1 w-full md:w-auto text-left md:text-right">
             <div className="space-y-0.5 order-2 md:order-1">
               <div className="flex items-center md:justify-end gap-2">
-                <span className="text-xs text-slate-400 font-mono">Invited National Selection</span>
+                <span className="text-xs text-slate-400 font-mono">{t.invitedSelection}</span>
                 <span className="px-2 py-0.5 bg-rose-950/60 border border-rose-500/40 text-rose-300 text-[10px] font-bold rounded-md uppercase tracking-wider font-mono">
                   USA
                 </span>
@@ -128,9 +134,9 @@ export const MatchBanner: React.FC = () => {
                 {awayTeam.fullName}
               </h2>
               <div className="flex items-center md:justify-end gap-3 text-xs text-slate-300 font-mono">
-                <span>Powerplay: <strong className="text-rose-400 font-bold">{awayTeam.powerPlays.goals}/{awayTeam.powerPlays.opportunities}</strong></span>
+                <span>{t.powerplay}: <strong className="text-rose-400 font-bold">{awayTeam.powerPlays.goals}/{awayTeam.powerPlays.opportunities}</strong></span>
                 <span className="text-slate-600">•</span>
-                <span>Shots: <strong className="text-white font-bold">{awayTeam.shotsOnGoal}</strong></span>
+                <span>{t.shots}: <strong className="text-white font-bold">{awayTeam.shotsOnGoal}</strong></span>
               </div>
             </div>
 
@@ -184,17 +190,17 @@ export const MatchBanner: React.FC = () => {
           </div>
         </div>
 
-        {/* Live Broadcast Telemetry Ticker Strip (Balanced 2-Column Cards, ZERO Empty Space) */}
+        {/* Live Broadcast Telemetry Ticker Strip (Ice Cyan & Sapphire, ZERO Yellow, ZERO Empty Space) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {/* Card 1: Peak Sprint Speed */}
           <div className="bg-slate-900/80 backdrop-blur-md border border-white/10 p-3.5 rounded-xl flex items-center justify-between shadow-lg">
             <div className="flex items-center gap-3 min-w-0">
-              <div className="w-10 h-10 rounded-xl bg-amber-400/15 border border-amber-400/30 text-amber-400 flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-cyan-400/15 border border-cyan-400/30 text-cyan-400 flex items-center justify-center shrink-0">
                 <Zap className="w-5 h-5 fill-current" />
               </div>
               <div className="min-w-0">
                 <span className="text-[10px] text-slate-400 uppercase font-mono font-bold block">
-                  Peak Sprint Speed
+                  {t.peakSprintSpeed}
                 </span>
                 <div className="text-base font-black text-white font-mono leading-tight">
                   38.6 km/h
@@ -205,10 +211,10 @@ export const MatchBanner: React.FC = () => {
               </div>
             </div>
 
-            {/* Contextual Metric Pill (Fills the right space with real intelligence) */}
+            {/* Contextual Metric Pill */}
             <div className="text-right shrink-0 pl-2">
-              <span className="px-2 py-0.5 bg-amber-400/20 border border-amber-400/40 text-amber-300 text-[10px] font-black rounded-md font-mono uppercase block">
-                Top 1% Speed
+              <span className="px-2 py-0.5 bg-cyan-400/20 border border-cyan-400/40 text-cyan-300 text-[10px] font-black rounded-md font-mono uppercase block">
+                {t.top1PercentSpeed}
               </span>
               <span className="text-[10px] text-slate-400 font-mono block mt-1">
                 +4.8k vs avg
@@ -224,7 +230,7 @@ export const MatchBanner: React.FC = () => {
               </div>
               <div className="min-w-0">
                 <span className="text-[10px] text-slate-400 uppercase font-mono font-bold block">
-                  Hardest Slapshot
+                  {t.hardestSlapshot}
                 </span>
                 <div className="text-base font-black text-white font-mono leading-tight">
                   157.6 km/h
@@ -238,7 +244,7 @@ export const MatchBanner: React.FC = () => {
             {/* Contextual Metric Pill */}
             <div className="text-right shrink-0 pl-2">
               <span className="px-2 py-0.5 bg-sky-400/20 border border-sky-400/40 text-sky-300 text-[10px] font-black rounded-md font-mono uppercase block">
-                Game Record
+                {t.gameRecord}
               </span>
               <span className="text-[10px] text-slate-400 font-mono block mt-1">
                 0.18s release
@@ -254,7 +260,7 @@ export const MatchBanner: React.FC = () => {
               </div>
               <div className="min-w-0">
                 <span className="text-[10px] text-slate-400 uppercase font-mono font-bold block">
-                  SRF zwei Viewers
+                  {t.srfViewers}
                 </span>
                 <div className="text-base font-black text-emerald-400 font-mono leading-tight">
                   54.6% Share
@@ -269,7 +275,7 @@ export const MatchBanner: React.FC = () => {
             <div className="text-right shrink-0 pl-2">
               <span className="px-2 py-0.5 bg-emerald-400/20 border border-emerald-400/40 text-emerald-300 text-[10px] font-black rounded-md font-mono uppercase flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                Live TV
+                {t.liveTv}
               </span>
               <span className="text-[10px] text-slate-400 font-mono block mt-1">
                 SRF Sport HD
@@ -285,7 +291,7 @@ export const MatchBanner: React.FC = () => {
               </div>
               <div className="min-w-0">
                 <span className="text-[10px] text-slate-400 uppercase font-mono font-bold block">
-                  Davos Arena Crowd
+                  {t.davosCrowd}
                 </span>
                 <div className="text-base font-black text-white font-mono leading-tight">
                   6,547 Fans
@@ -299,7 +305,7 @@ export const MatchBanner: React.FC = () => {
             {/* Contextual Metric Pill */}
             <div className="text-right shrink-0 pl-2">
               <span className="px-2 py-0.5 bg-blue-400/20 border border-blue-400/40 text-blue-300 text-[10px] font-black rounded-md font-mono uppercase block">
-                100% Sold Out
+                {t.soldOut}
               </span>
               <span className="text-[10px] text-slate-400 font-mono block mt-1">
                 Full Capacity

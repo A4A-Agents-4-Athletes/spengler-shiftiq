@@ -1,6 +1,8 @@
+import React from 'react';
 import { Play, Pause, RotateCcw, Info } from 'lucide-react';
 import { DecisiveMoment } from '../../types/wisehockey';
 import { cn } from '../../lib/utils';
+import { Language, translations } from '../../lib/i18n';
 
 interface PlayScrubberProps {
   moments: DecisiveMoment[];
@@ -9,9 +11,10 @@ interface PlayScrubberProps {
   currentTime: number;
   setCurrentTime: (t: number) => void;
   isPlaying: boolean;
-  setIsPlaying: (val: boolean) => void;
+  setIsPlaying: (p: boolean) => void;
   playbackSpeed: number;
-  setPlaybackSpeed: (speed: number) => void;
+  setPlaybackSpeed: (s: number) => void;
+  language: Language;
 }
 
 export const PlayScrubber: React.FC<PlayScrubberProps> = ({
@@ -24,8 +27,10 @@ export const PlayScrubber: React.FC<PlayScrubberProps> = ({
   setIsPlaying,
   playbackSpeed,
   setPlaybackSpeed,
+  language,
 }) => {
   const speeds = [0.5, 1, 2];
+  const t = translations[language];
 
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentTime(parseFloat(e.target.value));
@@ -42,9 +47,9 @@ export const PlayScrubber: React.FC<PlayScrubberProps> = ({
       <div>
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-sm bg-amber-400" />
+            <span className="w-2.5 h-2.5 rounded-sm bg-cyan-400" />
             <h3 className="text-sm font-black text-white uppercase tracking-wider font-mono">
-              Key Match Shifts · Choose a Play to Replay
+              {t.keyShiftsHeader}
             </h3>
           </div>
           <span className="text-xs text-slate-400 font-mono hidden sm:inline">
@@ -52,15 +57,18 @@ export const PlayScrubber: React.FC<PlayScrubberProps> = ({
           </span>
         </div>
         <p className="text-xs text-slate-300">
-          Tap any of the 3 decisive shifts below to load player positions and track puck movement on the ice sheet:
+          {t.keyShiftsSub}
         </p>
       </div>
 
-      {/* 3 Rich Shift Cards (Zero empty space, intuitive goal breakdown) */}
+      {/* 3 Rich Shift Cards (Ice Cyan Highlights, ZERO Yellow) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         {moments.map((m, idx) => {
           const isSelected = m.id === activeMoment.id;
           const isHcd = m.primaryTeamId === 'HCD';
+
+          const title = idx === 0 ? t.shift1Title : idx === 1 ? t.shift2Title : t.shift3Title;
+          const detail = idx === 0 ? t.shift1Detail : idx === 1 ? t.shift2Detail : t.shift3Detail;
 
           return (
             <button
@@ -73,7 +81,7 @@ export const PlayScrubber: React.FC<PlayScrubberProps> = ({
               className={cn(
                 'p-3.5 rounded-xl text-left transition-all border cursor-pointer relative overflow-hidden flex flex-col justify-between gap-2.5',
                 isSelected
-                  ? 'bg-gradient-to-br from-blue-950/90 to-slate-900 border-amber-400 shadow-xl shadow-amber-400/15 ring-1 ring-amber-400'
+                  ? 'bg-gradient-to-br from-blue-950/90 to-slate-900 border-cyan-400 shadow-xl shadow-cyan-400/20 ring-1 ring-cyan-400'
                   : 'bg-slate-950/70 border-white/10 hover:border-white/25 text-slate-300 hover:text-white'
               )}
             >
@@ -89,7 +97,7 @@ export const PlayScrubber: React.FC<PlayScrubberProps> = ({
                 >
                   {isHcd ? 'HCD Goal' : 'USA Goal'}
                 </span>
-                <span className="text-xs font-mono font-bold text-amber-400">
+                <span className="text-xs font-mono font-bold text-cyan-400">
                   {m.gameClock} · P{m.period}
                 </span>
               </div>
@@ -97,19 +105,17 @@ export const PlayScrubber: React.FC<PlayScrubberProps> = ({
               {/* Title & Headline Narrative */}
               <div>
                 <div className="text-sm font-black text-white font-sans leading-snug">
-                  {m.title}
+                  {title}
                 </div>
                 <div className="text-[11px] text-slate-400 font-sans mt-0.5 leading-tight line-clamp-2">
-                  {idx === 0 && 'Nussbaumer faceoff win & rapid 2.4s seam feed'}
-                  {idx === 1 && 'Collegiate counter-rush down right flank with 5-hole finish'}
-                  {idx === 2 && 'Corvi cross-ice saucer seam pass for one-timer dagger'}
+                  {detail}
                 </div>
               </div>
 
               {/* Bottom Telemetry Chip */}
               <div className="flex items-center justify-between pt-1 border-t border-white/5 text-[11px] font-mono">
                 <span className="text-slate-400">Wisehockey:</span>
-                <strong className={isSelected ? 'text-amber-400 font-black' : 'text-slate-300'}>
+                <strong className={isSelected ? 'text-cyan-400 font-black' : 'text-slate-300'}>
                   {m.headlineMetric}
                 </strong>
               </div>
@@ -124,7 +130,7 @@ export const PlayScrubber: React.FC<PlayScrubberProps> = ({
           {/* Play/Pause Button */}
           <button
             onClick={() => setIsPlaying(!isPlaying)}
-            className="w-12 h-12 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 flex items-center justify-center font-black hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-amber-400/25 cursor-pointer shrink-0"
+            className="w-12 h-12 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 flex items-center justify-center font-black hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-cyan-400/25 cursor-pointer shrink-0"
             title={isPlaying ? 'Pause Replay' : 'Play Replay'}
           >
             {isPlaying ? (
@@ -145,7 +151,7 @@ export const PlayScrubber: React.FC<PlayScrubberProps> = ({
 
           {/* Progress Slider */}
           <div className="flex-1 flex items-center gap-3">
-            <span className="text-xs font-mono font-bold text-amber-400 w-12 text-right">
+            <span className="text-xs font-mono font-bold text-cyan-400 w-12 text-right">
               {currentTime.toFixed(1)}s
             </span>
             <input
@@ -155,7 +161,7 @@ export const PlayScrubber: React.FC<PlayScrubberProps> = ({
               step="0.05"
               value={currentTime}
               onChange={handleSliderChange}
-              className="w-full h-2.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-400 focus:outline-none"
+              className="w-full h-2.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-400 focus:outline-none"
             />
             <span className="text-xs font-mono font-bold text-slate-400 w-12">
               {activeMoment.durationSeconds.toFixed(1)}s
@@ -171,7 +177,7 @@ export const PlayScrubber: React.FC<PlayScrubberProps> = ({
                 className={cn(
                   'px-2.5 py-1 text-xs font-mono font-bold rounded-md transition-all cursor-pointer',
                   playbackSpeed === s
-                    ? 'bg-amber-400 text-slate-950 font-black'
+                    ? 'bg-cyan-400 text-slate-950 font-black'
                     : 'text-slate-400 hover:text-white'
                 )}
               >
@@ -184,11 +190,11 @@ export const PlayScrubber: React.FC<PlayScrubberProps> = ({
         {/* Intuitive User Hint */}
         <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-white/5 font-mono">
           <span className="flex items-center gap-1">
-            <Info className="w-3.5 h-3.5 text-amber-400" />
-            Drag slider or press Play to inspect player motion trails and puck trajectory.
+            <Info className="w-3.5 h-3.5 text-cyan-400" />
+            {t.dragHint}
           </span>
           <span className="hidden sm:inline text-slate-400 font-bold">
-            20Hz Sensor Interpolation
+            {t.wisehockeyTracking}
           </span>
         </div>
       </div>

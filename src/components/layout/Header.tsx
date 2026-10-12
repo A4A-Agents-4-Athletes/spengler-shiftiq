@@ -1,12 +1,17 @@
 import React from 'react';
-import { Sparkles, Activity, Flame, Play, Dna, Users, Zap, Trophy, Radio } from 'lucide-react';
+import { Sparkles, Activity, Play, Dna, Users, Zap, Trophy, Radio, Globe, Shield } from 'lucide-react';
 import { cn } from '../../lib/utils';
+import { Language, translations } from '../../lib/i18n';
+import { getLevelInfo } from '../../lib/gamificationStore';
 
 interface HeaderProps {
   isProLens: boolean;
   setIsProLens: (val: boolean) => void;
   activeTab: string;
   setActiveTab: (tab: string) => void;
+  language: Language;
+  setLanguage: (lang: Language) => void;
+  xp: number;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -14,14 +19,20 @@ export const Header: React.FC<HeaderProps> = ({
   setIsProLens,
   activeTab,
   setActiveTab,
+  language,
+  setLanguage,
+  xp,
 }) => {
+  const t = translations[language];
+  const levelInfo = getLevelInfo(xp);
+
   const tabs = [
-    { id: 'replay', label: 'Shift Replay', hint: 'Goal Tracking', icon: Play },
-    { id: 'fantasy', label: 'Shift Fantasy', hint: 'Intermission Game', badge: 'LIVE', icon: Zap },
-    { id: 'lineup', label: 'Tactical Board', hint: 'Line Chemistry', icon: Users },
-    { id: 'dna', label: 'Player DNA', hint: 'Head-to-Head', icon: Dna },
-    { id: 'quiz', label: 'Ice IQ Quiz', hint: 'Predict Stats', icon: Trophy },
-    { id: 'activation', label: 'Broadcast Hub', hint: 'SRF Sync', icon: Radio },
+    { id: 'replay', label: t.tabShiftReplay, hint: t.tabShiftReplaySub, icon: Play },
+    { id: 'fantasy', label: t.tabShiftFantasy, hint: t.tabShiftFantasySub, badge: 'LIVE', icon: Zap },
+    { id: 'lineup', label: t.tabTacticalBoard, hint: t.tabTacticalBoardSub, icon: Users },
+    { id: 'dna', label: t.tabPlayerDNA, hint: t.tabPlayerDNASub, icon: Dna },
+    { id: 'quiz', label: t.tabIceIQ, hint: t.tabIceIQSub, icon: Trophy },
+    { id: 'activation', label: t.tabBroadcast, hint: t.tabBroadcastSub, icon: Radio },
   ];
 
   return (
@@ -30,57 +41,101 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex flex-col md:flex-row md:items-center justify-between py-3 md:py-0 md:h-20 gap-3 md:gap-6">
           {/* Logo & Swiss Tournament Heritage */}
           <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 md:w-12 md:h-12 bg-gradient-to-br from-[#003882] via-[#00285e] to-[#001433] border-2 border-amber-400 rounded-xl flex items-center justify-center shadow-lg shadow-blue-950/60 shrink-0">
-              <span className="text-amber-400 font-black text-xl md:text-2xl tracking-tighter font-sans">SC</span>
+            <div className="w-11 h-11 md:w-12 md:h-12 bg-gradient-to-br from-[#003882] via-[#002456] to-[#040d1f] border-2 border-cyan-400 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-950/40 shrink-0">
+              <span className="text-cyan-400 font-black text-xl md:text-2xl tracking-tighter font-sans">SC</span>
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] md:text-xs uppercase font-black tracking-widest text-amber-400 flex items-center gap-1 font-mono">
-                  <Flame className="w-3.5 h-3.5 fill-current" />
-                  Spengler Cup Davos
+                <span className="text-[10px] md:text-xs uppercase font-black tracking-widest text-cyan-400 flex items-center gap-1 font-mono">
+                  <Shield className="w-3.5 h-3.5 fill-current" />
+                  Spengler Cup Davos 1923
                 </span>
                 <span className="text-slate-600 text-xs hidden sm:inline">•</span>
-                <span className="text-[11px] text-slate-400 hidden sm:inline font-mono">Official Wisehockey Live Telemetry</span>
+                <span className="text-[11px] text-slate-400 hidden sm:inline font-mono">{t.appSubtitle}</span>
               </div>
               <h1 className="text-lg md:text-2xl font-black tracking-tight text-white flex items-center gap-2.5 font-sans">
-                Spengler ShiftIQ
-                <span className="text-[10px] px-2 py-0.5 bg-gradient-to-r from-amber-400/20 to-amber-500/20 border border-amber-400/40 text-amber-300 font-mono rounded-md uppercase font-bold tracking-wider">
+                {t.appTitle}
+                <span className="text-[10px] px-2 py-0.5 bg-cyan-950 border border-cyan-400/40 text-cyan-300 font-mono rounded-md uppercase font-bold tracking-wider">
                   Live Companion
                 </span>
               </h1>
             </div>
           </div>
 
-          {/* Precision Swiss Dual-Lens Toggle */}
-          <div className="flex items-center gap-1.5 bg-slate-950/90 p-1.5 rounded-xl border border-white/10 shadow-inner self-stretch md:self-auto justify-center">
-            <button
-              onClick={() => setIsProLens(false)}
-              className={cn(
-                'flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all duration-200 cursor-pointer',
-                !isProLens
-                  ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black shadow-lg shadow-amber-500/20'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-900'
-              )}
-            >
-              <Sparkles className="w-4 h-4 fill-current" />
-              <span>Fan Story Lens</span>
-            </button>
-            <button
-              onClick={() => setIsProLens(true)}
-              className={cn(
-                'flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all duration-200 cursor-pointer',
-                isProLens
-                  ? 'bg-gradient-to-r from-sky-400 to-blue-500 text-slate-950 font-black shadow-lg shadow-sky-500/20'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-900'
-              )}
-            >
-              <Activity className="w-4 h-4" />
-              <span>Pro Analyst Lens</span>
-            </button>
+          {/* Right Header Controls: Fan XP Progress, Bilingual Switcher & Dual Lens */}
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 self-stretch md:self-auto justify-end">
+            {/* Fan Level & XP Badge */}
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-cyan-500/30 text-xs font-mono shadow-md">
+              <span className="text-cyan-400 font-black">
+                {t.fanLevel} {levelInfo.level}
+              </span>
+              <span className="text-slate-500">|</span>
+              <span className="text-slate-300 font-bold">
+                {language === 'DE' ? levelInfo.titleDe : levelInfo.titleEn}
+              </span>
+              <span className="px-1.5 py-0.2 rounded bg-cyan-500/20 text-cyan-300 font-black text-[10px]">
+                {xp} {t.xpPoints}
+              </span>
+            </div>
+
+            {/* Bilingual Switcher (DE | EN) */}
+            <div className="flex items-center bg-slate-950 p-1 rounded-xl border border-white/10 shadow-inner">
+              <Globe className="w-3.5 h-3.5 text-slate-400 ml-1.5 mr-1" />
+              <button
+                onClick={() => setLanguage('DE')}
+                className={cn(
+                  'px-2 py-1 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer',
+                  language === 'DE'
+                    ? 'bg-cyan-500 text-slate-950 font-black shadow-sm'
+                    : 'text-slate-400 hover:text-white'
+                )}
+              >
+                DE
+              </button>
+              <button
+                onClick={() => setLanguage('EN')}
+                className={cn(
+                  'px-2 py-1 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer',
+                  language === 'EN'
+                    ? 'bg-cyan-500 text-slate-950 font-black shadow-sm'
+                    : 'text-slate-400 hover:text-white'
+                )}
+              >
+                EN
+              </button>
+            </div>
+
+            {/* Precision Swiss Dual-Lens Toggle */}
+            <div className="flex items-center gap-1 bg-slate-950/90 p-1 rounded-xl border border-white/10 shadow-inner">
+              <button
+                onClick={() => setIsProLens(false)}
+                className={cn(
+                  'flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 cursor-pointer',
+                  !isProLens
+                    ? 'bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 font-black shadow-md shadow-cyan-500/20'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-900'
+                )}
+              >
+                <Sparkles className="w-3.5 h-3.5 fill-current" />
+                <span>{t.fanStoryLens}</span>
+              </button>
+              <button
+                onClick={() => setIsProLens(true)}
+                className={cn(
+                  'flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 cursor-pointer',
+                  isProLens
+                    ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-black shadow-md shadow-blue-500/20'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-900'
+                )}
+              >
+                <Activity className="w-3.5 h-3.5" />
+                <span>{t.proAnalystLens}</span>
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Clean Intuitive Navigation Tabs with Action Hints */}
+        {/* Clean Intuitive Navigation Tabs with Action Hints (Ice Cyan Highlights, ZERO Yellow) */}
         <nav className="flex items-center space-x-2 overflow-x-auto pb-2.5 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-none touch-pan-x">
           {tabs.map((tab) => {
             const isActive = activeTab === tab.id;
@@ -92,7 +147,7 @@ export const Header: React.FC<HeaderProps> = ({
                 className={cn(
                   'flex items-center gap-2.5 whitespace-nowrap px-3.5 py-2 text-left transition-all rounded-xl cursor-pointer border',
                   isActive
-                    ? 'bg-gradient-to-r from-amber-400 to-amber-500 border-amber-300 text-slate-950 font-black shadow-lg shadow-amber-400/25'
+                    ? 'bg-gradient-to-r from-cyan-500 to-blue-600 border-cyan-400 text-slate-950 font-black shadow-lg shadow-cyan-500/20'
                     : 'bg-slate-950/60 border-white/5 text-slate-300 hover:text-white hover:bg-slate-900/80 hover:border-white/15'
                 )}
               >
@@ -105,7 +160,7 @@ export const Header: React.FC<HeaderProps> = ({
                     {tab.badge && (
                       <span className={cn(
                         'text-[9px] px-1.5 py-0.2 rounded font-mono font-black uppercase tracking-wider',
-                        isActive ? 'bg-slate-950 text-amber-300' : 'bg-rose-500 text-white animate-pulse'
+                        isActive ? 'bg-slate-950 text-cyan-300' : 'bg-rose-500 text-white animate-pulse'
                       )}>
                         {tab.badge}
                       </span>
@@ -113,7 +168,7 @@ export const Header: React.FC<HeaderProps> = ({
                   </div>
                   <span className={cn(
                     'text-[10px] block mt-0.5 font-mono leading-none',
-                    isActive ? 'text-slate-900 font-bold' : 'text-slate-500'
+                    isActive ? 'text-slate-950 font-bold' : 'text-slate-500'
                   )}>
                     {tab.hint}
                   </span>

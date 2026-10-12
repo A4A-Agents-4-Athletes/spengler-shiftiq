@@ -2,8 +2,16 @@ import React, { useState } from 'react';
 import { iceIqQuizQuestions } from '../../data/iceIqQuestions';
 import { Trophy, CheckCircle, XCircle, ChevronRight, RotateCcw } from 'lucide-react';
 import { cn } from '../../lib/utils';
+import { Language, translations } from '../../lib/i18n';
 
-export const IceIQQuiz: React.FC = () => {
+interface IceIQQuizProps {
+  language?: Language;
+  onAddXp?: (amount: number, reasonEn: string, reasonDe: string) => void;
+}
+
+export const IceIQQuiz: React.FC<IceIQQuizProps> = ({ language = 'EN', onAddXp }) => {
+  const t = translations[language];
+
   const [currentIdx, setCurrentIdx] = useState(0);
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
   const [score, setScore] = useState(0);
@@ -12,12 +20,13 @@ export const IceIQQuiz: React.FC = () => {
   const question = iceIqQuizQuestions[currentIdx];
 
   const handleSelectOption = (optId: string) => {
-    if (selectedOptionId !== null) return; // Prevent double select
+    if (selectedOptionId !== null) return;
     setSelectedOptionId(optId);
 
     const option = question.options.find((o) => o.id === optId);
     if (option?.isCorrect) {
       setScore((prev) => prev + 1);
+      onAddXp?.(50, 'Correct Ice IQ Answer', 'Richtige Antwort im Ice-IQ Quiz');
     }
   };
 
@@ -42,20 +51,20 @@ export const IceIQQuiz: React.FC = () => {
       {/* Quiz Progress & Header */}
       <div className="bg-rink-card border border-rink-border p-5 rounded-2xl flex items-center justify-between shadow-xl">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-hcd-yellow text-slate-950 rounded-xl flex items-center justify-center font-black">
-            <Trophy className="w-5 h-5" />
+          <div className="w-10 h-10 bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 rounded-xl flex items-center justify-center font-black shadow-md shadow-cyan-500/20">
+            <Trophy className="w-5 h-5 stroke-[2.5]" />
           </div>
           <div>
-            <h3 className="text-base font-extrabold text-white">Ice IQ: Match Recall Challenge</h3>
+            <h3 className="text-base font-extrabold text-white">{t.quizTitle}</h3>
             <p className="text-xs text-slate-400">
-              Test your tactical memory and intuition against real Wisehockey sensor telemetry.
+              {t.quizSubtitle}
             </p>
           </div>
         </div>
 
         <div className="text-right">
-          <span className="text-xs font-mono text-slate-400 block uppercase">Score</span>
-          <span className="text-xl font-black text-neon-cyan font-mono">
+          <span className="text-xs font-mono text-slate-400 block uppercase">{t.scoreLabel}</span>
+          <span className="text-xl font-black text-cyan-400 font-mono">
             {score} / {iceIqQuizQuestions.length}
           </span>
         </div>
@@ -66,7 +75,7 @@ export const IceIQQuiz: React.FC = () => {
           {/* Question Meta */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="px-2.5 py-1 bg-slate-900 border border-slate-700 text-neon-cyan text-xs font-mono font-bold rounded-md">
+              <span className="px-2.5 py-1 bg-slate-900 border border-slate-700 text-cyan-400 text-xs font-mono font-bold rounded-md">
                 Q{currentIdx + 1} of {iceIqQuizQuestions.length}
               </span>
               <span className="px-2 py-0.5 bg-slate-800 text-slate-300 text-xs font-semibold rounded-md uppercase">
@@ -112,7 +121,7 @@ export const IceIQQuiz: React.FC = () => {
                   disabled={hasAnswered}
                   onClick={() => handleSelectOption(opt.id)}
                   className={cn(
-                    'p-4 rounded-xl border text-left flex items-center justify-between transition-all',
+                    'p-4 rounded-xl border text-left flex items-center justify-between transition-all cursor-pointer',
                     btnStyle
                   )}
                 >
@@ -137,24 +146,24 @@ export const IceIQQuiz: React.FC = () => {
 
           {/* Explanation & Telemetry Evidence (Shown after selection) */}
           {selectedOptionId !== null && (
-            <div className="p-4 bg-slate-900/90 border-l-4 border-hcd-yellow rounded-r-xl space-y-2 animate-fadeIn">
-              <div className="text-xs font-extrabold text-hcd-yellow uppercase tracking-wider">
-                Telemetry Breakdown
+            <div className="p-4 bg-slate-900/90 border-l-4 border-cyan-400 rounded-r-xl space-y-2 animate-in fade-in">
+              <div className="text-xs font-extrabold text-cyan-400 uppercase tracking-wider font-mono">
+                Wisehockey Telemetry Proof
               </div>
               <p className="text-xs text-slate-200 leading-relaxed font-sans" style={{ textWrap: 'pretty' }}>
                 {question.explanation}
               </p>
-              <div className="p-2 bg-slate-950 rounded-lg text-[11px] font-mono text-neon-cyan border border-slate-800">
+              <div className="p-2 bg-slate-950 rounded-lg text-[11px] font-mono text-cyan-300 border border-slate-800">
                 {question.telemetryEvidence}
               </div>
 
               <div className="flex justify-end pt-2">
                 <button
                   onClick={handleNext}
-                  className="px-5 py-2 bg-neon-cyan text-slate-950 rounded-lg font-extrabold text-xs flex items-center gap-1.5 hover:bg-cyan-300 transition-colors shadow-md"
+                  className="px-5 py-2 bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 rounded-lg font-extrabold text-xs flex items-center gap-1.5 hover:brightness-110 transition-all shadow-md cursor-pointer"
                 >
                   <span>
-                    {currentIdx < iceIqQuizQuestions.length - 1 ? 'Next Question' : 'Complete Challenge'}
+                    {currentIdx < iceIqQuizQuestions.length - 1 ? t.nextQuestion : t.finishQuiz}
                   </span>
                   <ChevronRight className="w-4 h-4" />
                 </button>
@@ -165,26 +174,26 @@ export const IceIQQuiz: React.FC = () => {
       ) : (
         /* Results Screen */
         <div className="bg-rink-card border border-rink-border p-8 rounded-2xl text-center space-y-6 shadow-2xl">
-          <div className="w-16 h-16 bg-hcd-blue border-2 border-hcd-yellow rounded-2xl flex items-center justify-center mx-auto text-hcd-yellow shadow-xl">
+          <div className="w-16 h-16 bg-blue-950 border-2 border-cyan-400 rounded-2xl flex items-center justify-center mx-auto text-cyan-400 shadow-xl">
             <Trophy className="w-8 h-8" />
           </div>
 
           <div className="space-y-2">
             <h3 className="text-2xl font-black text-white">Challenge Completed!</h3>
             <p className="text-sm text-slate-400">
-              You scored <span className="font-mono font-bold text-neon-cyan text-lg">{score}</span> out of{' '}
+              You scored <span className="font-mono font-bold text-cyan-400 text-lg">{score}</span> out of{' '}
               <span className="font-mono font-bold text-white text-lg">{iceIqQuizQuestions.length}</span> questions.
             </p>
-            <div className="text-xs font-mono font-bold text-hcd-yellow uppercase tracking-wider">
-              {score === 4 && '🏆 Master Tactician · Ready for Eisstadion Davos Bench!'}
-              {score === 3 && '🥇 Pro Analyst · Exceptional hockey knowledge and data intuition!'}
-              {score <= 2 && '🥈 Rising Fan · Great exploration! Keep analyzing the shifts.'}
+            <div className="text-xs font-mono font-bold text-cyan-300 uppercase tracking-wider">
+              {score === 4 && '🏆 Master Tactician · Ready for Eisstadion Davos Bench! (+100 Fan XP)'}
+              {score === 3 && '🥇 Pro Analyst · Exceptional hockey knowledge and data intuition! (+75 Fan XP)'}
+              {score <= 2 && '🥈 Rising Fan · Great exploration! Keep analyzing the shifts. (+50 Fan XP)'}
             </div>
           </div>
 
           <button
             onClick={handleRestart}
-            className="px-6 py-2.5 bg-hcd-yellow text-slate-950 font-extrabold text-sm rounded-xl inline-flex items-center gap-2 hover:bg-amber-400 transition-colors shadow-lg"
+            className="px-6 py-2.5 bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 font-extrabold text-sm rounded-xl inline-flex items-center gap-2 hover:brightness-110 transition-all shadow-lg cursor-pointer"
           >
             <RotateCcw className="w-4 h-4" />
             <span>Play Again</span>

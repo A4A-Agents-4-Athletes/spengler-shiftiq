@@ -2,35 +2,38 @@ import React from 'react';
 import { DecisiveMoment } from '../../types/wisehockey';
 import { Sparkles, Activity } from 'lucide-react';
 import { cn } from '../../lib/utils';
+import { Language, translations } from '../../lib/i18n';
 
 interface EventCardProps {
   moment: DecisiveMoment;
   isProLens: boolean;
+  language: Language;
 }
 
-export const EventCard: React.FC<EventCardProps> = ({ moment, isProLens }) => {
+export const EventCard: React.FC<EventCardProps> = ({ moment, isProLens, language }) => {
   const isHcd = moment.primaryTeamId === 'HCD';
+  const t = translations[language];
 
   // Step-by-step sequence breakdown based on active moment
   const playSteps = moment.id.includes('tambellini')
     ? [
-        { time: '0.0s', title: 'Faceoff Win', detail: 'Nussbaumer (#66) wins clean draw at center red line' },
-        { time: '2.1s', title: 'Zone Breakout', detail: 'Calle Andersson circulates puck across neutral zone' },
-        { time: '4.3s', title: 'Slot Penetration', detail: 'Quick saucer seam pass feeds Tambellini cutting inside' },
-        { time: '6.0s', title: '100.1 km/h Release', detail: 'Bullet shot beats Augustine high stick-side (+0.122 xG)' },
+        { time: '0.0s', title: language === 'DE' ? 'Bully-Gewinn' : 'Faceoff Win', detail: language === 'DE' ? 'Nussbaumer (#66) gewinnt das Center-Bully' : 'Nussbaumer (#66) wins clean draw at center red line' },
+        { time: '2.1s', title: language === 'DE' ? 'Zoneneintritt' : 'Zone Breakout', detail: language === 'DE' ? 'Calle Andersson zirkuliert den Puck neutral' : 'Calle Andersson circulates puck across neutral zone' },
+        { time: '4.3s', title: language === 'DE' ? 'Pass in den Slot' : 'Slot Penetration', detail: language === 'DE' ? 'Präziser Querpass auf den einlaufenden Tambellini' : 'Quick saucer seam pass feeds Tambellini cutting inside' },
+        { time: '6.0s', title: language === 'DE' ? '100.1 km/h Schuss' : '100.1 km/h Release', detail: language === 'DE' ? 'Schlagschuss schlägt oben links ein (+0.122 xG)' : 'Bullet shot beats Augustine high stick-side (+0.122 xG)' },
       ]
     : moment.id.includes('musa')
     ? [
-        { time: '0.0s', title: 'Turnover Forced', detail: 'USA backcheck strips puck at defensive blue line' },
-        { time: '1.8s', title: 'Counter Acceleration', detail: 'Jack Musa bursts to 34.2 km/h down the right wing' },
-        { time: '3.9s', title: 'Defensive Gap Exploited', detail: 'Beats defenseman with outside speed into the circle' },
-        { time: '5.2s', title: 'Breakaway Finish', detail: 'Low snap shot slips through 5-hole for collegiate response' },
+        { time: '0.0s', title: language === 'DE' ? 'Scheibengewinn' : 'Turnover Forced', detail: language === 'DE' ? 'USA Forechecking erobert die Scheibe' : 'USA backcheck strips puck at defensive blue line' },
+        { time: '1.8s', title: language === 'DE' ? 'Sprintbeschleunigung' : 'Counter Acceleration', detail: language === 'DE' ? 'Jack Musa beschleunigt auf 34.2 km/h' : 'Jack Musa bursts to 34.2 km/h down the right wing' },
+        { time: '3.9s', title: language === 'DE' ? 'Lücke attackiert' : 'Defensive Gap Exploited', detail: language === 'DE' ? 'Überläuft Verteidiger mit Außengeschwindigkeit' : 'Beats defenseman with outside speed into the circle' },
+        { time: '5.2s', title: language === 'DE' ? 'Abschluss' : 'Breakaway Finish', detail: language === 'DE' ? 'Flacher Schlenzer durch die Hosenträger' : 'Low snap shot slips through 5-hole for collegiate response' },
       ]
     : [
-        { time: '0.0s', title: 'Powerplay Setup', detail: 'Corvi sets up umbrella formation at the half-wall' },
-        { time: '2.5s', title: 'Puck Circulation', detail: 'Quick 3-way cycle forces penalty kill box to over-commit' },
-        { time: '4.6s', title: 'Cross-Ice Seam', detail: 'Laser diagonal pass threads through defending sticks' },
-        { time: '5.8s', title: '99.4 km/h Dagger', detail: 'Stransky one-timer beats sprawling netminder (+0.74 xG)' },
+        { time: '0.0s', title: language === 'DE' ? 'Powerplay-Formation' : 'Powerplay Setup', detail: language === 'DE' ? 'Corvi dirigiert die Schirmformation' : 'Corvi sets up umbrella formation at the half-wall' },
+        { time: '2.5s', title: language === 'DE' ? 'Puck-Zirkulation' : 'Puck Circulation', detail: language === 'DE' ? 'Schneller Stafettenpass zieht Box auseinander' : 'Quick 3-way cycle forces penalty kill box to over-commit' },
+        { time: '4.6s', title: language === 'DE' ? 'Laser-Querpass' : 'Cross-Ice Seam', detail: language === 'DE' ? 'Diagonaler Traum-Pass durch gegnerische Stöcke' : 'Laser diagonal pass threads through defending sticks' },
+        { time: '5.8s', title: language === 'DE' ? '99.4 km/h Direktabnahme' : '99.4 km/h Dagger', detail: language === 'DE' ? 'Stransky Direktabnahme lässt Goalie keine Chance (+0.74 xG)' : 'Stransky one-timer beats sprawling netminder (+0.74 xG)' },
       ];
 
   return (
@@ -58,10 +61,10 @@ export const EventCard: React.FC<EventCardProps> = ({ moment, isProLens }) => {
           </h3>
         </div>
 
-        {/* Headline Metric Chip */}
-        <div className="bg-slate-950 border border-amber-400/40 px-4 py-2 rounded-xl text-left sm:text-right shrink-0 shadow-lg">
+        {/* Headline Metric Chip (Ice Cyan, ZERO Yellow) */}
+        <div className="bg-slate-950 border border-cyan-400/40 px-4 py-2 rounded-xl text-left sm:text-right shrink-0 shadow-lg">
           <span className="text-[10px] text-slate-400 block uppercase font-mono font-bold">Wisehockey Metric</span>
-          <span className="text-base sm:text-lg font-black text-amber-400 font-mono">
+          <span className="text-base sm:text-lg font-black text-cyan-400 font-mono">
             {moment.headlineMetric}
           </span>
         </div>
@@ -70,15 +73,15 @@ export const EventCard: React.FC<EventCardProps> = ({ moment, isProLens }) => {
       {/* Step-by-Step Play Sequence (Visual Storytelling for Fans) */}
       <div className="bg-slate-950/80 p-4 rounded-xl border border-white/10 space-y-3">
         <div className="flex items-center justify-between text-xs font-mono font-bold text-slate-400 uppercase tracking-wider">
-          <span>Sequence Breakdown · 6-Second Shift Timeline</span>
-          <span className="text-amber-400">Wisehockey 20Hz Tracking</span>
+          <span>{t.sequenceBreakdown}</span>
+          <span className="text-cyan-400">Wisehockey 20Hz Tracking</span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
           {playSteps.map((step, sIdx) => (
             <div key={sIdx} className="bg-slate-900/90 border border-white/5 p-3 rounded-lg flex flex-col justify-between gap-1.5">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-400/20 text-amber-300 font-mono font-black">
+                <span className="text-[10px] px-1.5 py-0.2 rounded bg-cyan-400/20 text-cyan-300 font-mono font-black">
                   {step.time}
                 </span>
                 <span className="text-[10px] text-slate-500 font-mono font-bold">
@@ -99,10 +102,10 @@ export const EventCard: React.FC<EventCardProps> = ({ moment, isProLens }) => {
       {/* Dual Lens Dynamic Narrative */}
       {!isProLens ? (
         /* Fan Story Lens */
-        <div className="bg-gradient-to-r from-slate-950/90 to-slate-950/50 border-l-4 border-amber-400 p-4 sm:p-5 rounded-r-xl space-y-2">
-          <div className="flex items-center gap-2 text-xs font-black text-amber-400 uppercase tracking-wider font-mono">
+        <div className="bg-gradient-to-r from-slate-950/90 to-slate-950/50 border-l-4 border-cyan-400 p-4 sm:p-5 rounded-r-xl space-y-2">
+          <div className="flex items-center gap-2 text-xs font-black text-cyan-400 uppercase tracking-wider font-mono">
             <Sparkles className="w-4 h-4 fill-current" />
-            <span>Why This Shift Flipped The Game</span>
+            <span>{t.whyShiftFlipped}</span>
           </div>
           <p className="text-sm sm:text-base text-slate-200 leading-relaxed font-sans" style={{ textWrap: 'pretty' }}>
             {moment.fanStoryInsight}
@@ -113,7 +116,7 @@ export const EventCard: React.FC<EventCardProps> = ({ moment, isProLens }) => {
         <div className="bg-slate-950/90 border-l-4 border-sky-400 p-4 sm:p-5 rounded-r-xl space-y-3 font-mono">
           <div className="flex items-center gap-2 text-xs font-black text-sky-400 uppercase tracking-wider">
             <Activity className="w-4 h-4" />
-            <span>Wisehockey 20Hz Telemetry Breakdown</span>
+            <span>{t.wisehockeyBreakdown}</span>
           </div>
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
             {moment.proAnalystInsight}
@@ -130,7 +133,7 @@ export const EventCard: React.FC<EventCardProps> = ({ moment, isProLens }) => {
             </div>
             <div className="bg-slate-900 p-2.5 rounded-lg border border-white/5">
               <span className="text-[10px] text-slate-400 block uppercase font-bold">xG Spike</span>
-              <span className={cn('font-bold text-sm', moment.expectedGoalDelta > 0 ? 'text-emerald-400' : 'text-amber-400')}>
+              <span className={cn('font-bold text-sm', moment.expectedGoalDelta > 0 ? 'text-emerald-400' : 'text-cyan-400')}>
                 {moment.expectedGoalDelta > 0 ? `+${moment.expectedGoalDelta}` : moment.expectedGoalDelta}
               </span>
             </div>
