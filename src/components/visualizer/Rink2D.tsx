@@ -40,16 +40,25 @@ export const Rink2D: React.FC<Rink2DProps> = ({ moment, currentTime, isProLens }
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
-          {/* Subtle ice texture gradient */}
+          {/* Authentic Swiss Ice Surface Gradient with Stadium Light Glow */}
           <linearGradient id="iceGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#0c162d" />
-            <stop offset="50%" stopColor="#0a1224" />
-            <stop offset="100%" stopColor="#080e1b" />
+            <stop offset="0%" stopColor="#0e1d3d" />
+            <stop offset="25%" stopColor="#132752" />
+            <stop offset="50%" stopColor="#193268" />
+            <stop offset="75%" stopColor="#132752" />
+            <stop offset="100%" stopColor="#0a1733" />
+          </linearGradient>
+
+          {/* Stadium Floodlight Sheen & Ice Surface Reflection */}
+          <linearGradient id="stadiumSheen" x1="0%" y1="0%" x2="100%" y2="50%">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.07" />
+            <stop offset="50%" stopColor="#60a5fa" stopOpacity="0.03" />
+            <stop offset="100%" stopColor="#ffffff" stopOpacity="0.06" />
           </linearGradient>
 
           {/* Glow filter for puck */}
           <filter id="puckGlow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feGaussianBlur stdDeviation="3.5" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
@@ -66,8 +75,20 @@ export const Rink2D: React.FC<Rink2DProps> = ({ moment, currentTime, isProLens }
           rx="90"
           ry="90"
           fill="url(#iceGradient)"
-          stroke="#334155"
-          strokeWidth="6"
+          stroke="#475569"
+          strokeWidth="5"
+        />
+
+        {/* Stadium Light Diagonal Reflection Sheen across Ice */}
+        <rect
+          x="15"
+          y="15"
+          width="970"
+          height="470"
+          rx="90"
+          ry="90"
+          fill="url(#stadiumSheen)"
+          pointerEvents="none"
         />
 
         {/* Goal Creases */}
