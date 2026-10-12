@@ -73,10 +73,12 @@
 
 ---
 
-### Slide 9: Business & Fan Engagement Impact
-- **Time on Site:** Projected 3.5x increase in match center dwell time.
-- **Sponsor Value:** High-visibility digital inventory for Spengler Cup partners (e.g., UBS, Würth) integrated into replay moments and quiz challenges.
-- **Global Reach:** Accessible bilingual interface (German / English) tailored for Swiss and international hockey communities.
+### Slide 9: Business & Fan Engagement Impact (Backed by 2025 Data)
+- **Massive TV Reach to Convert:** The 2025 HC Davos vs. U.S. Collegiate Selects final commanded an extraordinary **54.6% market share on SRF zwei** (over 2.7M live TV viewers across Switzerland, +46% growth in the 15–59 age group). ShiftIQ transforms this passive broadcast audience into active second-screen users.
+- **Time on Site:** Projected 3.5x increase in Spengler Cup match center dwell time (from ~45s bounce to 2.5+ minutes active exploration).
+- **Sponsor & Partner Value:** High-visibility digital inventory for Spengler Cup partners (e.g., UBS, Würth, scoreTec) integrated into the 2D replay scrubber and intermission quiz cards.
+- **Social Media Synergy:** Captures moments for the tournament's 30 million social media contacts (14.8M Instagram video views) via automated vertical telemetry highlights.
+- **Global & Multilingual Reach:** Bilingual interface (German / English) tailored for Swiss, North American, and international hockey fans.
 
 ---
 

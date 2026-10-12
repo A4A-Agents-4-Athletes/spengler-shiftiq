@@ -22,12 +22,13 @@ The primary challenge identified by Spengler Cup organisers is that digital visi
 ---
 
 ### B. SRF Sport TV Broadcast Integration
-- **Context:** SRF broadcasts Spengler Cup games nationwide across Switzerland in German, French (RTS), and Italian (RSI).
-- **Live Overlays:**
-  - Fast-break sequences trigger an automated Wisehockey lower-third graphic: *"Stransky Peak Breakout Speed: 37.9 km/h · 4.2s transition"*.
-- **Second-Screen QR Code:**
-  - During play stoppages and the 18-minute intermissions, a discreet QR code appears on screen: *"Scan to replay the 2-on-1 shift from the ice level"*.
-  - Fans scan the code to load ShiftIQ instantly on their mobile browsers without requiring an app store download.
+- **Context & Audience Scale (from Official 2025 Event Report):**
+  - Over **2.7 million TV viewers** watched Spengler Cup 2025 live across SRG SSR networks (SRF zwei, RTS, RSI) over 81 broadcast hours.
+  - The **HC Davos vs. U.S. Collegiate Selects Final on 31 December reached a staggering 54.6% market share on SRF zwei**, with ratings up **+46% in the key 15–59 demographic**.
+  - Total tournament media presence generated **104 million contacts** across 2,501 broadcasts and articles.
+- **Live Overlays & Second-Screen QR Code:**
+  - Capitalizing on the 54.6% live broadcast share, automated Wisehockey lower-third graphics trigger during play stoppages: *"Stransky Powerplay Goal: 100.1 km/h shot · 0.122 xG"*.
+  - A discreet on-screen QR code allows the 2.7M viewers to instantly open ShiftIQ on mobile without downloading an app: *"Scan to explore the 2D shift replay, skater vectors, and tactical breakdown."*
 - **Commentator Enablement:**
   - Studio experts (e.g. Jann Billeter) receive a tablet controller to pause, scrub, and annotate skater vector trails during intermission tactical breakdowns.
 
