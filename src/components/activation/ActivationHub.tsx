@@ -68,10 +68,59 @@ export const ActivationHub: React.FC = () => {
 
           {/* Broadcast Frame Preview */}
           <div className="relative aspect-video bg-gradient-to-br from-slate-900 via-slate-950 to-blue-950 rounded-xl border border-slate-700 overflow-hidden flex flex-col justify-between p-6">
-            <div className="flex justify-between items-start">
-              <div className="bg-black/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-slate-700 text-xs font-mono font-bold text-white flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
-                <span>HC DAVOS 2 - 1 USA SELECTS (P2 08:42)</span>
+            {/* Top Scorebug & Camera HUD */}
+            <div className="flex justify-between items-start z-10">
+              <div className="bg-black/85 backdrop-blur-md px-3 py-1.5 rounded-lg border border-slate-700 text-xs font-mono font-bold text-white flex items-center gap-2 shadow-lg">
+                <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
+                <span>HC DAVOS 2 : 1 USA SELECTS</span>
+                <span className="text-amber-400 font-normal">P2 08:42</span>
+              </div>
+              <div className="bg-black/75 backdrop-blur-md px-2.5 py-1 rounded-md border border-white/10 text-[10px] font-mono text-slate-300 flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span>SRF MAIN CAM 1 · 1080p50</span>
+              </div>
+            </div>
+
+            {/* Simulated Live Rink Action & Telemetry HUD Overlay */}
+            <div className="my-auto py-4 relative flex flex-col items-center justify-center">
+              {/* Subtle Ice Rink Markings */}
+              <div className="w-full max-w-xl h-28 border border-white/10 rounded-xl bg-slate-900/40 relative overflow-hidden flex items-center justify-around px-8">
+                {/* Center Red Line */}
+                <div className="absolute inset-y-0 left-1/2 w-0.5 bg-red-500/40" />
+                {/* Center Faceoff Circle */}
+                <div className="absolute w-20 h-20 rounded-full border border-blue-500/30 left-1/2 -translate-x-1/2" />
+                {/* Blue Line */}
+                <div className="absolute inset-y-0 left-1/4 w-1 bg-blue-500/30" />
+                <div className="absolute inset-y-0 right-1/4 w-1 bg-blue-500/30" />
+
+                {/* Live Skater Radar Tag 1: Stransky */}
+                <div className="relative z-10 flex flex-col items-center animate-pulse">
+                  <div className="px-2 py-0.5 rounded bg-blue-600/90 text-white font-mono text-[10px] font-black shadow-md border border-amber-400/50">
+                    #44 Stransky · 37.9 km/h
+                  </div>
+                  <div className="w-3 h-3 rounded-full bg-amber-400 border-2 border-slate-950 mt-1 shadow-glow" />
+                </div>
+
+                {/* Puck Vector */}
+                <div className="relative z-10 flex flex-col items-center">
+                  <div className="px-2 py-0.5 rounded bg-amber-400 text-slate-950 font-mono text-[9px] font-black shadow-md">
+                    PUCK · 100.1 km/h
+                  </div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-white border border-slate-900 mt-1" />
+                </div>
+
+                {/* Live Skater Radar Tag 2: Nazar */}
+                <div className="relative z-10 flex flex-col items-center">
+                  <div className="px-2 py-0.5 rounded bg-red-600/90 text-white font-mono text-[10px] font-black shadow-md border border-white/30">
+                    #91 Nazar · 38.6 km/h
+                  </div>
+                  <div className="w-3 h-3 rounded-full bg-red-400 border-2 border-slate-950 mt-1" />
+                </div>
+              </div>
+
+              {/* Broadcast Lower HUD Chip */}
+              <div className="mt-2 text-[10px] font-mono text-slate-400 tracking-wider uppercase">
+                Wisehockey 20Hz Sensor Overlay Active · Live Ice Tracking
               </div>
             </div>
 

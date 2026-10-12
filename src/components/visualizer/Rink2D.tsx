@@ -289,31 +289,40 @@ export const Rink2D: React.FC<Rink2DProps> = ({ moment, currentTime, isProLens }
                 {skater.jerseyNumber}
               </text>
 
-              {/* Floating Tactical Player Name Badge */}
-              <g transform={`translate(${svgX + labelOffsetX}, ${svgY + labelOffsetY})`}>
-                <rect
-                  x="-36"
-                  y="-10"
-                  width="72"
-                  height="19"
-                  rx="6"
-                  fill="#090d16"
-                  stroke={isHcd ? '#f59e0b' : '#38bdf8'}
-                  strokeWidth="1.2"
-                />
-                <text
-                  x="0"
-                  y="3.5"
-                  textAnchor="middle"
-                  fill="#ffffff"
-                  fontSize="9.5"
-                  fontWeight="800"
-                  fontFamily="Outfit, sans-serif"
-                >
-                  {skater.name.split(' ').slice(-1)[0]}
-                  {isProLens ? ` · ${currentPos.speedKmh.toFixed(0)}k` : ''}
-                </text>
-              </g>
+              {/* Floating Tactical Player Name Badge (Dynamically sized, ZERO text overflow) */}
+              {(() => {
+                const lastName = skater.name.split(' ').slice(-1)[0];
+                const labelText = isProLens ? `${lastName} · ${currentPos.speedKmh.toFixed(0)}k` : lastName;
+                const charCount = labelText.length;
+                const badgeWidth = Math.max(68, charCount * 7.5 + 16);
+                const halfW = badgeWidth / 2;
+
+                return (
+                  <g transform={`translate(${svgX + labelOffsetX}, ${svgY + labelOffsetY})`}>
+                    <rect
+                      x={-halfW}
+                      y="-10"
+                      width={badgeWidth}
+                      height="20"
+                      rx="6"
+                      fill="#090d16"
+                      stroke={isHcd ? '#f59e0b' : '#38bdf8'}
+                      strokeWidth="1.2"
+                    />
+                    <text
+                      x="0"
+                      y="4"
+                      textAnchor="middle"
+                      fill="#ffffff"
+                      fontSize="9.5"
+                      fontWeight="800"
+                      fontFamily="Outfit, sans-serif"
+                    >
+                      {labelText}
+                    </text>
+                  </g>
+                );
+              })()}
             </g>
           );
         })}

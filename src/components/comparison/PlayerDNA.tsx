@@ -101,7 +101,7 @@ export const PlayerDNA: React.FC<PlayerDNAProps> = () => {
                       {p.position}
                     </span>
                   </div>
-                  <div className="text-xs font-bold text-white truncate max-w-[90px]">
+                  <div className="text-xs font-bold text-white whitespace-nowrap">
                     {p.name.split(' ').slice(-1)[0]}
                   </div>
                 </button>
@@ -145,7 +145,7 @@ export const PlayerDNA: React.FC<PlayerDNAProps> = () => {
                       {p.position}
                     </span>
                   </div>
-                  <div className="text-xs font-bold text-white truncate max-w-[90px]">
+                  <div className="text-xs font-bold text-white whitespace-nowrap">
                     {p.name.split(' ').slice(-1)[0]}
                   </div>
                 </button>

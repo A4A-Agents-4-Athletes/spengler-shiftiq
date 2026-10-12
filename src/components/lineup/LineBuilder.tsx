@@ -15,32 +15,32 @@ interface FormationCoord {
 
 const formationPresets: Record<TacticalPreset, FormationCoord[]> = {
   POWER_PLAY: [
-    { role: 'LW', x: 22, y: 35, label: 'One-Timer Flank' },
-    { role: 'C', x: 50, y: 48, label: 'High Slot Bumper' },
-    { role: 'RW', x: 78, y: 35, label: 'Half-Wall Maestro' },
-    { role: 'LD', x: 34, y: 82, label: 'Point Distributor' },
-    { role: 'RD', x: 66, y: 82, label: 'Blue-Line Anchor' },
+    { role: 'LW', x: 22, y: 35, label: 'One-Timer' },
+    { role: 'C', x: 50, y: 48, label: 'High Slot' },
+    { role: 'RW', x: 78, y: 35, label: 'Half-Wall' },
+    { role: 'LD', x: 34, y: 82, label: 'Point D' },
+    { role: 'RD', x: 66, y: 82, label: 'Blue Line' },
   ],
   PENALTY_KILL: [
-    { role: 'LW', x: 32, y: 42, label: 'High Forward' },
-    { role: 'C', x: 68, y: 42, label: 'High Forward' },
+    { role: 'LW', x: 32, y: 42, label: 'High Wing' },
+    { role: 'C', x: 68, y: 42, label: 'High Center' },
     { role: 'RW', x: 50, y: 62, label: 'Slot Disruptor' },
-    { role: 'LD', x: 28, y: 80, label: 'Corner Battler' },
-    { role: 'RD', x: 72, y: 80, label: 'Net Protector' },
+    { role: 'LD', x: 28, y: 80, label: 'Corner Battle' },
+    { role: 'RD', x: 72, y: 80, label: 'Net Protect' },
   ],
   THREE_ON_THREE_OT: [
     { role: 'LW', x: 28, y: 40, label: 'Breakout Wing' },
     { role: 'C', x: 50, y: 55, label: 'Center Hub' },
     { role: 'RW', x: 72, y: 40, label: 'Speed Rush' },
-    { role: 'LD', x: 40, y: 82, label: 'Backline Safety' },
-    { role: 'RD', x: 60, y: 82, label: 'Transition Engine' },
+    { role: 'LD', x: 40, y: 82, label: 'Safety D' },
+    { role: 'RD', x: 60, y: 82, label: 'Transition' },
   ],
   FIVE_ON_FIVE: [
     { role: 'LW', x: 20, y: 35, label: 'Left Wing' },
     { role: 'C', x: 50, y: 45, label: 'Center' },
     { role: 'RW', x: 80, y: 35, label: 'Right Wing' },
-    { role: 'LD', x: 32, y: 80, label: 'Left Defense' },
-    { role: 'RD', x: 68, y: 80, label: 'Right Defense' },
+    { role: 'LD', x: 32, y: 80, label: 'Left D' },
+    { role: 'RD', x: 68, y: 80, label: 'Right D' },
   ],
 };
 
@@ -234,7 +234,7 @@ export const LineBuilder: React.FC = () => {
                 >
                   <div
                     className={cn(
-                      'p-2 rounded-xl border flex flex-col items-center shadow-xl backdrop-blur-md min-w-[74px] sm:min-w-[84px] text-center',
+                      'p-2 rounded-xl border flex flex-col items-center shadow-xl backdrop-blur-md min-w-[86px] sm:min-w-[98px] text-center',
                       isSelected
                         ? 'bg-slate-900 border-hcd-yellow shadow-hcd-yellow/20 ring-2 ring-hcd-yellow/50'
                         : player?.teamId === 'HCD'
@@ -258,12 +258,12 @@ export const LineBuilder: React.FC = () => {
                     </div>
 
                     {/* Player Name */}
-                    <div className="text-[11px] font-black text-white truncate max-w-[70px] sm:max-w-[78px]">
+                    <div className="text-[11px] font-black text-white whitespace-nowrap">
                       {player ? player.name.split(' ').slice(-1)[0] : 'Empty'}
                     </div>
 
                     {/* Tactical Role Label */}
-                    <span className="text-[9px] text-slate-400 font-mono block mt-0.5 truncate max-w-[70px]">
+                    <span className="text-[10px] text-slate-300 font-mono block mt-0.5 whitespace-nowrap">
                       {coord.label}
                     </span>
                   </div>
