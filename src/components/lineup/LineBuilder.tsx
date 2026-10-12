@@ -174,37 +174,38 @@ export const LineBuilder: React.FC = () => {
           </div>
 
           {/* Tactical Half-Rink SVG Canvas */}
-          <div className="relative w-full aspect-[4/3] bg-gradient-to-b from-[#0a1428] via-[#091122] to-[#070d1a] rounded-xl border border-slate-800 overflow-hidden shadow-inner select-none">
+          <div className="relative w-full aspect-[4/3] bg-gradient-to-b from-[#ffffff] via-[#f4f9fd] to-[#e6f0fa] rounded-2xl border-2 border-slate-700/80 overflow-hidden shadow-2xl select-none">
             {/* Ice Rink Markings */}
             <svg viewBox="0 0 400 300" className="absolute inset-0 w-full h-full pointer-events-none">
               {/* Rink Outer Curve */}
-              <rect x="10" y="10" width="380" height="280" rx="40" fill="none" stroke="#1e293b" strokeWidth="2" />
+              <rect x="10" y="10" width="380" height="280" rx="35" fill="none" stroke="#0f172a" strokeWidth="4" />
+              <rect x="14" y="14" width="372" height="272" rx="31" fill="none" stroke="#eab308" strokeWidth="2" strokeOpacity="0.8" />
 
               {/* Blue Line (Top Neutral / Zone Entry) */}
-              <line x1="10" y1="230" x2="390" y2="230" stroke="#3b82f6" strokeWidth="4" strokeOpacity="0.8" />
+              <line x1="10" y1="230" x2="390" y2="230" stroke="#1d4ed8" strokeWidth="5" strokeLinecap="round" />
 
               {/* Goal Line & Goal Net */}
-              <line x1="40" y1="40" x2="360" y2="40" stroke="#ef4444" strokeWidth="2.5" strokeOpacity="0.8" />
-              <path d="M 175 40 A 25 25 0 0 1 225 40 Z" fill="#1e3a8a" fillOpacity="0.3" stroke="#60a5fa" strokeWidth="1.5" />
-              <rect x="185" y="24" width="30" height="16" fill="none" stroke="#ef4444" strokeWidth="2" />
+              <line x1="40" y1="40" x2="360" y2="40" stroke="#dc2626" strokeWidth="2.5" />
+              <path d="M 175 40 A 25 25 0 0 1 225 40 Z" fill="#93c5fd" fillOpacity="0.55" stroke="#dc2626" strokeWidth="2" />
+              <rect x="185" y="22" width="30" height="18" fill="#ffffff" stroke="#dc2626" strokeWidth="2" rx="2" />
 
               {/* Faceoff Circles */}
-              <circle cx="90" cy="90" r="45" fill="none" stroke="#ef4444" strokeWidth="1.5" strokeOpacity="0.6" />
-              <circle cx="90" cy="90" r="3" fill="#ef4444" />
-              <circle cx="310" cy="90" r="45" fill="none" stroke="#ef4444" strokeWidth="1.5" strokeOpacity="0.6" />
-              <circle cx="310" cy="90" r="3" fill="#ef4444" />
+              <circle cx="90" cy="90" r="45" fill="none" stroke="#dc2626" strokeWidth="2" />
+              <circle cx="90" cy="90" r="4" fill="#dc2626" />
+              <circle cx="310" cy="90" r="45" fill="none" stroke="#dc2626" strokeWidth="2" />
+              <circle cx="310" cy="90" r="4" fill="#dc2626" />
 
               {/* High Slot Marker */}
-              <circle cx="200" cy="140" r="2" fill="#64748b" />
+              <circle cx="200" cy="140" r="3" fill="#64748b" />
 
               {/* Dynamic Synergy Link Lines between Players */}
               <path
                 d="M 100 110 L 200 150 L 300 110 L 250 240 L 150 240 Z"
                 fill="none"
-                stroke="#eab308"
-                strokeWidth="1.5"
-                strokeDasharray="4 4"
-                strokeOpacity="0.4"
+                stroke="#d97706"
+                strokeWidth="2"
+                strokeDasharray="5 4"
+                strokeOpacity="0.7"
               />
             </svg>
 

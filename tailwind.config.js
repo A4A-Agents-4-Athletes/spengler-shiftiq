@@ -32,10 +32,17 @@ export default {
           amber: '#fbbf24',
           emerald: '#10b981',
           rose: '#f43f5e',
-        }
+        },
+        davos: {
+          timber: '#18120c',
+          gold: '#f59e0b',
+          goldLight: '#fbbf24',
+          blue: '#003882',
+          ice: '#f0f6fc',
+        },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['Outfit', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
       },
     },

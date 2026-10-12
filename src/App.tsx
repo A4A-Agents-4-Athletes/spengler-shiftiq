@@ -53,7 +53,7 @@ export const App: React.FC = () => {
   }, [isPlaying, playbackSpeed, activeMoment.durationSeconds]);
 
   return (
-    <div className="min-h-screen bg-rink-dark text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-gradient-to-b from-[#0e1526] via-[#090e1a] to-[#060912] text-slate-100 flex flex-col font-sans selection:bg-amber-400 selection:text-slate-950">
       {/* Top Header & Dual Lens Switcher */}
       <Header
         isProLens={isProLens}

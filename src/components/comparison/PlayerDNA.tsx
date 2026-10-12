@@ -9,10 +9,6 @@ interface PlayerDNAProps {
 }
 
 export const PlayerDNA: React.FC<PlayerDNAProps> = () => {
-  const allPlayers = [
-    ...sampleMatchData.rosters.hcd,
-    ...sampleMatchData.rosters.usa,
-  ];
 
   const [player1, setPlayer1] = useState<WisehockeyPlayerStats>(
     sampleMatchData.rosters.hcd[0] // Andres Ambühl
@@ -68,58 +64,94 @@ export const PlayerDNA: React.FC<PlayerDNAProps> = () => {
 
   return (
     <div className="space-y-6">
-      {/* Selector Row */}
+      {/* Tactile Skater Selector Ribbons (No HTML select tags) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Player 1 Selector */}
-        <div className="bg-rink-card border border-rink-border p-4 rounded-xl space-y-3">
+        {/* Player 1 Selector (HC Davos Focus) */}
+        <div className="bg-slate-900/90 border border-amber-400/30 p-4 rounded-2xl space-y-3 shadow-xl backdrop-blur-xl">
           <div className="flex items-center justify-between">
-            <span className="text-xs uppercase font-extrabold tracking-wider text-hcd-yellow">
+            <span className="text-xs uppercase font-black tracking-wider text-amber-400 font-mono flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-sm bg-amber-400" />
               Primary Skater (Player 1)
             </span>
-            <span className="text-xs font-mono text-slate-400">
+            <span className="text-xs font-mono font-bold text-slate-300">
               {player1.teamId === 'HCD' ? 'HC Davos' : 'Team USA'} #{player1.jerseyNumber}
             </span>
           </div>
-          <select
-            value={player1.playerId}
-            onChange={(e) => {
-              const selected = allPlayers.find((p) => p.playerId === e.target.value);
-              if (selected) setPlayer1(selected);
-            }}
-            className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-3 py-2 text-sm font-semibold focus:outline-none focus:border-neon-cyan"
-          >
-            {allPlayers.map((p) => (
-              <option key={p.playerId} value={p.playerId}>
-                [{p.teamId}] #{p.jerseyNumber} {p.name} ({p.position} - {p.archetype})
-              </option>
-            ))}
-          </select>
+
+          {/* Quick-Pick Horizontal Skater Cards (Davos Roster) */}
+          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin">
+            {sampleMatchData.rosters.hcd.map((p) => {
+              const isSelected = player1.playerId === p.playerId;
+              return (
+                <button
+                  key={p.playerId}
+                  onClick={() => setPlayer1(p)}
+                  className={cn(
+                    'px-3 py-2 rounded-xl text-left shrink-0 transition-all border cursor-pointer',
+                    isSelected
+                      ? 'bg-blue-950 border-amber-400 shadow-md shadow-amber-400/20 ring-1 ring-amber-400'
+                      : 'bg-slate-950/80 border-white/10 hover:border-white/30 text-slate-400 hover:text-white'
+                  )}
+                >
+                  <div className="flex items-center gap-1.5 mb-0.5">
+                    <span className="text-xs font-black font-mono text-amber-400">
+                      #{p.jerseyNumber}
+                    </span>
+                    <span className="text-[10px] font-mono text-slate-400 uppercase">
+                      {p.position}
+                    </span>
+                  </div>
+                  <div className="text-xs font-bold text-white truncate max-w-[90px]">
+                    {p.name.split(' ').slice(-1)[0]}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Player 2 Selector */}
-        <div className="bg-rink-card border border-rink-border p-4 rounded-xl space-y-3">
+        {/* Player 2 Selector (Team USA Focus) */}
+        <div className="bg-slate-900/90 border border-sky-400/30 p-4 rounded-2xl space-y-3 shadow-xl backdrop-blur-xl">
           <div className="flex items-center justify-between">
-            <span className="text-xs uppercase font-extrabold tracking-wider text-neon-cyan">
+            <span className="text-xs uppercase font-black tracking-wider text-sky-400 font-mono flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-sm bg-sky-400" />
               Comparison Skater (Player 2)
             </span>
-            <span className="text-xs font-mono text-slate-400">
+            <span className="text-xs font-mono font-bold text-slate-300">
               {player2.teamId === 'HCD' ? 'HC Davos' : 'Team USA'} #{player2.jerseyNumber}
             </span>
           </div>
-          <select
-            value={player2.playerId}
-            onChange={(e) => {
-              const selected = allPlayers.find((p) => p.playerId === e.target.value);
-              if (selected) setPlayer2(selected);
-            }}
-            className="w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-3 py-2 text-sm font-semibold focus:outline-none focus:border-neon-cyan"
-          >
-            {allPlayers.map((p) => (
-              <option key={p.playerId} value={p.playerId}>
-                [{p.teamId}] #{p.jerseyNumber} {p.name} ({p.position} - {p.archetype})
-              </option>
-            ))}
-          </select>
+
+          {/* Quick-Pick Horizontal Skater Cards (USA Roster) */}
+          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin">
+            {sampleMatchData.rosters.usa.map((p) => {
+              const isSelected = player2.playerId === p.playerId;
+              return (
+                <button
+                  key={p.playerId}
+                  onClick={() => setPlayer2(p)}
+                  className={cn(
+                    'px-3 py-2 rounded-xl text-left shrink-0 transition-all border cursor-pointer',
+                    isSelected
+                      ? 'bg-red-950/90 border-sky-400 shadow-md shadow-sky-400/20 ring-1 ring-sky-400'
+                      : 'bg-slate-950/80 border-white/10 hover:border-white/30 text-slate-400 hover:text-white'
+                  )}
+                >
+                  <div className="flex items-center gap-1.5 mb-0.5">
+                    <span className="text-xs font-black font-mono text-rose-400">
+                      #{p.jerseyNumber}
+                    </span>
+                    <span className="text-[10px] font-mono text-slate-400 uppercase">
+                      {p.position}
+                    </span>
+                  </div>
+                  <div className="text-xs font-bold text-white truncate max-w-[90px]">
+                    {p.name.split(' ').slice(-1)[0]}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
 

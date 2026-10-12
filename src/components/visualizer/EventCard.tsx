@@ -12,34 +12,34 @@ export const EventCard: React.FC<EventCardProps> = ({ moment, isProLens }) => {
   const isHcd = moment.primaryTeamId === 'HCD';
 
   return (
-    <div className="bg-rink-card border border-rink-border p-5 rounded-2xl space-y-4 shadow-xl">
+    <div className="bg-slate-900/90 border border-white/15 p-5 sm:p-6 rounded-2xl space-y-4 shadow-2xl backdrop-blur-xl">
       {/* Header Badge & Title */}
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 mb-1.5">
+          <div className="flex items-center gap-2 mb-2">
             <span
               className={cn(
-                'px-2.5 py-0.5 text-[11px] font-mono font-bold rounded-md uppercase tracking-wider',
+                'px-2.5 py-0.5 text-[11px] font-mono font-black rounded-md uppercase tracking-wider',
                 isHcd
-                  ? 'bg-blue-950/80 border border-blue-600/40 text-blue-300'
-                  : 'bg-red-950/80 border border-red-600/40 text-red-300'
+                  ? 'bg-blue-950 border border-blue-500/50 text-blue-300'
+                  : 'bg-red-950 border border-red-500/50 text-red-300'
               )}
             >
               {moment.eventType.replace('_', ' ')}
             </span>
-            <span className="text-xs text-slate-400 font-mono">
+            <span className="text-xs text-slate-400 font-mono font-bold">
               Period {moment.period} · {moment.gameClock}
             </span>
           </div>
-          <h3 className="text-lg font-extrabold text-white" style={{ textWrap: 'balance' }}>
+          <h3 className="text-xl sm:text-2xl font-black text-white font-sans tracking-tight" style={{ textWrap: 'balance' }}>
             {moment.title}
           </h3>
         </div>
 
         {/* Headline Metric Chip */}
-        <div className="bg-slate-900 border border-slate-700/80 px-3 py-1.5 rounded-lg text-right">
-          <span className="text-[10px] text-slate-400 block uppercase font-mono">Key Metric</span>
-          <span className="text-sm font-extrabold text-neon-cyan font-mono">
+        <div className="bg-slate-950 border border-amber-400/40 px-4 py-2 rounded-xl text-left sm:text-right shrink-0 shadow-lg">
+          <span className="text-[10px] text-slate-400 block uppercase font-mono font-bold">Wisehockey Metric</span>
+          <span className="text-base sm:text-lg font-black text-amber-400 font-mono">
             {moment.headlineMetric}
           </span>
         </div>
@@ -48,44 +48,44 @@ export const EventCard: React.FC<EventCardProps> = ({ moment, isProLens }) => {
       {/* Dual Lens Dynamic Narrative */}
       {!isProLens ? (
         /* Fan Story Lens */
-        <div className="bg-gradient-to-r from-slate-900/90 to-slate-900/50 border-l-4 border-hcd-yellow p-4 rounded-r-xl space-y-2">
-          <div className="flex items-center gap-1.5 text-xs font-bold text-hcd-yellow uppercase tracking-wider">
-            <Sparkles className="w-3.5 h-3.5" />
+        <div className="bg-gradient-to-r from-slate-950/90 to-slate-950/50 border-l-4 border-amber-400 p-4 sm:p-5 rounded-r-xl space-y-2">
+          <div className="flex items-center gap-2 text-xs font-black text-amber-400 uppercase tracking-wider font-mono">
+            <Sparkles className="w-4 h-4 fill-current" />
             <span>Why This Moment Mattered</span>
           </div>
-          <p className="text-sm text-slate-200 leading-relaxed font-sans" style={{ textWrap: 'pretty' }}>
+          <p className="text-sm sm:text-base text-slate-200 leading-relaxed font-sans" style={{ textWrap: 'pretty' }}>
             {moment.fanStoryInsight}
           </p>
         </div>
       ) : (
         /* Pro Analyst Lens */
-        <div className="bg-slate-900/90 border-l-4 border-neon-cyan p-4 rounded-r-xl space-y-3 font-mono">
-          <div className="flex items-center gap-1.5 text-xs font-bold text-neon-cyan uppercase tracking-wider">
-            <Activity className="w-3.5 h-3.5" />
-            <span>Wisehockey Telemetry Breakdown</span>
+        <div className="bg-slate-950/90 border-l-4 border-sky-400 p-4 sm:p-5 rounded-r-xl space-y-3 font-mono">
+          <div className="flex items-center gap-2 text-xs font-black text-sky-400 uppercase tracking-wider">
+            <Activity className="w-4 h-4" />
+            <span>Wisehockey 20Hz Telemetry Breakdown</span>
           </div>
-          <p className="text-xs text-slate-300 leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
             {moment.proAnalystInsight}
           </p>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-slate-800 text-xs">
-            <div className="bg-slate-950 p-2 rounded-lg">
-              <span className="text-[10px] text-slate-500 block uppercase">Peak Velocity</span>
-              <span className="font-bold text-white">{moment.topSpeedKmh} km/h</span>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2 border-t border-slate-800 text-xs">
+            <div className="bg-slate-900 p-2.5 rounded-lg border border-white/5">
+              <span className="text-[10px] text-slate-400 block uppercase font-bold">Peak Velocity</span>
+              <span className="font-bold text-white text-sm">{moment.topSpeedKmh} km/h</span>
             </div>
-            <div className="bg-slate-950 p-2 rounded-lg">
-              <span className="text-[10px] text-slate-500 block uppercase">Puck Exit Speed</span>
-              <span className="font-bold text-neon-cyan">{moment.puckVelocityKmh} km/h</span>
+            <div className="bg-slate-900 p-2.5 rounded-lg border border-white/5">
+              <span className="text-[10px] text-slate-400 block uppercase font-bold">Puck Release Speed</span>
+              <span className="font-bold text-sky-400 text-sm">{moment.puckVelocityKmh} km/h</span>
             </div>
-            <div className="bg-slate-950 p-2 rounded-lg">
-              <span className="text-[10px] text-slate-500 block uppercase">xG Impact</span>
-              <span className={cn('font-bold', moment.expectedGoalDelta > 0 ? 'text-emerald-400' : 'text-amber-400')}>
+            <div className="bg-slate-900 p-2.5 rounded-lg border border-white/5">
+              <span className="text-[10px] text-slate-400 block uppercase font-bold">xG Impact</span>
+              <span className={cn('font-bold text-sm', moment.expectedGoalDelta > 0 ? 'text-emerald-400' : 'text-amber-400')}>
                 {moment.expectedGoalDelta > 0 ? `+${moment.expectedGoalDelta}` : moment.expectedGoalDelta}
               </span>
             </div>
-            <div className="bg-slate-950 p-2 rounded-lg">
-              <span className="text-[10px] text-slate-500 block uppercase">Sequence Duration</span>
-              <span className="font-bold text-white">{moment.durationSeconds}s</span>
+            <div className="bg-slate-900 p-2.5 rounded-lg border border-white/5">
+              <span className="text-[10px] text-slate-400 block uppercase font-bold">Sequence Duration</span>
+              <span className="font-bold text-white text-sm">{moment.durationSeconds}s</span>
             </div>
           </div>
         </div>
