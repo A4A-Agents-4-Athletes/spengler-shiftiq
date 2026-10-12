@@ -19,6 +19,7 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'replay', label: 'Decisive Shift Replay' },
     { id: 'dna', label: 'Player DNA & Clash' },
     { id: 'lineup', label: 'Tactical Line Builder' },
+    { id: 'fantasy', label: 'Shift Micro-Fantasy' },
     { id: 'quiz', label: 'Ice IQ Challenge' },
     { id: 'activation', label: 'Broadcast & Arena Hub' },
   ];

@@ -6,6 +6,7 @@ import { PlayScrubber } from './components/visualizer/PlayScrubber';
 import { EventCard } from './components/visualizer/EventCard';
 import { PlayerDNA } from './components/comparison/PlayerDNA';
 import { LineBuilder } from './components/lineup/LineBuilder';
+import { ShiftFantasy } from './components/gamification/ShiftFantasy';
 import { IceIQQuiz } from './components/gamification/IceIQQuiz';
 import { ActivationHub } from './components/activation/ActivationHub';
 import { mockDecisiveMoments } from './data/mockEvents';
@@ -96,6 +97,8 @@ export const App: React.FC = () => {
         {activeTab === 'dna' && <PlayerDNA isProLens={isProLens} />}
 
         {activeTab === 'lineup' && <LineBuilder />}
+
+        {activeTab === 'fantasy' && <ShiftFantasy />}
 
         {activeTab === 'quiz' && <IceIQQuiz />}
 
