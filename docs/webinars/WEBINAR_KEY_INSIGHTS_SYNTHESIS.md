@@ -61,6 +61,28 @@ This synthesis distills over 31,000 words across the three official challenge we
 
 ---
 
+## 🎯 Direct Evaluation Rubric from the Official Slide Decks
+
+### A. What a Strong Solution Should Reveal (Webinar #1 · Slide 22)
+1. **Chance Creation**: Reveal the sequence *before* the shot (puck recovery, zone entry, speed, player support, and final release).
+2. **Control & Momentum**: Show which team controlled the game, when pressure changed, and what caused the turning point.
+3. **Hidden Contributions**: Highlight off-the-puck movement, defensive stick-checks, and actions that enabled a goal moments later.
+4. **Context & Clarity**: Explain metrics in plain language; avoid overwhelming users with raw numbers.
+5. **The Anchor Question**: *"One clear fan question should anchor the interaction."*
+
+### B. Gamification Principles (Webinar #2 · Slides 21–31)
+1. **Curiosity Gaps**: *"Show a little, hide the rest -> the gap creates the pull. 'Can you guess who holds the record?' is more powerful than stating it. The tension before the answer is where engagement lives."*
+2. **Tactile Drafting / Line Building**: Avoid frustrating friction; make choices feel impactful and visually rewarding.
+3. **Felt Drama**: Let fans experience the raw emotion and physical speed behind the numbers.
+
+### C. Four Second-Screen Questions for Your Prototype (Webinar #3 · Slide 21)
+1. **Entry Point**: Where can fans realistically discover it? *(SRF broadcast QR code / Spengler Cup match center embed / Eisstadion in-stadium Wi-Fi)*.
+2. **Prompt**: What specific question makes them open it now? *(e.g. "Did Ambühl create that goal before the camera panned to Stransky?" or "Who won the hardest hit of the period?")*.
+3. **Added Value**: What can they do or learn beyond the TV broadcast? *(Scrub the 2D shift, inspect velocity vectors, test line chemistry)*.
+4. **Return**: Why would they use it again? *(Fresh decisive shift chapters for every period, live intermission fan challenges)*.
+
+---
+
 ## 🏆 Checklist for the Final Pitch at The Circle (Zurich Airport)
 
 - [x] **Problem Understanding:** Directly addresses "check the score and leave."

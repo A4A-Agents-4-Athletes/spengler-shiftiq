@@ -36,3 +36,5 @@ data_pipeline/output/*.json
 !data_pipeline/output/.gitkeep
 *.zip
 *.tar.gz
+docs/webinars/slides/*.pdf
+docs/webinars/slides/*.PDF
