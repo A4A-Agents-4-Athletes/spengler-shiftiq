@@ -203,21 +203,21 @@ export const MatchBanner: React.FC<MatchBannerProps> = ({ language }) => {
                   {t.peakSprintSpeed}
                 </span>
                 <div className="text-base font-black text-white font-mono leading-tight">
-                  38.6 km/h
+                  35.6 km/h
                 </div>
                 <span className="text-xs text-slate-300 font-semibold truncate block">
-                  Frank Nazar · USA #91
+                  E. Pohlkamp #23 · F. Zadina #18
                 </span>
               </div>
             </div>
 
-            {/* Contextual Metric Pill */}
+            {/* Contextual Metric Badge */}
             <div className="text-right shrink-0 pl-2">
               <span className="px-2 py-0.5 bg-cyan-400/20 border border-cyan-400/40 text-cyan-300 text-[10px] font-black rounded-md font-mono uppercase block">
                 {t.top1PercentSpeed}
               </span>
               <span className="text-[10px] text-slate-400 font-mono block mt-1">
-                +4.8k vs avg
+                9.90 m/s peak
               </span>
             </div>
           </div>
@@ -233,21 +233,21 @@ export const MatchBanner: React.FC<MatchBannerProps> = ({ language }) => {
                   {t.hardestSlapshot}
                 </span>
                 <div className="text-base font-black text-white font-mono leading-tight">
-                  157.6 km/h
+                  146.0 km/h
                 </div>
                 <span className="text-xs text-slate-300 font-semibold truncate block">
-                  J. Snuggerud · USA #19
+                  Gavin McCarthy · USA #2
                 </span>
               </div>
             </div>
 
-            {/* Contextual Metric Pill */}
+            {/* Contextual Metric Badge */}
             <div className="text-right shrink-0 pl-2">
               <span className="px-2 py-0.5 bg-sky-400/20 border border-sky-400/40 text-sky-300 text-[10px] font-black rounded-md font-mono uppercase block">
                 {t.gameRecord}
               </span>
               <span className="text-[10px] text-slate-400 font-mono block mt-1">
-                0.18s release
+                P2 · 13:32
               </span>
             </div>
           </div>
@@ -271,10 +271,10 @@ export const MatchBanner: React.FC<MatchBannerProps> = ({ language }) => {
               </div>
             </div>
 
-            {/* Contextual Metric Pill */}
+            {/* Contextual Metric Badge */}
             <div className="text-right shrink-0 pl-2">
               <span className="px-2 py-0.5 bg-emerald-400/20 border border-emerald-400/40 text-emerald-300 text-[10px] font-black rounded-md font-mono uppercase flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-sm bg-emerald-400 animate-pulse" />
                 {t.liveTv}
               </span>
               <span className="text-[10px] text-slate-400 font-mono block mt-1">
@@ -294,7 +294,7 @@ export const MatchBanner: React.FC<MatchBannerProps> = ({ language }) => {
                   {t.davosCrowd}
                 </span>
                 <div className="text-base font-black text-white font-mono leading-tight">
-                  6,547 Fans
+                  6,267 Fans
                 </div>
                 <span className="text-xs text-slate-300 font-semibold truncate block">
                   {arena}
@@ -302,13 +302,13 @@ export const MatchBanner: React.FC<MatchBannerProps> = ({ language }) => {
               </div>
             </div>
 
-            {/* Contextual Metric Pill */}
+            {/* Contextual Metric Badge */}
             <div className="text-right shrink-0 pl-2">
               <span className="px-2 py-0.5 bg-blue-400/20 border border-blue-400/40 text-blue-300 text-[10px] font-black rounded-md font-mono uppercase block">
                 {t.soldOut}
               </span>
               <span className="text-[10px] text-slate-400 font-mono block mt-1">
-                Full Capacity
+                69,450 Total
               </span>
             </div>
           </div>

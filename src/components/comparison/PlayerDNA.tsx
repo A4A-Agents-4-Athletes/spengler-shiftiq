@@ -14,10 +14,10 @@ export const PlayerDNA: React.FC<PlayerDNAProps> = ({ language = 'EN' }) => {
   const t = translations[language];
 
   const [player1, setPlayer1] = useState<WisehockeyPlayerStats>(
-    sampleMatchData.rosters.hcd[0] // Andres Ambühl
+    sampleMatchData.rosters.hcd[0] // Filip Zadina (#18)
   );
   const [player2, setPlayer2] = useState<WisehockeyPlayerStats>(
-    sampleMatchData.rosters.usa[0] // Frank Nazar
+    sampleMatchData.rosters.usa[0] // Ryan Walsh (#21)
   );
 
   // SVG Radar coordinates generator (6 axes)

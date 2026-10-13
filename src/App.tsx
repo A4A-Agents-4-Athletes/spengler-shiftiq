@@ -113,12 +113,12 @@ export const App: React.FC = () => {
           <div className="max-w-7xl w-full mx-auto flex items-center justify-between">
             <div className="flex items-center gap-3">
               <span className="font-black text-white flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                HC Davos 4 : 2 U.S. Selects
+                <span className="w-2 h-2 rounded-sm bg-emerald-400 animate-pulse" />
+                HC Davos 6 : 3 U.S. Selects
               </span>
               <span className="text-slate-600 hidden sm:inline">|</span>
               <span className="text-slate-400 hidden sm:inline">
-                {language === 'DE' ? 'FINAL · 3. Drittel · Eisstadion Davos' : 'FINAL · 3rd Period · Eisstadion Davos'}
+                {language === 'DE' ? 'FINAL · 31. Dez 2025 · Eisstadion Davos' : 'FINAL · 31 Dec 2025 · Eisstadion Davos'}
               </span>
             </div>
             <div className="flex items-center gap-3">
@@ -161,7 +161,7 @@ export const App: React.FC = () => {
                 {/* Live Mode Tag */}
                 <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
                   <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 text-xs font-mono font-bold">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="w-2 h-2 rounded-sm bg-emerald-400 animate-pulse" />
                     {t.liveTelemetryActive}
                   </span>
                 </div>
@@ -319,7 +319,7 @@ export const App: React.FC = () => {
             activeTab === 'fantasy' ? 'bg-cyan-500/20 text-cyan-300 font-bold' : 'text-slate-400 hover:text-white'
           )}
         >
-          <span className="absolute top-1 right-1.5 w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+          <span className="absolute top-1 right-1.5 w-1.5 h-1.5 rounded-sm bg-rose-500 animate-pulse" />
           <Zap className="w-4 h-4" />
           <span className="text-[10px] mt-0.5 font-mono">Fantasy</span>
         </button>

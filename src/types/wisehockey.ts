@@ -111,22 +111,40 @@ export interface PlayerShiftVector {
   teamId: 'HCD' | 'USA';
   jerseyNumber: number;
   position: PlayerPosition;
+  isKeyPlaymaker?: boolean;
   trajectory: RinkTrajectoryPoint[];
+}
+
+export interface MomentumPoint {
+  timeSec: number;
+  matchClock: string;
+  value: number; // -100 (USA control) to +100 (HCD control)
+  dominantTeam: 'HCD' | 'USA';
+  badge?: string | null;
 }
 
 export interface DecisiveMoment {
   id: string;
   period: 1 | 2 | 3 | 'OT';
-  gameClock: string; // e.g., "08:42"
+  gameClock: string; // e.g., "14:49"
+  realCycleWindow?: string; // e.g., "13:25 - 14:49 (128 Telemetry Events)"
+  eventsCount?: number;
+  teamStrength?: string;
   title: string;
   eventType: EventType;
   primaryTeamId: 'HCD' | 'USA';
   primaryPlayerName: string;
-  headlineMetric: string; // e.g. "37.8 km/h Breakout"
+  headlineMetric: string; // e.g. "100.1 km/h Release · 0.122 xG"
+
+  // Webinar #2 Curiosity Gap Question
+  curiosityPromptEn?: string;
+  curiosityPromptDe?: string;
   
   // Dual-Lens Explanations
   fanStoryInsight: string; // "Why it mattered" in accessible storytelling
+  fanStoryInsightDe?: string;
   proAnalystInsight: string; // Technical telemetry analysis (pressure vectors, xG)
+  proAnalystInsightDe?: string;
   
   // Key Stats
   durationSeconds: number;
@@ -134,7 +152,11 @@ export interface DecisiveMoment {
   puckVelocityKmh: number;
   expectedGoalDelta: number;
 
-  // Coordinated Play Simulation
+  // Webinar #1 Control & Momentum Sparkline
+  momentumTimeline?: MomentumPoint[];
+
+  // Coordinated Play Simulation (All 10 on-ice skaters)
   puckTrajectory: RinkTrajectoryPoint[];
   skaters: PlayerShiftVector[];
 }
+

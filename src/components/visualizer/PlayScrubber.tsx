@@ -124,6 +124,63 @@ export const PlayScrubber: React.FC<PlayScrubberProps> = ({
         })}
       </div>
 
+      {/* Webinar #1 Mandate: Control & Momentum Turning-Point Bar */}
+      {activeMoment.momentumTimeline && activeMoment.momentumTimeline.length > 0 && (
+        <div className="bg-slate-950/90 p-3.5 rounded-xl border border-white/10 space-y-2">
+          <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono">
+            <div className="flex items-center gap-2">
+              <span className="px-2 py-0.5 rounded bg-cyan-500/15 border border-cyan-400/30 text-cyan-300 font-black uppercase">
+                {language === 'DE' ? 'Kontrolle & Momentum' : 'Control & Momentum'}
+              </span>
+              <span className="text-slate-400">
+                {activeMoment.realCycleWindow || `${activeMoment.eventsCount || 95} Events`}
+              </span>
+            </div>
+            <div className="flex items-center gap-3 text-[10px]">
+              <span className="flex items-center gap-1 text-cyan-400 font-bold">
+                <span className="w-2 h-2 rounded-sm bg-cyan-400" />
+                HCD Pressure
+              </span>
+              <span className="flex items-center gap-1 text-rose-400 font-bold">
+                <span className="w-2 h-2 rounded-sm bg-rose-500" />
+                USA Pressure
+              </span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-10 gap-1.5 items-end h-12 pt-1 px-1">
+            {activeMoment.momentumTimeline.slice(0, 10).map((pt, i) => {
+              const isHcdDom = pt.dominantTeam === 'HCD';
+              const heightPct = Math.max(22, Math.min(100, Math.abs(pt.value)));
+              const isCurrentBucket = Math.abs(currentTime - pt.timeSec) <= 0.85;
+
+              return (
+                <button
+                  key={i}
+                  onClick={() => setCurrentTime(pt.timeSec)}
+                  title={`${pt.matchClock}${pt.badge ? ` · ${pt.badge}` : ''}`}
+                  className="group relative flex flex-col items-center justify-end h-full cursor-pointer"
+                >
+                  <div
+                    style={{ height: `${heightPct}%` }}
+                    className={cn(
+                      'w-full rounded-sm transition-all',
+                      isHcdDom
+                        ? 'bg-gradient-to-t from-blue-600 to-cyan-400'
+                        : 'bg-gradient-to-t from-rose-700 to-rose-400',
+                      isCurrentBucket ? 'ring-2 ring-white brightness-125' : 'opacity-75 group-hover:opacity-100'
+                    )}
+                  />
+                  <span className="text-[9px] font-mono text-slate-400 mt-1">
+                    {pt.matchClock}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {/* Playback Controls & Progress Scrubber */}
       <div className="bg-slate-950/90 p-4 rounded-xl border border-white/10 space-y-2">
         <div className="flex items-center gap-4">

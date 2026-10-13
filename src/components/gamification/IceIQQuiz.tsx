@@ -179,15 +179,30 @@ export const IceIQQuiz: React.FC<IceIQQuizProps> = ({ language = 'EN', onAddXp }
           </div>
 
           <div className="space-y-2">
-            <h3 className="text-2xl font-black text-white">Challenge Completed!</h3>
+            <h3 className="text-2xl font-black text-white">
+              {language === 'DE' ? 'Quiz abgeschlossen!' : 'Challenge Completed!'}
+            </h3>
             <p className="text-sm text-slate-400">
-              You scored <span className="font-mono font-bold text-cyan-400 text-lg">{score}</span> out of{' '}
-              <span className="font-mono font-bold text-white text-lg">{iceIqQuizQuestions.length}</span> questions.
+              {language === 'DE' ? 'Du hast ' : 'You scored '}
+              <span className="font-mono font-bold text-cyan-400 text-lg">{score}</span>
+              {language === 'DE' ? ' von ' : ' out of '}
+              <span className="font-mono font-bold text-white text-lg">{iceIqQuizQuestions.length}</span>
+              {language === 'DE' ? ' Fragen richtig beantwortet.' : ' questions.'}
             </p>
             <div className="text-xs font-mono font-bold text-cyan-300 uppercase tracking-wider">
-              {score === 4 && '🏆 Master Tactician · Ready for Eisstadion Davos Bench! (+100 Fan XP)'}
-              {score === 3 && '🥇 Pro Analyst · Exceptional hockey knowledge and data intuition! (+75 Fan XP)'}
-              {score <= 2 && '🥈 Rising Fan · Great exploration! Keep analyzing the shifts. (+50 Fan XP)'}
+              {score >= 5 &&
+                (language === 'DE'
+                  ? '🏆 Meister-Taktiker · Bereit für die Trainerbank im Eisstadion Davos! (+150 Fan XP)'
+                  : '🏆 Master Tactician · Ready for Eisstadion Davos Bench! (+150 Fan XP)')}
+              {score >= 3 &&
+                score < 5 &&
+                (language === 'DE'
+                  ? '🥇 Profi-Analyst · Starkes Eishockey-Wissen und Daten-Gespür! (+100 Fan XP)'
+                  : '🥇 Pro Analyst · Exceptional hockey knowledge and data intuition! (+100 Fan XP)')}
+              {score < 3 &&
+                (language === 'DE'
+                  ? '🥈 Aufsteiger-Fan · Starke Analyse! Entdecke weitere Shifts im Replay. (+50 Fan XP)'
+                  : '🥈 Rising Fan · Great exploration! Keep analyzing the shifts. (+50 Fan XP)')}
             </div>
           </div>
 
@@ -196,7 +211,7 @@ export const IceIQQuiz: React.FC<IceIQQuizProps> = ({ language = 'EN', onAddXp }
             className="px-6 py-2.5 bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 font-extrabold text-sm rounded-xl inline-flex items-center gap-2 hover:brightness-110 transition-all shadow-lg cursor-pointer"
           >
             <RotateCcw className="w-4 h-4" />
-            <span>Play Again</span>
+            <span>{language === 'DE' ? 'Nochmal spielen' : 'Play Again'}</span>
           </button>
         </div>
       )}

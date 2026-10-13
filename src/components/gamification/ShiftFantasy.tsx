@@ -36,13 +36,13 @@ export const ShiftFantasy: React.FC<ShiftFantasyProps> = ({ language = 'EN', onA
   const t = translations[language];
 
   const [selectedRocket, setSelectedRocket] = useState<PlayerSummary | null>(
-    allPlayers.find((p) => p.name === 'Adam Tambellini') || allPlayers[0] || null
+    allPlayers.find((p) => p.name === 'Filip Zadina') || allPlayers[0] || null
   );
   const [selectedSniper, setSelectedSniper] = useState<PlayerSummary | null>(
-    allPlayers.find((p) => p.name === 'Matej Stransky') || allPlayers[1] || null
+    allPlayers.find((p) => p.name === 'Adam Tambellini') || allPlayers[1] || null
   );
   const [selectedAnchor, setSelectedAnchor] = useState<PlayerSummary | null>(
-    allPlayers.find((p) => p.name === 'Michael Fora') || allPlayers[2] || null
+    allPlayers.find((p) => p.name === 'Klas Dahlbeck') || allPlayers[2] || null
   );
 
   const [activeSlot, setActiveSlot] = useState<'rocket' | 'sniper' | 'anchor'>('rocket');
@@ -349,7 +349,7 @@ export const ShiftFantasy: React.FC<ShiftFantasyProps> = ({ language = 'EN', onA
         <div className="bg-slate-900 border border-cyan-500/40 p-5 rounded-2xl space-y-3 shadow-xl">
           <div className="flex items-center justify-between text-xs font-mono text-cyan-400 font-bold">
             <span className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+              <span className="w-2 h-2 rounded-sm bg-cyan-400 animate-ping" />
               {t.liveSimulationTicker}
             </span>
             <span>20Hz Sensor Stream</span>

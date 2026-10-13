@@ -65,13 +65,13 @@ export const LineBuilder: React.FC<LineBuilderProps> = ({ language = 'EN', onAdd
     ...sampleMatchData.rosters.usa,
   ];
 
-  // Lineup state
+  // Lineup state (Default 5-man unit from Dec 31 Final dataset)
   const [slots, setSlots] = useState<LineupSlot[]>([
-    { role: 'LW', player: sampleMatchData.rosters.hcd[0] }, // Ambühl
-    { role: 'C', player: sampleMatchData.rosters.hcd[2] },  // Corvi
-    { role: 'RW', player: sampleMatchData.rosters.hcd[1] }, // Stransky
-    { role: 'LD', player: sampleMatchData.rosters.usa[3] }, // Casey
-    { role: 'RD', player: sampleMatchData.rosters.hcd[3] }, // Fora
+    { role: 'LW', player: sampleMatchData.rosters.hcd[0] }, // Filip Zadina (#18)
+    { role: 'C', player: sampleMatchData.rosters.hcd[2] },  // Enzo Corvi (#70)
+    { role: 'RW', player: sampleMatchData.rosters.hcd[1] }, // Matej Stransky (#44)
+    { role: 'LD', player: sampleMatchData.rosters.usa[3] }, // Eric Pohlkamp (#23)
+    { role: 'RD', player: sampleMatchData.rosters.hcd[3] }, // Klas Dahlbeck (#6)
   ]);
 
   const currentCoords = formationPresets[preset];

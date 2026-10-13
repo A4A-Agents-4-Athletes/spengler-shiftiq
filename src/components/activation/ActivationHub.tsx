@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tv, Monitor, QrCode, Globe, Radio } from 'lucide-react';
+import { Tv, Monitor, QrCode, Globe, Radio, TrendingUp } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { Language, translations } from '../../lib/i18n';
 
@@ -8,8 +8,17 @@ interface ActivationHubProps {
 }
 
 export const ActivationHub: React.FC<ActivationHubProps> = ({ language = 'EN' }) => {
-  const [activeChannel, setActiveChannel] = useState<'SRF' | 'JUMBOTRON' | 'MOBILE_APP'>('SRF');
+  const [activeChannel, setActiveChannel] = useState<'SRF' | 'JUMBOTRON' | 'MOBILE_APP' | 'ROI'>('SRF');
+  const [scanRatePct, setScanRatePct] = useState<number>(8);
   const t = translations[language];
+  const isDe = language === 'DE';
+
+  // Official 2025 Spengler Cup Event Report Baseline
+  const arenaVisitors = 69450;
+  const srfViewers = 2700000;
+  const activeUsers = Math.round(((arenaVisitors * 2.2 + srfViewers * 0.35) * scanRatePct) / 100);
+  const intermissionMinutes = Math.round(activeUsers * 6.4);
+  const sponsorConversions = Math.round(activeUsers * 0.14);
 
   return (
     <div className="space-y-6">
@@ -29,11 +38,12 @@ export const ActivationHub: React.FC<ActivationHubProps> = ({ language = 'EN' })
         </div>
 
         {/* Channel Switcher */}
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {[
             { id: 'SRF', label: t.srfTab, icon: Tv },
             { id: 'JUMBOTRON', label: t.jumbotronTab, icon: Monitor },
             { id: 'MOBILE_APP', label: t.webTab, icon: Globe },
+            { id: 'ROI', label: isDe ? 'Sponsor-ROI Rechner' : 'Sponsor ROI Model', icon: TrendingUp },
           ].map((ch) => {
             const Icon = ch.icon;
             const isActive = activeChannel === ch.id;
@@ -66,10 +76,10 @@ export const ActivationHub: React.FC<ActivationHubProps> = ({ language = 'EN' })
                 SRF zwei
               </span>
               <span className="text-xs text-slate-400 font-mono">
-                LIVE · SPENGLER CUP DAVOS · 2ND INTERMISSION
+                LIVE · 97TH SPENGLER CUP FINAL · 31 DEC 2025
               </span>
             </div>
-            <span className="text-xs text-slate-500 font-mono">HD 1080p50</span>
+            <span className="text-xs text-slate-500 font-mono">HD 1080p50 · 54.6% Market Share</span>
           </div>
 
           {/* Broadcast Frame Preview */}
@@ -77,12 +87,12 @@ export const ActivationHub: React.FC<ActivationHubProps> = ({ language = 'EN' })
             {/* Top Scorebug & Camera HUD */}
             <div className="flex justify-between items-start z-10">
               <div className="bg-black/85 backdrop-blur-md px-3 py-1.5 rounded-lg border border-slate-700 text-xs font-mono font-bold text-white flex items-center gap-2 shadow-lg">
-                <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
-                <span>HC DAVOS 2 : 1 USA SELECTS</span>
-                <span className="text-cyan-400 font-normal">P2 08:42</span>
+                <span className="w-2.5 h-2.5 rounded-sm bg-red-500 animate-pulse" />
+                <span>HC DAVOS 6 : 3 U.S. SELECTS</span>
+                <span className="text-cyan-400 font-normal">P3 17:49</span>
               </div>
               <div className="bg-black/75 backdrop-blur-md px-2.5 py-1 rounded-md border border-white/10 text-[10px] font-mono text-slate-300 flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span className="w-1.5 h-1.5 rounded-sm bg-emerald-400" />
                 <span>SRF MAIN CAM 1 · 1080p50</span>
               </div>
             </div>
@@ -93,18 +103,16 @@ export const ActivationHub: React.FC<ActivationHubProps> = ({ language = 'EN' })
               <div className="w-full max-w-xl h-28 border border-white/10 rounded-xl bg-slate-900/40 relative overflow-hidden flex items-center justify-around px-8">
                 {/* Center Red Line */}
                 <div className="absolute inset-y-0 left-1/2 w-0.5 bg-red-500/40" />
-                {/* Center Faceoff Circle */}
-                <div className="absolute w-20 h-20 rounded-full border border-blue-500/30 left-1/2 -translate-x-1/2" />
-                {/* Blue Line */}
+                {/* Blue Lines */}
                 <div className="absolute inset-y-0 left-1/4 w-1 bg-blue-500/30" />
                 <div className="absolute inset-y-0 right-1/4 w-1 bg-blue-500/30" />
 
-                {/* Live Skater Radar Tag 1: Stransky */}
+                {/* Live Skater Radar Tag 1: Filip Zadina */}
                 <div className="relative z-10 flex flex-col items-center animate-pulse">
                   <div className="px-2 py-0.5 rounded bg-blue-600/90 text-white font-mono text-[10px] font-black shadow-md border border-cyan-400/50">
-                    #44 Stransky · 37.9 km/h
+                    #18 Zadina · 35.4 km/h
                   </div>
-                  <div className="w-3 h-3 rounded-full bg-cyan-400 border-2 border-slate-950 mt-1 shadow-glow" />
+                  <div className="w-3 h-3 rounded-sm bg-cyan-400 border-2 border-slate-950 mt-1 shadow-glow" />
                 </div>
 
                 {/* Puck Vector */}
@@ -112,21 +120,21 @@ export const ActivationHub: React.FC<ActivationHubProps> = ({ language = 'EN' })
                   <div className="px-2 py-0.5 rounded bg-cyan-400 text-slate-950 font-mono text-[9px] font-black shadow-md">
                     PUCK · 100.1 km/h
                   </div>
-                  <div className="w-2.5 h-2.5 rounded-full bg-white border border-slate-900 mt-1" />
+                  <div className="w-2.5 h-2.5 rounded-sm bg-white border border-slate-900 mt-1" />
                 </div>
 
-                {/* Live Skater Radar Tag 2: Nazar */}
+                {/* Live Skater Radar Tag 2: Eric Pohlkamp */}
                 <div className="relative z-10 flex flex-col items-center">
                   <div className="px-2 py-0.5 rounded bg-red-600/90 text-white font-mono text-[10px] font-black shadow-md border border-white/30">
-                    #91 Nazar · 38.6 km/h
+                    #23 Pohlkamp · 35.6 km/h
                   </div>
-                  <div className="w-3 h-3 rounded-full bg-red-400 border-2 border-slate-950 mt-1" />
+                  <div className="w-3 h-3 rounded-sm bg-red-400 border-2 border-slate-950 mt-1" />
                 </div>
               </div>
 
               {/* Broadcast Lower HUD Chip */}
               <div className="mt-2 text-[10px] font-mono text-slate-400 tracking-wider uppercase">
-                Wisehockey 20Hz Sensor Overlay Active · Live Ice Tracking
+                Wisehockey 20Hz Optical Telemetry Overlay · Dec 31 Final Dataset
               </div>
             </div>
 
@@ -138,14 +146,16 @@ export const ActivationHub: React.FC<ActivationHubProps> = ({ language = 'EN' })
                     Wisehockey Instant Telemetry
                   </span>
                   <span className="text-xs font-mono text-cyan-300 font-bold">
-                    Matej Stransky Breakout Goal
+                    #44 Matej Stransky 5v4 Powerplay Goal (P3 · 17:49)
                   </span>
                 </div>
                 <h4 className="text-base font-extrabold text-white">
-                  37.9 km/h Peak Speed · 4.2s Transition Time
+                  67.0 km/h Klas Dahlbeck Seam Assist · 81 Telemetry Events
                 </h4>
                 <p className="text-xs text-slate-300">
-                  Scan to explore the 2D shift replay, skater vectors and tactical breakdown on your mobile device.
+                  {isDe
+                    ? 'QR-Code scannen, um alle 10 Feldspieler, Geschwindigkeitsvektoren und das Drittelpausen-Fantasy auf dem Smartphone zu öffnen.'
+                    : 'Scan to explore all 10 on-ice skaters, velocity vectors, and the intermission micro-fantasy game on your smartphone.'}
                 </p>
               </div>
 
@@ -162,7 +172,12 @@ export const ActivationHub: React.FC<ActivationHubProps> = ({ language = 'EN' })
           </div>
 
           <div className="p-4 bg-slate-900/80 rounded-xl border border-slate-800 text-xs text-slate-300 space-y-1">
-            <strong className="text-white">SRF Broadcast Synergies:</strong> Provides TV commentators (like Jann Billeter and expert analysts) with instant tactile narrative clips during intermissions and enables viewers to actively participate instead of passively waiting through commercials.
+            <strong className="text-white">
+              {isDe ? 'SRF Broadcast-Synergie:' : 'SRF Broadcast Synergies:'}
+            </strong>{' '}
+            {isDe
+              ? 'Verwandelt die 2.7 Millionen SRF-Zuschauer (54.6% Marktanteil beim Spengler Cup 2025) während der 18-minütigen Drittelpause von passiven TV-Zuschauern in aktive Second-Screen-Spieler.'
+              : 'Converts the 2.7M SRF television audience (54.6% peak market share during the 2025 Spengler Cup) from passive intermission viewers into active second-screen participants.'}
           </div>
         </div>
       )}
@@ -171,7 +186,7 @@ export const ActivationHub: React.FC<ActivationHubProps> = ({ language = 'EN' })
         <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 space-y-6 shadow-2xl">
           <div className="flex items-center justify-between border-b border-slate-800 pb-3">
             <span className="text-xs text-cyan-400 font-extrabold tracking-wider uppercase font-mono">
-              Eisstadion Davos · Center Ice Jumbotron System
+              Eisstadion Davos · Center Ice Jumbotron System (6,267 Capacity)
             </span>
             <span className="text-xs text-slate-400 font-mono">Arena Display Mode</span>
           </div>
@@ -179,31 +194,35 @@ export const ActivationHub: React.FC<ActivationHubProps> = ({ language = 'EN' })
           {/* Jumbotron Cube Simulation */}
           <div className="bg-slate-900 border-4 border-slate-700 rounded-xl p-8 text-center space-y-6 max-w-2xl mx-auto shadow-2xl">
             <div className="inline-block px-3 py-1 bg-blue-950 border border-cyan-400 text-cyan-300 text-xs font-mono font-bold rounded-lg uppercase">
-              Intermission Live Fan Vote
+              {isDe ? 'Live-Arena-Abstimmung in der Drittelpause' : 'Intermission Live Fan Vote'}
             </div>
 
             <h3 className="text-2xl font-black text-white" style={{ textWrap: 'balance' }}>
-              WHO WAS THE HARDEST WORKING SKATER IN PERIOD 2?
+              {isDe
+                ? 'WER WAR DER DOMINANTESTE SPIELER IM 2. DRITTEL?'
+                : 'WHO DELIVERED THE BIGGEST TELEMETRY IMPACT IN PERIOD 2?'}
             </h3>
 
-            <div className="grid grid-cols-2 gap-4 text-left">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
               <div className="p-4 bg-slate-950 border-2 border-cyan-400 rounded-xl space-y-1">
-                <div className="text-xs font-mono text-cyan-400 font-bold">#20 MICHAEL FORA</div>
-                <div className="text-sm font-extrabold text-white">146.8 km/h Shot Block</div>
-                <div className="text-xs text-slate-400">84.2% Battle Win Rate</div>
-                <div className="text-lg font-mono font-black text-cyan-400 pt-1">58% Fan Votes</div>
+                <div className="text-xs font-mono text-cyan-400 font-bold">#19 ADAM TAMBELLINI (HCD)</div>
+                <div className="text-sm font-extrabold text-white">100.1 km/h Goal · 2G, 1A</div>
+                <div className="text-xs text-slate-400">75.0% Puck Battle Win Rate (PCW-%)</div>
+                <div className="text-lg font-mono font-black text-cyan-400 pt-1">56% Arena Votes</div>
               </div>
 
               <div className="p-4 bg-slate-950 border border-slate-800 rounded-xl space-y-1">
-                <div className="text-xs font-mono text-rose-400 font-bold">#91 FRANK NAZAR</div>
-                <div className="text-sm font-extrabold text-white">38.6 km/h Peak Sprint</div>
-                <div className="text-xs text-slate-400">Coast-to-Coast Rush</div>
-                <div className="text-lg font-mono font-black text-slate-400 pt-1">42% Fan Votes</div>
+                <div className="text-xs font-mono text-rose-400 font-bold">#2 GAVIN MCCARTHY (USA)</div>
+                <div className="text-sm font-extrabold text-white">146.0 km/h Hardest Slapshot</div>
+                <div className="text-xs text-slate-400">4,713 m Distance · P2 Zone Siege</div>
+                <div className="text-lg font-mono font-black text-slate-400 pt-1">44% Arena Votes</div>
               </div>
             </div>
 
             <p className="text-xs text-slate-400 font-mono">
-              Live updates powered by in-seat Wi-Fi and Wisehockey real-time sensor streams.
+              {isDe
+                ? 'Echtzeit-Synchronisation über das Stadion-WLAN und die Wisehockey 20Hz-Sensordaten.'
+                : 'Live updates powered by Eisstadion Davos Wi-Fi and Wisehockey 20Hz optical tracking streams.'}
             </p>
           </div>
         </div>
@@ -213,23 +232,112 @@ export const ActivationHub: React.FC<ActivationHubProps> = ({ language = 'EN' })
         <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 space-y-6 shadow-2xl">
           <div className="flex items-center justify-between border-b border-slate-800 pb-3">
             <span className="text-xs text-slate-300 font-bold uppercase">
-              Spengler Cup Official Website (spenglercup.ch) Embed
+              Spengler Cup Official Website (spenglercup.ch) Match Center Embed
             </span>
-            <span className="text-xs text-emerald-400 font-mono">Embedded Widget Mode</span>
+            <span className="text-xs text-emerald-400 font-mono">Zero-Install Web SDK</span>
           </div>
 
           <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 space-y-4">
             <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
-              <span className="w-2.5 h-2.5 rounded-full bg-slate-600"></span>
-              <span>https://www.spenglercup.ch/en/match-center/game-12/shift-iq</span>
+              <span className="w-2.5 h-2.5 rounded-sm bg-emerald-400" />
+              <span>https://www.spenglercup.ch/en/match-center/2025-final-hcd-usa/shift-iq</span>
             </div>
 
             <div className="border border-slate-800 rounded-lg p-5 bg-slate-950 space-y-3">
               <h4 className="text-base font-bold text-white">
-                Replace Static Box Scores with Exploratory Tactile Insights
+                {isDe
+                  ? 'Vom 5-Sekunden-Resultat-Check zur 8-Minuten-Taktik-Session'
+                  : 'Eliminating the "Check the Score and Leave" Bounce Rate'}
               </h4>
               <p className="text-xs text-slate-300 leading-relaxed font-sans" style={{ textWrap: 'pretty' }}>
-                Instead of bouncing after glancing at the 4-2 score, website visitors can scrub the decisive goals, compare player radars head-to-head, and build hypothetical line matchups, multiplying average time-on-site and digital sponsor impressions.
+                {isDe
+                  ? 'Statt nach einem kurzen Blick auf das 6:3-Endresultat die Seite zu verlassen, erkunden Fans die 284 Wisehockey-Events der 3 Tor-Sequenzen, vergleichen alle 40 Spieler im DNA-Radar und teilen ihre 3D-Sammelkarten direkt auf Social Media.'
+                  : 'Instead of bouncing after glancing at the 6-3 final score, visitors scrub through all 284 official Wisehockey event rows across the 3 decisive goals, compare all 40 real skaters head-to-head, and export 3D player cards.'}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {activeChannel === 'ROI' && (
+        <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 space-y-6 shadow-2xl">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+            <div>
+              <span className="text-xs text-cyan-400 font-extrabold tracking-wider uppercase font-mono">
+                {isDe
+                  ? 'Kommerzielles Wertmodell · Basierend auf dem Spengler Cup Event-Report 2025'
+                  : 'Commercial Impact Simulator · Grounded in 2025 Spengler Cup Event Report'}
+              </span>
+              <p className="text-xs text-slate-400 mt-0.5">
+                {isDe
+                  ? 'Berechnet aktive Second-Screen-Nutzer, zusätzliche Verweildauer und Sponsor-Leads (UBS, Skoda, Würth).'
+                  : 'Calculates second-screen active sessions, intermission dwell time, and partner conversions (UBS, Skoda, Würth).'}
+              </p>
+            </div>
+            <span className="px-2.5 py-1 rounded-md bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 text-xs font-mono font-bold">
+              104M Global Reach Baseline
+            </span>
+          </div>
+
+          {/* Interactive Slider */}
+          <div className="bg-slate-900 border border-white/10 p-5 rounded-xl space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-white uppercase font-mono">
+                {isDe ? 'QR-Scan & Second-Screen Aktivierungsrate:' : 'QR Scan & Second-Screen Conversion Rate:'}
+              </span>
+              <span className="text-lg font-black text-cyan-400 font-mono">{scanRatePct}%</span>
+            </div>
+            <input
+              type="range"
+              min="2"
+              max="20"
+              step="1"
+              value={scanRatePct}
+              onChange={(e) => setScanRatePct(parseInt(e.target.value, 10))}
+              className="w-full h-2.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-400"
+            />
+            <div className="flex justify-between text-[10px] font-mono text-slate-400">
+              <span>2% (Conservative Pilot)</span>
+              <span>8% (Target Tournament Benchmark)</span>
+              <span>20% (Final Broadcast Peak)</span>
+            </div>
+          </div>
+
+          {/* 3 Quantified Impact KPI Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-slate-900 border border-cyan-500/30 p-4 rounded-xl space-y-1">
+              <span className="text-[10px] font-mono uppercase text-slate-400 font-bold">
+                {isDe ? 'Aktive ShiftIQ-Nutzer' : 'Active ShiftIQ Sessions'}
+              </span>
+              <div className="text-2xl font-black text-white font-mono">
+                {activeUsers.toLocaleString()}
+              </div>
+              <p className="text-[11px] text-cyan-300">
+                {isDe ? 'Aus 69,450 Arena-Gästen & 2.7M TV-Zuschauern' : 'From 69,450 Arena Fans & 2.7M SRF Viewers'}
+              </p>
+            </div>
+
+            <div className="bg-slate-900 border border-sky-500/30 p-4 rounded-xl space-y-1">
+              <span className="text-[10px] font-mono uppercase text-slate-400 font-bold">
+                {isDe ? 'Aktive Drittelpausen-Minuten' : 'Engaged Intermission Minutes'}
+              </span>
+              <div className="text-2xl font-black text-sky-400 font-mono">
+                {intermissionMinutes.toLocaleString()} min
+              </div>
+              <p className="text-[11px] text-slate-300">
+                {isDe ? 'Ø 6.4 Min. Verweildauer im Shift-Fantasy & Quiz' : 'Avg 6.4 min dwell time across Shift Fantasy & Quiz'}
+              </p>
+            </div>
+
+            <div className="bg-slate-900 border border-emerald-500/30 p-4 rounded-xl space-y-1">
+              <span className="text-[10px] font-mono uppercase text-slate-400 font-bold">
+                {isDe ? 'Qualifizierte Sponsor-Interaktionen' : 'Verified Sponsor Conversions'}
+              </span>
+              <div className="text-2xl font-black text-emerald-400 font-mono">
+                {sponsorConversions.toLocaleString()}
+              </div>
+              <p className="text-[11px] text-slate-300">
+                {isDe ? 'Reward-Einlösungen (UBS, Skoda, HCD Fanshop)' : 'XP Reward Redemptions (UBS, Skoda, HCD Shop)'}
               </p>
             </div>
           </div>
