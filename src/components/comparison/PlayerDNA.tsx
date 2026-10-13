@@ -21,13 +21,15 @@ export const PlayerDNA: React.FC<PlayerDNAProps> = ({ language = 'EN' }) => {
   );
 
   // SVG Radar coordinates generator (6 axes)
+  const isDe = language === 'DE';
+
   const radarDimensions = [
-    { key: 'skatingSpeed', label: 'Speed' },
-    { key: 'puckHandling', label: 'Puck IQ' },
-    { key: 'shotGeneration', label: 'Shooting' },
-    { key: 'battlePhysicality', label: 'Physicality' },
-    { key: 'defensiveGapControl', label: 'Defense' },
-    { key: 'transitionIQ', label: 'Transition' },
+    { key: 'skatingSpeed', label: isDe ? 'Tempo' : 'Speed' },
+    { key: 'puckHandling', label: isDe ? 'Puck-IQ' : 'Puck IQ' },
+    { key: 'shotGeneration', label: isDe ? 'Schuss' : 'Shooting' },
+    { key: 'battlePhysicality', label: isDe ? 'Zweikampf' : 'Physicality' },
+    { key: 'defensiveGapControl', label: isDe ? 'Defensive' : 'Defense' },
+    { key: 'transitionIQ', label: isDe ? 'Umschaltspiel' : 'Transition' },
   ] as const;
 
   const center = 160;
@@ -57,13 +59,46 @@ export const PlayerDNA: React.FC<PlayerDNAProps> = ({ language = 'EN' }) => {
     .join(' ');
 
   const metricsToCompare = [
-    { label: 'Time on Ice (TOI)', v1: formatTimeOnIce(player1.timeOnIceSeconds), v2: formatTimeOnIce(player2.timeOnIceSeconds), num1: player1.timeOnIceSeconds, num2: player2.timeOnIceSeconds },
-    { label: 'Skating Distance', v1: formatDistance(player1.totalDistanceMeters), v2: formatDistance(player2.totalDistanceMeters), num1: player1.totalDistanceMeters, num2: player2.totalDistanceMeters },
-    { label: 'Top Sprint Speed', v1: formatSpeed(player1.topSpeedKmh), v2: formatSpeed(player2.topSpeedKmh), num1: player1.topSpeedKmh, num2: player2.topSpeedKmh },
-    { label: 'Puck Battle Win %', v1: `${player1.puckBattleWinPct.toFixed(1)}%`, v2: `${player2.puckBattleWinPct.toFixed(1)}%`, num1: player1.puckBattleWinPct, num2: player2.puckBattleWinPct },
-    { label: 'Top Shot Speed', v1: formatSpeed(player1.topShotSpeedKmh), v2: formatSpeed(player2.topShotSpeedKmh), num1: player1.topShotSpeedKmh, num2: player2.topShotSpeedKmh },
-    { label: 'Pass Completion %', v1: `${player1.passCompletionPct.toFixed(1)}%`, v2: `${player2.passCompletionPct.toFixed(1)}%`, num1: player1.passCompletionPct, num2: player2.passCompletionPct },
+    { label: isDe ? 'Eiszeit (TOI)' : 'Time on Ice (TOI)', v1: formatTimeOnIce(player1.timeOnIceSeconds), v2: formatTimeOnIce(player2.timeOnIceSeconds), num1: player1.timeOnIceSeconds, num2: player2.timeOnIceSeconds },
+    { label: isDe ? 'Laufdistanz' : 'Skating Distance', v1: formatDistance(player1.totalDistanceMeters), v2: formatDistance(player2.totalDistanceMeters), num1: player1.totalDistanceMeters, num2: player2.totalDistanceMeters },
+    { label: isDe ? 'Top Sprint-Tempo' : 'Top Sprint Speed', v1: formatSpeed(player1.topSpeedKmh), v2: formatSpeed(player2.topSpeedKmh), num1: player1.topSpeedKmh, num2: player2.topSpeedKmh },
+    { label: isDe ? 'Zweikampfquote' : 'Puck Battle Win %', v1: `${player1.puckBattleWinPct.toFixed(1)}%`, v2: `${player2.puckBattleWinPct.toFixed(1)}%`, num1: player1.puckBattleWinPct, num2: player2.puckBattleWinPct },
+    { label: isDe ? 'Top Schusshärte' : 'Top Shot Speed', v1: formatSpeed(player1.topShotSpeedKmh), v2: formatSpeed(player2.topShotSpeedKmh), num1: player1.topShotSpeedKmh, num2: player2.topShotSpeedKmh },
+    { label: isDe ? 'Passquote' : 'Pass Completion %', v1: `${player1.passCompletionPct.toFixed(1)}%`, v2: `${player2.passCompletionPct.toFixed(1)}%`, num1: player1.passCompletionPct, num2: player2.passCompletionPct },
   ];
+
+  const archetypeInfo: Record<string, { en: string; de: string; labelDe: string }> = {
+    'The Slot Disruptor': {
+      en: 'Relentless pressure player who creates chaos in the dirty areas, winning puck battles and screening netminders.',
+      de: 'Unermüdlicher Druckspieler, der im Slot Unruhe stiftet, Pucks an den Banden erobert und Torhütern die Sicht nimmt.',
+      labelDe: 'Der Slot-Störer',
+    },
+    'The High-Speed Finisher': {
+      en: 'Explosive offensive weapon with a lethal release who converts counter-attacks into high-danger goals.',
+      de: 'Explosiver Stürmer mit tödlichem Handgelenkschuss, der Tempogegenstösse eiskalt in hochgefährliche Tore verwandelt.',
+      labelDe: 'Der High-Speed Torjäger',
+    },
+    'The Playmaking Maestro': {
+      en: 'Visionary puck distributor who controls game tempo with elite vision and saucer passes through traffic.',
+      de: 'Visionärer Puckverteiler, der das Spieltempo mit präzisem Passspiel und Auge für freie Mitspieler diktiert.',
+      labelDe: 'Der Spielmacher-Maestro',
+    },
+    'The Blue-Line Wall': {
+      en: 'Imposing physical defenseman who shuts down the front of the net and snuffs out opposing zone entries.',
+      de: 'Physisch dominanter Verteidiger, der die Zone abriegelt und gegnerische Angriffswellen frühzeitig zerschellen lässt.',
+      labelDe: 'Die Blaue-Linie-Mauer',
+    },
+    'The Shutdown Anchor': {
+      en: 'Disciplined stay-at-home blue-liner with flawless stick gap control and high-danger shot suppression.',
+      de: 'Disziplinierter Defensiv-Verteidiger mit exzellentem Stock-Stellungsspiel und kompromissloser Schussblock-Präsenz.',
+      labelDe: 'Der Defensiv-Anker',
+    },
+    'The Transition Engine': {
+      en: 'High-motor skater who generates controlled zone exits and rushes pucks past back-checking forwards.',
+      de: 'Laufstarker Antreiber, der Puckeroberungen in kontrollierte Zonen-Exits und explosive Gegenangriffe übersetzt.',
+      labelDe: 'Der Umschalt-Motor',
+    },
+  };
 
   return (
     <div className="space-y-6">
@@ -168,7 +203,7 @@ export const PlayerDNA: React.FC<PlayerDNAProps> = ({ language = 'EN' }) => {
             </div>
             <div>
               <span className="px-2 py-0.5 bg-slate-900 text-[10px] font-mono font-bold text-cyan-400 rounded border border-slate-700 uppercase">
-                {player1.archetype}
+                {isDe ? (archetypeInfo[player1.archetype]?.labelDe || player1.archetype) : player1.archetype}
               </span>
               <h3 className="text-xl font-black text-white mt-1">{player1.name}</h3>
               <span className="text-xs text-slate-400 font-mono">
@@ -180,18 +215,9 @@ export const PlayerDNA: React.FC<PlayerDNAProps> = ({ language = 'EN' }) => {
           <div className="p-3 bg-slate-900/80 rounded-xl border border-slate-800 space-y-1">
             <div className="text-[11px] font-mono text-slate-400 uppercase font-bold">{t.tacticalIdentity}</div>
             <p className="text-xs text-slate-300 leading-relaxed font-sans" style={{ textWrap: 'pretty' }}>
-              {player1.archetype === 'The Slot Disruptor' &&
-                'Relentless pressure player who creates chaos in the dirty areas, winning puck battles and screening netminders.'}
-              {player1.archetype === 'The High-Speed Finisher' &&
-                'Explosive offensive weapon with a lethal release who converts counter-attacks into high-danger goals.'}
-              {player1.archetype === 'The Playmaking Maestro' &&
-                'Visionary puck distributor who controls game tempo with elite vision and saucer passes through traffic.'}
-              {player1.archetype === 'The Blue-Line Wall' &&
-                'Imposing physical defenseman who shuts down the front of the net and snuffs out opposing zone entries.'}
-              {player1.archetype === 'The Shutdown Anchor' &&
-                'Disciplined stay-at-home blue-liner with flawless stick gap control and high-danger shot suppression.'}
-              {player1.archetype === 'The Transition Engine' &&
-                'High-motor skater who generates controlled zone exits and rushes pucks past back-checking forwards.'}
+              {isDe
+                ? (archetypeInfo[player1.archetype]?.de || archetypeInfo[player1.archetype]?.en)
+                : archetypeInfo[player1.archetype]?.en}
             </p>
           </div>
         </div>
@@ -284,7 +310,7 @@ export const PlayerDNA: React.FC<PlayerDNAProps> = ({ language = 'EN' }) => {
             </div>
             <div>
               <span className="px-2 py-0.5 bg-slate-900 text-[10px] font-mono font-bold text-rose-400 rounded border border-slate-700 uppercase">
-                {player2.archetype}
+                {isDe ? (archetypeInfo[player2.archetype]?.labelDe || player2.archetype) : player2.archetype}
               </span>
               <h3 className="text-xl font-black text-white mt-1">{player2.name}</h3>
               <span className="text-xs text-slate-400 font-mono">
@@ -296,18 +322,9 @@ export const PlayerDNA: React.FC<PlayerDNAProps> = ({ language = 'EN' }) => {
           <div className="p-3 bg-slate-900/80 rounded-xl border border-slate-800 space-y-1">
             <div className="text-[11px] font-mono text-slate-400 uppercase font-bold">{t.tacticalIdentity}</div>
             <p className="text-xs text-slate-300 leading-relaxed font-sans" style={{ textWrap: 'pretty' }}>
-              {player2.archetype === 'The Slot Disruptor' &&
-                'Relentless pressure player who creates chaos in the dirty areas, winning puck battles and screening netminders.'}
-              {player2.archetype === 'The High-Speed Finisher' &&
-                'Explosive offensive weapon with a lethal release who converts counter-attacks into high-danger goals.'}
-              {player2.archetype === 'The Playmaking Maestro' &&
-                'Visionary puck distributor who controls game tempo with elite vision and saucer passes through traffic.'}
-              {player2.archetype === 'The Blue-Line Wall' &&
-                'Imposing physical defenseman who shuts down the front of the net and snuffs out opposing zone entries.'}
-              {player2.archetype === 'The Shutdown Anchor' &&
-                'Disciplined stay-at-home blue-liner with flawless stick gap control and high-danger shot suppression.'}
-              {player2.archetype === 'The Transition Engine' &&
-                'High-motor skater who generates controlled zone exits and rushes pucks past back-checking forwards.'}
+              {isDe
+                ? (archetypeInfo[player2.archetype]?.de || archetypeInfo[player2.archetype]?.en)
+                : archetypeInfo[player2.archetype]?.en}
             </p>
           </div>
         </div>

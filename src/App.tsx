@@ -13,7 +13,7 @@ import { ActivationHub } from './components/activation/ActivationHub';
 import { mockDecisiveMoments } from './data/mockEvents';
 import { DecisiveMoment } from './types/wisehockey';
 import { Language, translations } from './lib/i18n';
-import { Play, Zap, Users, Trophy, Sparkles } from 'lucide-react';
+import { Play, Zap, Users, Trophy, Sparkles, Dna, Radio } from 'lucide-react';
 
 export const App: React.FC = () => {
   const [language, setLanguage] = useState<Language>('DE');
@@ -82,7 +82,7 @@ export const App: React.FC = () => {
   }, [isPlaying, playbackSpeed, activeMoment.durationSeconds]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0a101d] via-[#070b14] to-[#04070e] text-slate-100 flex flex-col font-sans selection:bg-cyan-500 selection:text-slate-950 pb-20 sm:pb-0">
+    <div className="min-h-screen bg-gradient-to-b from-[#0a101d] via-[#070b14] to-[#04070e] text-slate-100 flex flex-col font-sans selection:bg-cyan-500 selection:text-slate-950 pb-24 md:pb-0">
       {/* XP Toast Notification */}
       {xpNotification && (
         <div className="fixed top-20 right-4 z-50 bg-slate-900 border border-cyan-400 text-white px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2.5 animate-in slide-in-from-top duration-200">
@@ -104,106 +104,120 @@ export const App: React.FC = () => {
         xp={xp}
       />
 
-      {/* Match Telemetry Header Banner */}
-      <MatchBanner language={language} />
+      {/* Match Telemetry Header Banner - Only on Replay / Match Hub */}
+      {activeTab === 'replay' ? (
+        <MatchBanner language={language} />
+      ) : (
+        /* Compact Match Status Strip for deep interactive tools */
+        <div className="bg-slate-950/90 border-b border-white/10 px-4 py-2.5 text-xs font-mono shadow-md backdrop-blur-md">
+          <div className="max-w-7xl w-full mx-auto flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <span className="font-black text-white flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                HC Davos 4 : 2 U.S. Selects
+              </span>
+              <span className="text-slate-600 hidden sm:inline">|</span>
+              <span className="text-slate-400 hidden sm:inline">
+                {language === 'DE' ? 'FINAL · 3. Drittel · Eisstadion Davos' : 'FINAL · 3rd Period · Eisstadion Davos'}
+              </span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="hidden md:inline-block text-cyan-400 font-bold text-[11px]">
+                {language === 'DE' ? '20Hz Wisehockey Telemetrie aktiv' : '20Hz Wisehockey Telemetry Active'}
+              </span>
+              <button
+                onClick={() => setActiveTab('replay')}
+                className="px-2.5 py-1 rounded-lg bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 hover:bg-cyan-500/25 transition-all text-xs font-sans font-bold flex items-center gap-1 cursor-pointer"
+              >
+                <span>←</span>
+                <span>{language === 'DE' ? 'Zurück zum Match-Hub' : 'Back to Match Hub'}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Main Content Area */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {/* Fan Experience Guide & Live Mode Onboarding */}
-        <div className="bg-gradient-to-r from-blue-950/80 via-slate-900 to-blue-950/80 border border-white/15 p-4 sm:p-5 rounded-2xl shadow-xl space-y-3 mb-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-cyan-500 text-slate-950 flex items-center justify-center font-black shrink-0 text-base shadow-md shadow-cyan-500/20">
-                🏒
-              </div>
-              <div>
-                <h2 className="text-sm sm:text-base font-black text-white font-sans flex items-center gap-2">
-                  {t.companionTitle}
-                </h2>
-                <p className="text-xs text-slate-300">
-                  {t.companionSubtitle}
-                </p>
-              </div>
-            </div>
-
-            {/* Live Mode Tag */}
-            <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
-              <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 text-xs font-mono font-bold">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                {t.liveTelemetryActive}
-              </span>
-            </div>
-          </div>
-
-          {/* 3 Quick-Action Cards for Everyday Fans (Cyan Glow, ZERO Yellow) */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 pt-1">
-            <button
-              onClick={() => setActiveTab('replay')}
-              className={cn(
-                'p-3 rounded-xl border text-left transition-all cursor-pointer flex items-start gap-2.5',
-                activeTab === 'replay'
-                  ? 'bg-cyan-500/15 border-cyan-400 text-white shadow-md ring-1 ring-cyan-400/50'
-                  : 'bg-slate-950/60 border-white/5 text-slate-300 hover:border-white/20 hover:text-white'
-              )}
-            >
-              <span className="text-lg">🎬</span>
-              <div className="min-w-0">
-                <div className="text-xs font-black text-white flex items-center gap-1.5">
-                  {t.quickAction1Title}
-                  {activeTab === 'replay' && <span className="text-[10px] text-cyan-400 font-mono font-normal">● Active</span>}
-                </div>
-                <div className="text-[11px] text-slate-400 leading-tight mt-0.5">
-                  {t.quickAction1Desc}
-                </div>
-              </div>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('fantasy')}
-              className={cn(
-                'p-3 rounded-xl border text-left transition-all cursor-pointer flex items-start gap-2.5',
-                activeTab === 'fantasy'
-                  ? 'bg-cyan-500/15 border-cyan-400 text-white shadow-md ring-1 ring-cyan-400/50'
-                  : 'bg-slate-950/60 border-white/5 text-slate-300 hover:border-white/20 hover:text-white'
-              )}
-            >
-              <span className="text-lg">⚡</span>
-              <div className="min-w-0">
-                <div className="text-xs font-black text-white flex items-center gap-1.5">
-                  {t.quickAction2Title}
-                  <span className="text-[9px] px-1.5 py-0.2 rounded bg-rose-500 text-white font-mono font-bold">LIVE</span>
-                </div>
-                <div className="text-[11px] text-slate-400 leading-tight mt-0.5">
-                  {t.quickAction2Desc}
-                </div>
-              </div>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('lineup')}
-              className={cn(
-                'p-3 rounded-xl border text-left transition-all cursor-pointer flex items-start gap-2.5',
-                activeTab === 'lineup'
-                  ? 'bg-cyan-500/15 border-cyan-400 text-white shadow-md ring-1 ring-cyan-400/50'
-                  : 'bg-slate-950/60 border-white/5 text-slate-300 hover:border-white/20 hover:text-white'
-              )}
-            >
-              <span className="text-lg">📋</span>
-              <div className="min-w-0">
-                <div className="text-xs font-black text-white flex items-center gap-1.5">
-                  {t.quickAction3Title}
-                  {activeTab === 'lineup' && <span className="text-[10px] text-cyan-400 font-mono font-normal">● Active</span>}
-                </div>
-                <div className="text-[11px] text-slate-400 leading-tight mt-0.5">
-                  {t.quickAction3Desc}
-                </div>
-              </div>
-            </button>
-          </div>
-        </div>
-
         {activeTab === 'replay' && (
           <div className="space-y-6">
+            {/* Fan Experience Guide & Live Mode Onboarding */}
+            <div className="bg-gradient-to-r from-blue-950/80 via-slate-900 to-blue-950/80 border border-white/15 p-4 sm:p-5 rounded-2xl shadow-xl space-y-3 mb-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-cyan-500 text-slate-950 flex items-center justify-center font-black shrink-0 text-base shadow-md shadow-cyan-500/20">
+                    🏒
+                  </div>
+                  <div>
+                    <h2 className="text-sm sm:text-base font-black text-white font-sans flex items-center gap-2">
+                      {t.companionTitle}
+                    </h2>
+                    <p className="text-xs text-slate-300">
+                      {t.companionSubtitle}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Live Mode Tag */}
+                <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
+                  <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 text-xs font-mono font-bold">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    {t.liveTelemetryActive}
+                  </span>
+                </div>
+              </div>
+
+              {/* 3 Quick-Action Cards for Everyday Fans (Cyan Glow, ZERO Yellow) */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 pt-1">
+                <button
+                  onClick={() => setActiveTab('replay')}
+                  className="p-3 rounded-xl border text-left transition-all cursor-pointer flex items-start gap-2.5 bg-cyan-500/15 border-cyan-400 text-white shadow-md ring-1 ring-cyan-400/50"
+                >
+                  <span className="text-lg">🎬</span>
+                  <div className="min-w-0">
+                    <div className="text-xs font-black text-white flex items-center gap-1.5">
+                      {t.quickAction1Title}
+                      <span className="text-[10px] text-cyan-400 font-mono font-normal">● Active</span>
+                    </div>
+                    <div className="text-[11px] text-slate-400 leading-tight mt-0.5">
+                      {t.quickAction1Desc}
+                    </div>
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => setActiveTab('fantasy')}
+                  className="p-3 rounded-xl border text-left transition-all cursor-pointer flex items-start gap-2.5 bg-slate-950/60 border-white/5 text-slate-300 hover:border-cyan-400/40 hover:text-white hover:bg-slate-900/60"
+                >
+                  <span className="text-lg">⚡</span>
+                  <div className="min-w-0">
+                    <div className="text-xs font-black text-white flex items-center gap-1.5">
+                      {t.quickAction2Title}
+                      <span className="text-[9px] px-1.5 py-0.2 rounded bg-rose-500 text-white font-mono font-bold">LIVE</span>
+                    </div>
+                    <div className="text-[11px] text-slate-400 leading-tight mt-0.5">
+                      {t.quickAction2Desc}
+                    </div>
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => setActiveTab('lineup')}
+                  className="p-3 rounded-xl border text-left transition-all cursor-pointer flex items-start gap-2.5 bg-slate-950/60 border-white/5 text-slate-300 hover:border-cyan-400/40 hover:text-white hover:bg-slate-900/60"
+                >
+                  <span className="text-lg">📋</span>
+                  <div className="min-w-0">
+                    <div className="text-xs font-black text-white flex items-center gap-1.5">
+                      {t.quickAction3Title}
+                    </div>
+                    <div className="text-[11px] text-slate-400 leading-tight mt-0.5">
+                      {t.quickAction3Desc}
+                    </div>
+                  </div>
+                </button>
+              </div>
+            </div>
+
             {/* Interactive In-Shift Prediction Game Widget (Gamification Boost) */}
             <div className="bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 border border-cyan-500/40 p-4 rounded-2xl shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
@@ -285,13 +299,13 @@ export const App: React.FC = () => {
         {activeTab === 'activation' && <ActivationHub language={language} />}
       </main>
 
-      {/* Mobile Bottom Thumb Navigation Dock (For Smartphone Ergonomics) */}
-      <div className="sm:hidden fixed bottom-3 left-3 right-3 z-50 bg-[#070d19]/95 backdrop-blur-xl border border-cyan-500/30 p-1.5 rounded-2xl shadow-2xl flex items-center justify-around">
+      {/* Mobile Bottom Thumb Navigation Dock (For Smartphone Ergonomics, 6 tabs, >= 44x44px touch targets) */}
+      <div className="md:hidden fixed bottom-3 left-2 right-2 z-50 bg-[#070d19]/95 backdrop-blur-2xl border border-cyan-500/30 p-1 rounded-2xl shadow-2xl flex items-center justify-around">
         <button
           onClick={() => setActiveTab('replay')}
           className={cn(
-            'flex flex-col items-center py-1 px-3 rounded-xl transition-all cursor-pointer',
-            activeTab === 'replay' ? 'bg-cyan-500/20 text-cyan-300 font-bold' : 'text-slate-400'
+            'flex flex-col items-center justify-center min-w-[44px] min-h-[44px] py-1 px-1.5 rounded-xl transition-all cursor-pointer',
+            activeTab === 'replay' ? 'bg-cyan-500/20 text-cyan-300 font-bold' : 'text-slate-400 hover:text-white'
           )}
         >
           <Play className="w-4 h-4" />
@@ -301,11 +315,11 @@ export const App: React.FC = () => {
         <button
           onClick={() => setActiveTab('fantasy')}
           className={cn(
-            'flex flex-col items-center py-1 px-3 rounded-xl transition-all cursor-pointer relative',
-            activeTab === 'fantasy' ? 'bg-cyan-500/20 text-cyan-300 font-bold' : 'text-slate-400'
+            'flex flex-col items-center justify-center min-w-[44px] min-h-[44px] py-1 px-1.5 rounded-xl transition-all cursor-pointer relative',
+            activeTab === 'fantasy' ? 'bg-cyan-500/20 text-cyan-300 font-bold' : 'text-slate-400 hover:text-white'
           )}
         >
-          <span className="absolute top-1 right-2 w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+          <span className="absolute top-1 right-1.5 w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
           <Zap className="w-4 h-4" />
           <span className="text-[10px] mt-0.5 font-mono">Fantasy</span>
         </button>
@@ -313,23 +327,45 @@ export const App: React.FC = () => {
         <button
           onClick={() => setActiveTab('lineup')}
           className={cn(
-            'flex flex-col items-center py-1 px-3 rounded-xl transition-all cursor-pointer',
-            activeTab === 'lineup' ? 'bg-cyan-500/20 text-cyan-300 font-bold' : 'text-slate-400'
+            'flex flex-col items-center justify-center min-w-[44px] min-h-[44px] py-1 px-1.5 rounded-xl transition-all cursor-pointer',
+            activeTab === 'lineup' ? 'bg-cyan-500/20 text-cyan-300 font-bold' : 'text-slate-400 hover:text-white'
           )}
         >
           <Users className="w-4 h-4" />
-          <span className="text-[10px] mt-0.5 font-mono">Tactics</span>
+          <span className="text-[10px] mt-0.5 font-mono">{language === 'DE' ? 'Taktik' : 'Tactics'}</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('dna')}
+          className={cn(
+            'flex flex-col items-center justify-center min-w-[44px] min-h-[44px] py-1 px-1.5 rounded-xl transition-all cursor-pointer',
+            activeTab === 'dna' ? 'bg-cyan-500/20 text-cyan-300 font-bold' : 'text-slate-400 hover:text-white'
+          )}
+        >
+          <Dna className="w-4 h-4" />
+          <span className="text-[10px] mt-0.5 font-mono">DNA</span>
         </button>
 
         <button
           onClick={() => setActiveTab('quiz')}
           className={cn(
-            'flex flex-col items-center py-1 px-3 rounded-xl transition-all cursor-pointer',
-            activeTab === 'quiz' ? 'bg-cyan-500/20 text-cyan-300 font-bold' : 'text-slate-400'
+            'flex flex-col items-center justify-center min-w-[44px] min-h-[44px] py-1 px-1.5 rounded-xl transition-all cursor-pointer',
+            activeTab === 'quiz' ? 'bg-cyan-500/20 text-cyan-300 font-bold' : 'text-slate-400 hover:text-white'
           )}
         >
           <Trophy className="w-4 h-4" />
           <span className="text-[10px] mt-0.5 font-mono">Quiz</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('activation')}
+          className={cn(
+            'flex flex-col items-center justify-center min-w-[44px] min-h-[44px] py-1 px-1.5 rounded-xl transition-all cursor-pointer',
+            activeTab === 'activation' ? 'bg-cyan-500/20 text-cyan-300 font-bold' : 'text-slate-400 hover:text-white'
+          )}
+        >
+          <Radio className="w-4 h-4" />
+          <span className="text-[10px] mt-0.5 font-mono">Hub</span>
         </button>
       </div>
 

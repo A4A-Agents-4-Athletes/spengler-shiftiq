@@ -90,10 +90,10 @@ export const IceIQQuiz: React.FC<IceIQQuizProps> = ({ language = 'EN', onAddXp }
           {/* Prompt */}
           <div className="space-y-1">
             <h4 className="text-lg sm:text-xl font-extrabold text-white" style={{ textWrap: 'balance' }}>
-              {question.prompt}
+              {language === 'DE' && question.promptDe ? question.promptDe : question.prompt}
             </h4>
             <p className="text-xs text-slate-400 italic">
-              {question.contextText}
+              {language === 'DE' && question.contextDe ? question.contextDe : question.contextText}
             </p>
           </div>
 
@@ -121,7 +121,7 @@ export const IceIQQuiz: React.FC<IceIQQuizProps> = ({ language = 'EN', onAddXp }
                   disabled={hasAnswered}
                   onClick={() => handleSelectOption(opt.id)}
                   className={cn(
-                    'p-4 rounded-xl border text-left flex items-center justify-between transition-all cursor-pointer',
+                    'p-4 rounded-xl border text-left flex items-center justify-between transition-all cursor-pointer min-h-[52px]',
                     btnStyle
                   )}
                 >
@@ -129,7 +129,7 @@ export const IceIQQuiz: React.FC<IceIQQuizProps> = ({ language = 'EN', onAddXp }
                     <div className="text-sm font-semibold">{opt.text}</div>
                     {hasAnswered && (
                       <div className="text-xs font-mono text-slate-400">
-                        {opt.metricLabel}: <span className="text-white font-bold">{opt.metricValue}</span>
+                        {language === 'DE' && opt.metricLabelDe ? opt.metricLabelDe : opt.metricLabel}: <span className="text-white font-bold">{opt.metricValue}</span>
                       </div>
                     )}
                   </div>
@@ -148,10 +148,10 @@ export const IceIQQuiz: React.FC<IceIQQuizProps> = ({ language = 'EN', onAddXp }
           {selectedOptionId !== null && (
             <div className="p-4 bg-slate-900/90 border-l-4 border-cyan-400 rounded-r-xl space-y-2 animate-in fade-in">
               <div className="text-xs font-extrabold text-cyan-400 uppercase tracking-wider font-mono">
-                Wisehockey Telemetry Proof
+                {language === 'DE' ? 'Wisehockey-Sensor-Verifikation' : 'Wisehockey Telemetry Proof'}
               </div>
               <p className="text-xs text-slate-200 leading-relaxed font-sans" style={{ textWrap: 'pretty' }}>
-                {question.explanation}
+                {language === 'DE' && question.explanationDe ? question.explanationDe : question.explanation}
               </p>
               <div className="p-2 bg-slate-950 rounded-lg text-[11px] font-mono text-cyan-300 border border-slate-800">
                 {question.telemetryEvidence}

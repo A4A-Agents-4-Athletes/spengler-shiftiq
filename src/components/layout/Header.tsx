@@ -136,7 +136,7 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Clean Intuitive Navigation Tabs with Action Hints (Ice Cyan Highlights, ZERO Yellow) */}
-        <nav className="flex items-center space-x-2 overflow-x-auto pb-2.5 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-none touch-pan-x">
+        <nav className="hidden md:flex items-center space-x-2 overflow-x-auto pb-2.5 pt-1 scrollbar-none">
           {tabs.map((tab) => {
             const isActive = activeTab === tab.id;
             const Icon = tab.icon;

@@ -5,15 +5,19 @@ export interface IceIqQuizQuestion {
   category: 'SPEED' | 'WORKLOAD' | 'TACTICS' | 'DEFENSE';
   difficulty: 'Rookie' | 'Pro' | 'Expert';
   prompt: string;
+  promptDe?: string;
   contextText: string;
+  contextDe?: string;
   options: {
     id: string;
     text: string;
     metricLabel: string;
+    metricLabelDe?: string;
     metricValue: string;
     isCorrect: boolean;
   }[];
   explanation: string;
+  explanationDe?: string;
   telemetryEvidence: string;
 }
 
