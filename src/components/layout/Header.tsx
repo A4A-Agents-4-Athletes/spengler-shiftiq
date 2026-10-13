@@ -45,17 +45,17 @@ export const Header: React.FC<HeaderProps> = ({
               <span className="text-cyan-400 font-black text-xl md:text-2xl tracking-tighter font-sans">SC</span>
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] md:text-xs uppercase font-black tracking-widest text-cyan-400 flex items-center gap-1 font-mono">
-                  <Shield className="w-3.5 h-3.5 fill-current" />
+              <div className="flex items-center gap-2 whitespace-nowrap">
+                <span className="text-[10px] md:text-xs uppercase font-black tracking-widest text-cyan-400 flex items-center gap-1 font-mono shrink-0">
+                  <Shield className="w-3.5 h-3.5 fill-current shrink-0" />
                   Spengler Cup Davos 1923
                 </span>
-                <span className="text-slate-600 text-xs hidden sm:inline">•</span>
-                <span className="text-[11px] text-slate-400 hidden sm:inline font-mono">{t.appSubtitle}</span>
+                <span className="text-slate-600 text-xs hidden lg:inline">•</span>
+                <span className="text-[11px] text-slate-400 hidden lg:inline font-mono">{t.appSubtitle}</span>
               </div>
-              <h1 className="text-lg md:text-2xl font-black tracking-tight text-white flex items-center gap-2.5 font-sans">
+              <h1 className="text-lg md:text-2xl font-black tracking-tight text-white flex items-center gap-2.5 font-sans whitespace-nowrap">
                 {t.appTitle}
-                <span className="text-[10px] px-2 py-0.5 bg-cyan-950 border border-cyan-400/40 text-cyan-300 font-mono rounded-md uppercase font-bold tracking-wider">
+                <span className="text-[10px] px-2 py-0.5 bg-cyan-950 border border-cyan-400/40 text-cyan-300 font-mono rounded-md uppercase font-bold tracking-wider shrink-0">
                   Live Companion
                 </span>
               </h1>

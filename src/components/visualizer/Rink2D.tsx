@@ -291,12 +291,13 @@ export const Rink2D: React.FC<Rink2DProps> = ({ moment, currentTime, isProLens }
 
           const labelOffsetY = isHcd ? -25 : 25;
           const labelOffsetX = (index % 2 === 0 ? -1 : 1) * 8;
-          const showBadge = isPrimary || isProLens;
-          const discRadius = isPrimary ? 17 : isProLens ? 14 : 12;
+          const showBadge = isPrimary;
+          const discRadius = isPrimary ? 17 : isProLens ? 14.5 : 12;
           const groupOpacity = isPrimary || isProLens ? 1 : 0.42;
 
           return (
             <g key={skater.playerId} filter={isPrimary ? 'url(#skaterShadow)' : undefined} opacity={groupOpacity}>
+              <title>{`${skater.name} (#${skater.jerseyNumber}) · ${currentPos.speedKmh.toFixed(1)} km/h`}</title>
               {/* Pro Lens Velocity Vector Line */}
               {isProLens && Math.hypot(nextSvgX - svgX, nextSvgY - svgY) > 4 && (
                 <line

@@ -1,7 +1,4 @@
 import { DecisiveMoment } from '../types/wisehockey';
-import officialData from './officialWisehockeyParsed.json';
-
-const cyclesSummary = officialData.cyclesSummary || [];
 
 export const mockDecisiveMoments: DecisiveMoment[] = [
   {
@@ -32,7 +29,18 @@ export const mockDecisiveMoments: DecisiveMoment[] = [
     topSpeedKmh: 32.8,
     puckVelocityKmh: 100.1,
     expectedGoalDelta: 0.122,
-    momentumTimeline: (cyclesSummary[0]?.momentumTimeline as any) || [],
+    momentumTimeline: [
+      { timeSec: 0.0, matchClock: '13:25', value: 45, dominantTeam: 'HCD', badge: '#66 Nussbaumer Faceoff Win' },
+      { timeSec: 0.9, matchClock: '13:35', value: -42, dominantTeam: 'USA', badge: '#22 Knuble Zone Dump-In' },
+      { timeSec: 1.8, matchClock: '13:43', value: 52, dominantTeam: 'HCD', badge: '#66 Nussbaumer Zone Entry' },
+      { timeSec: 2.7, matchClock: '13:57', value: -58, dominantTeam: 'USA', badge: 'USA Shot Block (#30 Gajan)' },
+      { timeSec: 3.6, matchClock: '14:03', value: -64, dominantTeam: 'USA', badge: '#19 Finley to #18 Fink Rush' },
+      { timeSec: 4.5, matchClock: '14:16', value: 55, dominantTeam: 'HCD', badge: '#6 Dahlbeck Breakout Pass' },
+      { timeSec: 5.4, matchClock: '14:30', value: -48, dominantTeam: 'USA', badge: '#23 Pohlkamp Neutral Steal' },
+      { timeSec: 6.3, matchClock: '14:40', value: 78, dominantTeam: 'HCD', badge: '#77 Gross 90.4 km/h Pass' },
+      { timeSec: 7.2, matchClock: '14:45', value: 88, dominantTeam: 'HCD', badge: '#38 Frick Zone Entry' },
+      { timeSec: 8.0, matchClock: '14:49', value: 100, dominantTeam: 'HCD', badge: 'GOAL #19 Tambellini (100.1 km/h)' },
+    ],
     puckTrajectory: [
       { timeSec: 0.0, x: 50, y: 50, speedKmh: 44.0 },
       { timeSec: 1.6, x: 38, y: 68, speedKmh: 62.0 },
@@ -194,7 +202,7 @@ export const mockDecisiveMoments: DecisiveMoment[] = [
     eventType: 'GOAL',
     primaryTeamId: 'USA',
     primaryPlayerName: 'Jack Musa',
-    headlineMetric: '146.0 km/h Slapshot Barrage · 0.256 xG Finish',
+    headlineMetric: '146.0 km/h Blast · 0.256 xG',
     curiosityPromptEn:
       'How did Team USA bombard Sandro Aeschlimann with 4 shots up to 146.0 km/h in 30 seconds before Jack Musa converted a 25.6% xG slot pass?',
     curiosityPromptDe:
@@ -211,7 +219,18 @@ export const mockDecisiveMoments: DecisiveMoment[] = [
     topSpeedKmh: 32.8,
     puckVelocityKmh: 146.0,
     expectedGoalDelta: 0.256,
-    momentumTimeline: (cyclesSummary[1]?.momentumTimeline as any) || [],
+    momentumTimeline: [
+      { timeSec: 0.0, matchClock: '12:44', value: 58, dominantTeam: 'HCD', badge: '#70 Corvi Faceoff Win' },
+      { timeSec: 0.9, matchClock: '12:48', value: 64, dominantTeam: 'HCD', badge: '#38 Frick Zone Entry' },
+      { timeSec: 1.8, matchClock: '12:55', value: 48, dominantTeam: 'HCD', badge: '#55 Borgman Cycle' },
+      { timeSec: 2.7, matchClock: '13:06', value: -55, dominantTeam: 'USA', badge: '#13 Hughes Breakout' },
+      { timeSec: 3.6, matchClock: '13:10', value: -74, dominantTeam: 'USA', badge: '#19 Finley 123.5 km/h Shot' },
+      { timeSec: 4.5, matchClock: '13:18', value: 42, dominantTeam: 'HCD', badge: '#77 Gross Contest' },
+      { timeSec: 5.4, matchClock: '13:25', value: -82, dominantTeam: 'USA', badge: '#18 Fink 127.1 km/h Shot' },
+      { timeSec: 6.3, matchClock: '13:32', value: -94, dominantTeam: 'USA', badge: '#2 McCarthy 146.0 km/h Blast' },
+      { timeSec: 7.2, matchClock: '13:40', value: -96, dominantTeam: 'USA', badge: '#18 Fink Slot Feed' },
+      { timeSec: 8.0, matchClock: '13:42', value: -100, dominantTeam: 'USA', badge: 'GOAL #9 Jack Musa (0.256 xG)' },
+    ],
     puckTrajectory: [
       { timeSec: 0.0, x: 52, y: 36, speedKmh: 74.9 }, // T.J. Hughes to Quinn Finley zone entry
       { timeSec: 1.8, x: 78, y: 28, speedKmh: 127.1 }, // Aiden Fink 127.1 km/h shot saved
@@ -373,7 +392,7 @@ export const mockDecisiveMoments: DecisiveMoment[] = [
     eventType: 'GOAL',
     primaryTeamId: 'HCD',
     primaryPlayerName: 'Matej Stransky',
-    headlineMetric: '35.6 km/h Counter-Rush Survived · Dahlbeck Seam Assist',
+    headlineMetric: '35.6 km/h Rush · 67.0 km/h Pass',
     curiosityPromptEn:
       'How did HC Davos survive a 35.6 km/h shorthanded burst by Eric Pohlkamp and counter with a Zadina-Dahlbeck-Stransky powerplay goal in 30 seconds?',
     curiosityPromptDe:
@@ -390,7 +409,18 @@ export const mockDecisiveMoments: DecisiveMoment[] = [
     topSpeedKmh: 35.6,
     puckVelocityKmh: 118.4,
     expectedGoalDelta: 0.68,
-    momentumTimeline: (cyclesSummary[2]?.momentumTimeline as any) || [],
+    momentumTimeline: [
+      { timeSec: 0.0, matchClock: '16:48', value: -52, dominantTeam: 'USA', badge: '#13 Hughes Faceoff' },
+      { timeSec: 0.9, matchClock: '16:59', value: 68, dominantTeam: 'HCD', badge: '#38 Frick to #18 Zadina' },
+      { timeSec: 1.8, matchClock: '17:08', value: 76, dominantTeam: 'HCD', badge: '#44 Stransky PP Cycle' },
+      { timeSec: 2.7, matchClock: '17:16', value: -84, dominantTeam: 'USA', badge: '#23 Pohlkamp 35.6 km/h Rush' },
+      { timeSec: 3.6, matchClock: '17:18', value: -76, dominantTeam: 'USA', badge: '#19 Finley 34.8 km/h Burst' },
+      { timeSec: 4.5, matchClock: '17:29', value: -62, dominantTeam: 'USA', badge: '#4 Livanavage PK Clear' },
+      { timeSec: 5.4, matchClock: '17:35', value: 74, dominantTeam: 'HCD', badge: '#18 Zadina Zone Entry' },
+      { timeSec: 6.3, matchClock: '17:38', value: 84, dominantTeam: 'HCD', badge: '#6 Dahlbeck Blue-Line Cycle' },
+      { timeSec: 7.2, matchClock: '17:44', value: 94, dominantTeam: 'HCD', badge: '#6 Dahlbeck 67.0 km/h Seam Pass' },
+      { timeSec: 8.0, matchClock: '17:49', value: 100, dominantTeam: 'HCD', badge: 'GOAL #44 Matej Stransky' },
+    ],
     puckTrajectory: [
       { timeSec: 0.0, x: 32, y: 42, speedKmh: 51.1 },  // USA shorthanded rush disrupted
       { timeSec: 1.8, x: 64, y: 24, speedKmh: 45.4 },  // Filip Zadina controlled zone entry

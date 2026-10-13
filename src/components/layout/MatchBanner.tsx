@@ -205,8 +205,8 @@ export const MatchBanner: React.FC<MatchBannerProps> = ({ language }) => {
                 <div className="text-base font-black text-white font-mono leading-tight">
                   35.6 km/h
                 </div>
-                <span className="text-xs text-slate-300 font-semibold truncate block">
-                  E. Pohlkamp #23 · F. Zadina #18
+                <span className="text-xs text-slate-300 font-semibold block">
+                  E. Pohlkamp · USA #23
                 </span>
               </div>
             </div>
@@ -217,7 +217,7 @@ export const MatchBanner: React.FC<MatchBannerProps> = ({ language }) => {
                 {t.top1PercentSpeed}
               </span>
               <span className="text-[10px] text-slate-400 font-mono block mt-1">
-                9.90 m/s peak
+                F. Zadina 35.4k
               </span>
             </div>
           </div>
@@ -235,8 +235,8 @@ export const MatchBanner: React.FC<MatchBannerProps> = ({ language }) => {
                 <div className="text-base font-black text-white font-mono leading-tight">
                   146.0 km/h
                 </div>
-                <span className="text-xs text-slate-300 font-semibold truncate block">
-                  Gavin McCarthy · USA #2
+                <span className="text-xs text-slate-300 font-semibold block">
+                  G. McCarthy · USA #2
                 </span>
               </div>
             </div>
