@@ -2,9 +2,11 @@
 
 > **ThinkSport Innovation Challenge: Data-hack 2026 (2nd Edition)**  
 > In partnership with **Spengler Cup Davos**, **scoreTec**, and **Wisehockey**  
-> **Team:** A4A (Independent Technical Builders)  
-> **Lead Architect:** Kamilla Gafurzianova  
+> **Team:** A4A (Agents 4 Athletes)  
+> **Lead Architect:** Kamilla Gafurzianova, OLY  
 > **Official Dataset:** 97th Spengler Cup Final (31 December 2025: **HC Davos 6 : 3 U.S. Collegiate Selects** · 40 Real Skaters · 284 Play-by-Play Telemetry Events)  
+> **Live Interactive Prototype:** [**https://a4a-agents-4-athletes.github.io/spengler-shiftiq/**](https://a4a-agents-4-athletes.github.io/spengler-shiftiq/)  
+> **Public Repository:** [**https://github.com/A4A-Agents-4-Athletes/spengler-shiftiq**](https://github.com/A4A-Agents-4-Athletes/spengler-shiftiq)  
 > **Final Pitch Date:** 7 December 2026 · The Circle Convention Center, Zurich Airport  
 
 ![Spengler ShiftIQ Architecture](https://img.shields.io/badge/Competition-ThinkSport%20Data--Hack-0047ba?style=flat-square)
