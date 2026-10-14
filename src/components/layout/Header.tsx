@@ -1,8 +1,9 @@
-import React from 'react';
-import { Sparkles, Activity, Play, Dna, Users, Zap, Trophy, Radio, Globe, Shield } from 'lucide-react';
+import React, { useState } from 'react';
+import { Sparkles, Activity, Play, Dna, Users, Zap, Trophy, Radio, Globe, Shield, QrCode } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { Language, translations } from '../../lib/i18n';
 import { getLevelInfo } from '../../lib/gamificationStore';
+import { LiveDemoModal } from '../common/LiveDemoQrCode';
 
 interface HeaderProps {
   isProLens: boolean;
@@ -23,6 +24,7 @@ export const Header: React.FC<HeaderProps> = ({
   setLanguage,
   xp,
 }) => {
+  const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
   const t = translations[language];
   const levelInfo = getLevelInfo(xp);
 
@@ -62,8 +64,18 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
           </div>
 
-          {/* Right Header Controls: Fan XP Progress, Bilingual Switcher & Dual Lens */}
-          <div className="flex flex-wrap items-center gap-2 sm:gap-3 self-stretch md:self-auto justify-end">
+          {/* Right Header Controls: Live Demo / QR Tour, Fan XP Progress, Bilingual Switcher & Dual Lens */}
+          <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 self-stretch md:self-auto justify-end">
+            {/* Live Stage Demo & Scannable QR Button */}
+            <button
+              type="button"
+              onClick={() => setIsDemoModalOpen(true)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-400/50 text-emerald-300 text-xs font-mono font-black uppercase tracking-wider shadow-md cursor-pointer transition-all"
+            >
+              <QrCode className="w-3.5 h-3.5 text-emerald-400" />
+              <span>{language === 'DE' ? 'LIVE-DEMO / QR' : 'LIVE DEMO / QR'}</span>
+            </button>
+
             {/* Fan Level & XP Badge */}
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-cyan-500/30 text-xs font-mono shadow-md">
               <span className="text-cyan-400 font-black">
@@ -178,6 +190,16 @@ export const Header: React.FC<HeaderProps> = ({
           })}
         </nav>
       </div>
+
+      <LiveDemoModal
+        isOpen={isDemoModalOpen}
+        onClose={() => setIsDemoModalOpen(false)}
+        language={language}
+        onSelectScenario={(tab, proLens) => {
+          setActiveTab(tab);
+          setIsProLens(proLens);
+        }}
+      />
     </header>
   );
 };

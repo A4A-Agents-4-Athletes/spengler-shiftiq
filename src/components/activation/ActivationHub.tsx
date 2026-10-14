@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Tv, Monitor, QrCode, Globe, Radio, TrendingUp } from 'lucide-react';
+import { Tv, Monitor, Globe, Radio, TrendingUp } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { Language, translations } from '../../lib/i18n';
+import { LiveDemoQrSvg } from '../common/LiveDemoQrCode';
 
 interface ActivationHubProps {
   language?: Language;
@@ -159,13 +160,11 @@ export const ActivationHub: React.FC<ActivationHubProps> = ({ language = 'EN' })
                 </p>
               </div>
 
-              {/* QR Code Graphic Box */}
-              <div className="bg-white p-2.5 rounded-xl flex flex-col items-center justify-center shrink-0 shadow-lg">
-                <div className="w-20 h-20 bg-slate-900 rounded-lg flex items-center justify-center text-white">
-                  <QrCode className="w-16 h-16 text-cyan-400" />
-                </div>
+              {/* Real Scannable QR Code Box */}
+              <div className="bg-white p-2 rounded-xl flex flex-col items-center justify-center shrink-0 shadow-lg border-2 border-cyan-400">
+                <LiveDemoQrSvg className="w-20 h-20" />
                 <span className="text-[9px] font-mono font-black text-slate-900 mt-1 uppercase tracking-tight">
-                  Scan for ShiftIQ
+                  Scan Live App
                 </span>
               </div>
             </div>
@@ -219,11 +218,16 @@ export const ActivationHub: React.FC<ActivationHubProps> = ({ language = 'EN' })
               </div>
             </div>
 
-            <p className="text-xs text-slate-400 font-mono">
-              {isDe
-                ? 'Echtzeit-Synchronisation über das Stadion-WLAN und die Wisehockey 20Hz-Sensordaten.'
-                : 'Live updates powered by Eisstadion Davos Wi-Fi and Wisehockey 20Hz optical tracking streams.'}
-            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2 border-t border-slate-800">
+              <div className="bg-white p-2 rounded-xl border-2 border-cyan-400 shrink-0">
+                <LiveDemoQrSvg className="w-16 h-16" />
+              </div>
+              <p className="text-xs text-slate-300 font-mono text-left max-w-sm">
+                {isDe
+                  ? 'Echter QR-Code: Scanne jetzt mit dem Smartphone, um direkt auf der Stadion-Leinwand abzustimmen (+50 Fan XP).'
+                  : 'Real Scannable QR: Scan with your smartphone right now to vote live on the Eisstadion Davos Jumbotron (+50 Fan XP).'}
+              </p>
+            </div>
           </div>
         </div>
       )}
