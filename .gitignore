@@ -38,3 +38,5 @@ data_pipeline/output/*.json
 *.tar.gz
 docs/webinars/slides/*.pdf
 docs/webinars/slides/*.PDF
+docs/MENTOR_AND_JURY_OSINT_DOSSIER.md
+

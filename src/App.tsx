@@ -284,7 +284,16 @@ export const App: React.FC = () => {
             />
 
             {/* Story Insight / Telemetry Card */}
-            <EventCard moment={activeMoment} isProLens={isProLens} language={language} />
+            <EventCard
+              moment={activeMoment}
+              isProLens={isProLens}
+              language={language}
+              currentTime={currentTime}
+              onJumpToTime={(sec) => {
+                setIsPlaying(false);
+                setCurrentTime(sec);
+              }}
+            />
           </div>
         )}
 

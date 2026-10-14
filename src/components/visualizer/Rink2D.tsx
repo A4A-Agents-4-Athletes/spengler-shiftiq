@@ -8,6 +8,14 @@ interface Rink2DProps {
 }
 
 export const Rink2D: React.FC<Rink2DProps> = ({ moment, currentTime, isProLens }) => {
+  const [highlightCatalyst, setHighlightCatalyst] = React.useState<boolean>(true);
+
+  const catalystInfo = moment.id.includes('tambellini')
+    ? { jersey: 38, label: 'Invisible Playmaker: #38 L. Frick (90.4 km/h Entry & Seam)' }
+    : moment.id.includes('musa')
+    ? { jersey: 18, label: 'Invisible Playmaker: #18 A. Fink (16.7 m/s Goal-Line Feed)' }
+    : { jersey: 6, label: 'Invisible Playmaker: #6 K. Dahlbeck (67.0 km/h Royal-Road Pass)' };
+
   // Linear interpolation between trajectory points
   const interpolatePoint = (points: RinkTrajectoryPoint[], time: number): RinkTrajectoryPoint => {
     if (points.length === 0) return { timeSec: 0, x: 50, y: 50, speedKmh: 0 };
@@ -204,7 +212,7 @@ export const Rink2D: React.FC<Rink2DProps> = ({ moment, currentTime, isProLens }
           pointerEvents="none"
         />
 
-        {/* Pro Lens Tactical Spacing & Goalie Screen Cone Overlay */}
+        {/* Pro Lens Tactical Spacing, Royal-Road Seam & High-Danger Slot House Overlay */}
         {isProLens && (() => {
           const puckX = (currentPuck.x / 100) * 970 + 15;
           const puckY = (currentPuck.y / 100) * 470 + 15;
@@ -217,6 +225,38 @@ export const Rink2D: React.FC<Rink2DProps> = ({ moment, currentTime, isProLens }
             .join(' ');
           return (
             <g pointerEvents="none">
+              {/* High-Danger Slot House ("The House" - Video-Room Zone) */}
+              <polygon
+                points="800,125 940,215 940,285 800,375"
+                fill="#0284c7"
+                fillOpacity="0.06"
+                stroke="#0284c7"
+                strokeWidth="1.2"
+                strokeDasharray="5 4"
+              />
+              {/* Royal-Road Center Seam Line (Cross-Ice High-xG Pass Threshold) */}
+              <line
+                x1="675"
+                y1="250"
+                x2="940"
+                y2="250"
+                stroke="#10b981"
+                strokeWidth="1.8"
+                strokeDasharray="6 4"
+                strokeOpacity="0.75"
+              />
+              <text
+                x="785"
+                y="243"
+                fill="#059669"
+                fontSize="8.5"
+                fontWeight="900"
+                fontFamily="monospace"
+                letterSpacing="1.5"
+                textAnchor="middle"
+              >
+                ROYAL-ROAD SEAM · SLOT HOUSE
+              </text>
               {/* Shot Danger / Screen Cone from Puck to Attacking Crease */}
               <polygon
                 points={`${puckX},${puckY} 940,224 940,276`}
@@ -282,6 +322,7 @@ export const Rink2D: React.FC<Rink2DProps> = ({ moment, currentTime, isProLens }
         {moment.skaters.map((skater, index) => {
           const isHcd = skater.teamId === 'HCD';
           const isPrimary = skater.isKeyPlaymaker !== false;
+          const isCatalyst = highlightCatalyst && skater.jerseyNumber === catalystInfo.jersey;
           const currentPos = interpolatePoint(skater.trajectory, currentTime);
           const nextPos = interpolatePoint(skater.trajectory, Math.min(moment.durationSeconds, currentTime + 0.6));
           const svgX = (currentPos.x / 100) * 970 + 15;
@@ -311,6 +352,20 @@ export const Rink2D: React.FC<Rink2DProps> = ({ moment, currentTime, isProLens }
                 />
               )}
 
+              {/* Invisible Playmaker / Off-Puck Catalyst Emerald Halo */}
+              {isCatalyst && (
+                <circle
+                  cx={svgX}
+                  cy={svgY}
+                  r="23"
+                  fill="#10b981"
+                  fillOpacity="0.18"
+                  stroke="#10b981"
+                  strokeWidth="2.5"
+                  strokeDasharray="4 2"
+                />
+              )}
+
               {/* High Speed Pulse Radar */}
               {currentPos.speedKmh > 30 && (isPrimary || isProLens) && (
                 <circle
@@ -331,7 +386,7 @@ export const Rink2D: React.FC<Rink2DProps> = ({ moment, currentTime, isProLens }
                 cy={svgY}
                 r={discRadius}
                 fill={isHcd ? '#003882' : '#991b1b'}
-                stroke={isHcd ? '#38bdf8' : '#ffffff'}
+                stroke={isCatalyst ? '#10b981' : isHcd ? '#38bdf8' : '#ffffff'}
                 strokeWidth={isPrimary ? '3' : '2'}
               />
 
@@ -452,6 +507,20 @@ export const Rink2D: React.FC<Rink2DProps> = ({ moment, currentTime, isProLens }
           {isProLens ? '10 Skaters · Vectors' : 'SRF Story View'}
         </span>
       </div>
+
+      {/* Martin Rumo (scoreTec) "Invisible Playmaker" Off-Puck Catalyst Toggle (Lower Left) */}
+      <button
+        type="button"
+        onClick={() => setHighlightCatalyst((prev) => !prev)}
+        className={`absolute bottom-2.5 sm:bottom-3.5 left-2.5 sm:left-3.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border backdrop-blur-md flex items-center gap-2 text-[10px] sm:text-xs font-mono font-bold shadow-xl z-20 cursor-pointer transition-all ${
+          highlightCatalyst
+            ? 'bg-emerald-950/90 border-emerald-400/60 text-emerald-300'
+            : 'bg-slate-950/85 border-white/15 text-slate-400 hover:text-white'
+        }`}
+      >
+        <span className={`w-2 h-2 rounded-sm ${highlightCatalyst ? 'bg-emerald-400 animate-pulse' : 'bg-slate-600'}`} />
+        <span>{catalystInfo.label}</span>
+      </button>
     </div>
   );
 };

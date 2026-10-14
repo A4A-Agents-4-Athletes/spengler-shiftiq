@@ -58,9 +58,15 @@ export const PlayerDNA: React.FC<PlayerDNAProps> = ({ language = 'EN' }) => {
     })
     .join(' ');
 
+  const p1WorkRate = player1.totalDistanceMeters / Math.max(1, player1.timeOnIceSeconds / 60);
+  const p2WorkRate = player2.totalDistanceMeters / Math.max(1, player2.timeOnIceSeconds / 60);
+
   const metricsToCompare = [
     { label: isDe ? 'Eiszeit (TOI)' : 'Time on Ice (TOI)', v1: formatTimeOnIce(player1.timeOnIceSeconds), v2: formatTimeOnIce(player2.timeOnIceSeconds), num1: player1.timeOnIceSeconds, num2: player2.timeOnIceSeconds },
-    { label: isDe ? 'Laufdistanz' : 'Skating Distance', v1: formatDistance(player1.totalDistanceMeters), v2: formatDistance(player2.totalDistanceMeters), num1: player1.totalDistanceMeters, num2: player2.totalDistanceMeters },
+    { label: isDe ? 'Arbeitsrate (m / Min TOI)' : 'Work Rate Intensity (m / min TOI)', v1: `${p1WorkRate.toFixed(1)} m/min`, v2: `${p2WorkRate.toFixed(1)} m/min`, num1: p1WorkRate, num2: p2WorkRate },
+    { label: isDe ? 'Ø Shift-Dauer (Erschöpfungs-Index)' : 'Avg Shift Duration (Fatigue Index)', v1: `${player1.avgShiftDurationSeconds}s (${player1.shiftsCount} shifts)`, v2: `${player2.avgShiftDurationSeconds}s (${player2.shiftsCount} shifts)`, num1: player1.avgShiftDurationSeconds, num2: player2.avgShiftDurationSeconds },
+    { label: isDe ? 'Laufdistanz Gesamt' : 'Total Skating Distance', v1: formatDistance(player1.totalDistanceMeters), v2: formatDistance(player2.totalDistanceMeters), num1: player1.totalDistanceMeters, num2: player2.totalDistanceMeters },
+    { label: isDe ? 'High-Speed Sprint-Distanz (>24 km/h)' : 'High-Speed Sprint Distance (>24 km/h)', v1: `${player1.sprintDistanceMeters} m (${player1.accelerationsCount} bursts)`, v2: `${player2.sprintDistanceMeters} m (${player2.accelerationsCount} bursts)`, num1: player1.sprintDistanceMeters, num2: player2.sprintDistanceMeters },
     { label: isDe ? 'Top Sprint-Tempo' : 'Top Sprint Speed', v1: formatSpeed(player1.topSpeedKmh), v2: formatSpeed(player2.topSpeedKmh), num1: player1.topSpeedKmh, num2: player2.topSpeedKmh },
     { label: isDe ? 'Zweikampfquote' : 'Puck Battle Win %', v1: `${player1.puckBattleWinPct.toFixed(1)}%`, v2: `${player2.puckBattleWinPct.toFixed(1)}%`, num1: player1.puckBattleWinPct, num2: player2.puckBattleWinPct },
     { label: isDe ? 'Top Schusshärte' : 'Top Shot Speed', v1: formatSpeed(player1.topShotSpeedKmh), v2: formatSpeed(player2.topShotSpeedKmh), num1: player1.topShotSpeedKmh, num2: player2.topShotSpeedKmh },

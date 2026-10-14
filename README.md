@@ -37,7 +37,12 @@ Ice hockey is one of the fastest, most emotional team sports on the planet, yet 
   - **Cycle #1 (Period 1, 13:25 to 14:49 · 128 Events · 5v5)**: `#66 Valentin Nussbaumer` faceoff win, `#77 Nico Gross` `90.4 km/h` (`25.1 m/s`) breakout pass to `#38 Lukas Frick`, and `#19 Adam Tambellini`'s `100.1 km/h` slot goal (`0.122 ShotXG`).
   - **Cycle #2 (Period 2, 12:44 to 13:42 · 75 Events · 5v5)**: U.S. Collegiate Selects offensive zone siege featuring `#19 Quinn Finley` (`123.5 km/h`), `#18 Aiden Fink` (`127.1 km/h`), `#2 Gavin McCarthy`'s match-record `146.0 km/h` slapshot, and `#9 Jack Musa`'s `107.0 km/h` slot finish (`0.256 ShotXG`).
   - **Cycle #3 (Period 3, 16:48 to 17:49 · 81 Events · 5v4 Powerplay)**: `#23 Eric Pohlkamp`'s `35.6 km/h` (`9.90 m/s`) shorthanded rush survived by Davos, followed by `#18 Filip Zadina`'s zone entry, `#6 Klas Dahlbeck`'s `67.0 km/h` (`18.6 m/s`) seam pass, and `#44 Matej Stransky`'s powerplay goal.
-- **Story Lens vs. Pro Lens**: Story Lens highlights the 4 primary playmakers cleanly; Pro Lens illuminates **all 10 on-ice skaters (`StartPlayer1..12`)** with velocity vectors, spacing triangles, and goalie screen cones.
+- **Story Lens vs. Pro Lens**: Story Lens highlights the 4 primary playmakers cleanly; Pro Lens illuminates **all 10 on-ice skaters (`StartPlayer1..12`)** with velocity vectors, spacing triangles, goalie screen cones, the **Royal-Road Center Seam Line**, and the **High-Danger Slot ("The House")**.
+- **Spengler Cup Living Lab Pillars**:
+  1. **Invisible Playmaker / Off-Puck Catalyst Spotlight**: Interactive emerald beacon (`Rink2D.tsx` & `EventCard.tsx`) highlighting the unheralded off-puck catalyst (`#66 Nussbaumer`, `#19 Finley`, `#71 Egli`) who created the goal before the primary assist.
+  2. **Coach Video-Room Keyframe Scrubber & Royal-Road Seam**: Clickable `0.0s..7.2s` sequence breakdown buttons in `EventCard.tsx` that instantly freeze the 2D Rink at the exact tactical frame, paired with the Royal-Road Center Seam (`Y = 0`) and Slot House overlay in Pro Lens.
+  3. **Shift Physiology & Fatigue Load**: Live anaerobic work rate (`m/min TOI`), shift accumulation fatigue differential (`48s` Davos vs `62s` USA), and high-speed sprint burst telemetry in both `EventCard.tsx` and `PlayerDNA.tsx`.
+  4. **Legend's Eye · Ambühl #10 Dual Commentary**: Side-by-side Wisehockey 20Hz optical sensor proof paired with 151-game Spengler Cup record legend Andres Ambühl's human hockey intuition inside `EventCard.tsx`.
 
 ### 2. Shift Fantasy (`ShiftFantasy`)
 - **18-Minute Intermission Micro-Fantasy**: Fans draft a 3-Skater Triad (*The Rocket*, *The Sniper*, *The Anchor*) from all **40 official skaters** and simulate real-time optical tracking points.
@@ -46,7 +51,7 @@ Ice hockey is one of the fastest, most emotional team sports on the planet, yet 
 - Interactive `5v4 Powerplay`, `4v5 Penalty Kill`, `3v3 OT`, and `5v5 Regular` formation lab with a slide-over roster drawer for all 40 skaters and a live **Tactical Chemistry Rating (0 to 100)**.
 
 ### 4. Player DNA (`PlayerDNA`)
-- Interactive Tilt-3D collectible cards and 6-axis SVG radar comparison across all 40 skaters (e.g., `#18 Filip Zadina` `35.4 km/h` & `10 SOG` vs. `#21 Ryan Walsh` `34.7 km/h` & `90.9% Pass-%`).
+- Interactive Tilt-3D collectible cards, 6-axis SVG radar comparison, and **Exercise Physiology Work Rate (`m/min TOI`), Average Shift Duration (`Fatigue Index`), and High-Speed Sprint Bursts (`>24 km/h`)** across all 40 skaters (e.g., `#18 Filip Zadina` `35.4 km/h` & `10 SOG` vs. `#21 Ryan Walsh` `34.7 km/h` & `90.9% Pass-%`).
 
 ### 5. Ice IQ Quiz (`IceIQQuiz`)
 - 6 bilingual (`DE / EN`) match-recall challenges verifying real Wisehockey records (`#4 Jake Livanavage`'s `5,595 m` skating distance, `#70 Enzo Corvi`'s `95.0%` pass completion, `#22 Brendan Lemieux`'s `83.3%` battle win rate).
